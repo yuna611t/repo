@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Sample</title>
+	<link rel="stylesheet" href="./css/sample8.css">
+	<!--<script type="text/javascript" src="./js/sample8foreventhandle.js"></script>-->
+	<script type="text/javascript" src="./js/sample8.js"></script>
+</head>
+<body>
+
+	<table>
+		<tr>
+			<td>データ:
+				<input type="file" id="Mytextbox" size=30>
+			</td>
+			<td>
+				<input type="button" id="Mybutton" value="取得" calss="my-get-parameter2">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="radio" id="MyRadio1" name="MyRadio" checked>
+				ヒストグラム
+			</td>
+			<td>
+				<input type="radio" id="MyRadio2" name="MyRadio">
+				箱ひげ図
+			</td>
+			<td>
+				<input type="radio" id="MyRadio3" name="MyRadio">
+				時系列プロット
+			</td>
+		</tr>
+		<tr>
+			<td>変数名：
+				<select size="1" id="MySelect">
+					<option>（データファイルを取得してください）</option>
+				</select>
+			</td>
+			<td>
+				<input type="button" value="実行" class="go">
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
