@@ -1,0 +1,44 @@
+body{
+	background-color:Black;
+	color:White;
+}
+
+#main{
+	background-color:Green;
+	background-image:url(../images/bg.gif);
+	color:Black;
+	padding:5px;
+}
+img{
+	float:left;
+	
+}
+#sample{
+	background-color:White;
+}
+.jq{
+	background-color:Red;
+}
+#list li{
+	list-style-type:none;
+	float:left;
+}
+#list img{
+	width:55px;
+	heigth:40px;
+}
+#vertical li{
+	clear:both;
+	list-style-type:none;
+}
+#vertical img{
+	width:80px;
+	heigth:72px;
+}
+#big{
+	width:315;
+	height:235px;
+}
+hr{
+	clear:both;
+}
