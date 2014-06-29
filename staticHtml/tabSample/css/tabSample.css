@@ -1,0 +1,25 @@
+/*ulタグのデフォルトのスタイルを消去*/
+ul {
+	margin: 0; padding:0; list-style:none;
+	font-size: 16px;
+	line-height: 1;
+}
+/*タブの表示崩れを防ぐ*/
+ul.tab {
+	overflow: hidden;
+	zoom:1;
+}
+/*タブが未選択の時の設定*/
+.tab li {
+	float: left;
+	border: 1px solid #333;
+	width: 200px;
+	background: aqua;
+	/*アニメーション指定*/
+	transition-property: background;
+	transition-duration: 0.2s;
+}
+/*タブが選択された時の設定*/
+.tab li.active {
+	background: blue;
+}
