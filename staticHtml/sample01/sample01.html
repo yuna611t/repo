@@ -13,15 +13,34 @@
 /*ボタンがマウスオーバされた状態*/
 	a:hover{
 		/*アニメーション指定*/
+		-moz-animation:btn 2s ease-out 0s 1 normal;
+		-webkit-animation:btn 2s ease-out 0s 1 normal;
+		-o-animation:btn 2s ease-out 0s 1 normal;
 		animation:btn 2s ease-out 0s 1 normal;
 		background: red;
 		width:200px;
+	}
+	@-moz-keyframes btn {
+		0% {background: blue; width:100px;}
+		50%{background: green; width:150px;}
+		100% {background:red; width:200px;}
+	}
+	@-webkit-keyframes btn {
+		0% {background: blue; width:100px;}
+		50%{background: green; width:150px;}
+		100% {background:red; width:200px;}
+	}
+	@-o-keyframes btn {
+		0% {background: blue; width:100px;}
+		50%{background: green; width:150px;}
+		100% {background:red; width:200px;}
 	}
 	@keyframes btn {
 		0% {background: blue; width:100px;}
 		50%{background: green; width:150px;}
 		100% {background:red; width:200px;}
 	}
+
 </style>
 
 <a href="#">button</a>
