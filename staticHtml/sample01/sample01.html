@@ -9,7 +9,22 @@
 		background: blue;
 		text-decoration: none;
 		/*アニメーション指定*/
-		transition-property:background;
+		/*Firefox向け*/
+		-moz-transition-property:background,width;
+		-moz-transition-duration:1s;
+		-moz-transition-timing-function:ease-out;
+		-moz-transition-delay:0.5s;
+		/*Chrome,Safari向け*/
+		-webkit-transition-property:background,width;
+		-webkit-transition-duration:1s;
+		-webkit-transition-timing-function:ease-out;
+		-webkit-transition-delay:0.5s;
+		/*Opera向け*/
+		-o-transition-property:background,width;
+		-o-transition-duration:1s;
+		-o-transition-timing-function:ease-out;
+		transition-delay:0.5s;
+		transition-property:background,width;
 		transition-duration:1s;
 		transition-timing-function:ease-out;
 		transition-delay:0.5s;
@@ -17,6 +32,7 @@
 
 	a:hover{
 		background: red;
+		width:200px;
 	}
 </style>
 
