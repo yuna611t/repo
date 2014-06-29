@@ -9,31 +9,16 @@
 		text-align: center;
 		background: blue;
 		text-decoration: none;
-		/*アニメーション指定*/
-		/*Firefox向け*/
-		-moz-transition-property:background,width;
-		-moz-transition-duration:1s;
-		-moz-transition-timing-function:ease-out;
-		-moz-transition-delay:0.5s;
-		/*Chrome,Safari向け*/
-		-webkit-transition-property:background,width;
-		-webkit-transition-duration:1s;
-		-webkit-transition-timing-function:ease-out;
-		-webkit-transition-delay:0.5s;
-		/*Opera向け*/
-		-o-transition-property:background,width;
-		-o-transition-duration:1s;
-		-o-transition-timing-function:ease-out;
-		transition-delay:0.5s;
-		transition-property:background,width;
-		transition-duration:1s;
-		transition-timing-function:ease-out;
-		transition-delay:0.5s;
 	}
 /*ボタンがマウスオーバされた状態*/
 	a:hover{
+		/*アニメーション指定*/
+		animation:btn 2s ease-out 0s 1 normal;
 		background: red;
-		width:200px;
+	}
+	@keyframes btn {
+		0% {background: blue;}
+		100% {background:red;}
 	}
 </style>
 
