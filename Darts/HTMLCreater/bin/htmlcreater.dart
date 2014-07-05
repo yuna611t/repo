@@ -1,24 +1,25 @@
 void main() {
 
 //set body contents
-  var bodyMap = new Map<String, String>();
-  bodyMap['h1'] = 'Sample Head1';
-  bodyMap['h2'] = 'Sample Head2_01';
-  bodyMap['p'] = 'this is sample paragraph01.';
-  bodyMap['h2'] = 'Sample Head2_02';
-  bodyMap['p'] = 'this is sample paragraph02.';
-  var bodySrc = createBodySrc(bodyMap);
+  var bodyList = new List<Map<String,String>>();
+  bodyList.add({'h1':'Sample Head1'});
+  bodyList.add({'h2':'Sample Head2_01'});
+  bodyList.add({'p':'this is sample paragraph01.'});
+  bodyList.add({'h2':'Sample Head2_02'});
+  bodyList.add({'p':'this is sample paragraph02.'});
+    
+  var bodySrc = createBodySrc(bodyList);
 
 //set meta contents
-  var metaMap = new Map<String,String>();
-  metaMap['keywords'] = 'Sample keywords';
-  metaMap['description'] = 'Sample Description';
-  var metaSrc = createMetaSrc(metaMap);
+  var metaList = new List<Map<String,String>>();
+  metaList.add({'keywords':'Sample keywords'});
+  metaList.add({'description':'Sample Description'});
+  var metaSrc = createMetaSrc(metaList);
   
 //set title contents  
-  var titleMap = new Map<String,String>();
-  titleMap['title'] = 'Sample Title';
-  var titleSrc = createBodySrc(titleMap);
+  var titleList = new List<Map<String,String>>();
+  titleList.add({'title':'Sample Title'});
+  var titleSrc = createBodySrc(titleList);
   
 //set Contets Map
   var contentsMap = new Map<String,String>();
@@ -58,19 +59,25 @@ String assembleHTMLSrc(Map<String,String> map) {
   return src;
 }
 
-String createBodySrc(Map map) {
+//Bodyタグの中身になるソース生成
+String createBodySrc(List list) {
   var src = "";
-  map.forEach((String key, String value) {
-    var tag = createTag(key);
-    src += tag(value); 
+  list.forEach((Map m) {
+    m.forEach((String key, String value){
+      var tag = createTag(key);
+      src += tag(value);
+    });
   });
   return src;
 }
 
-String createMetaSrc(Map map) {
+//Metaタグのソース生成
+String createMetaSrc(List list) {
   var src = "";
-  map.forEach((String key, String value) {
-    src += createMetaTag(key,value);
+  list.forEach((Map m){
+    m.forEach((String key,String value){
+      src += createMetaTag(key,value);      
+    });
   });
   return src;
 }
@@ -82,3 +89,4 @@ Function createTag(String tag) {
 String createMetaTag(String attr, String value) {
   return '<meta name="${attr}" content="${value}">\n';
 }
+
