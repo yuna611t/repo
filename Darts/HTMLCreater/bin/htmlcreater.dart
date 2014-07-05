@@ -19,7 +19,7 @@ void main() {
 //set title contents  
   var titleList = new List<Map<String,String>>();
   titleList.add({'title':'Sample Title'});
-  var titleSrc = createBodySrc(titleList);
+  var titleSrc = createTitleSrc(titleList);
   
 //set Contets Map
   var contentsMap = new Map<String,String>();
@@ -71,6 +71,18 @@ String createBodySrc(List list) {
   return src;
 }
 
+//Title部分のタグを生成
+String createTitleSrc(List list) {
+  var src = "";
+  list.forEach((Map m) {
+    m.forEach((String key, String value){
+      var tag = createTitleTag(key);
+      src += tag(value);
+    });
+  });
+  return src;
+}
+
 //Metaタグのソース生成
 String createMetaSrc(List list) {
   var src = "";
@@ -86,7 +98,11 @@ Function createTag(String tag) {
   return (String s) => '<${tag}>${s}</${tag}>\n';
 }
 
+Function createTitleTag(String tag) {
+  return (String s) => '\n<${tag}>${s}</${tag}>';
+}
+
 String createMetaTag(String attr, String value) {
-  return '<meta name="${attr}" content="${value}">\n';
+  return '\n<meta name="${attr}" content="${value}">';
 }
 
