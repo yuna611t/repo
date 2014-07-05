@@ -9,23 +9,12 @@ class LogWriter {
  * Write Log to Console;
  */
   void writeLog() {
-
     startInitialLog();
     print('This is Log Sample');
     logTime();
-    var callFunc = logTag('Call Function');
-    var s = callFunc('hello');
-    print(s);
     endInitialLog();
-
   }
-
-/**
-*  
-*/
-  Function logTag(String tag) {
-  	return (String s) => '${tag}:${s}';
-  }
+  
 
   /**
    * start Loging
