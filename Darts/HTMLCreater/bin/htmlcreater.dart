@@ -1,43 +1,84 @@
 void main() {
-  print(createHTMLTag());
+
+//set body contents
+  var bodyMap = new Map<String, String>();
+  bodyMap['h1'] = 'Sample Head1';
+  bodyMap['h2'] = 'Sample Head2_01';
+  bodyMap['p'] = 'this is sample paragraph01.';
+  bodyMap['h2'] = 'Sample Head2_02';
+  bodyMap['p'] = 'this is sample paragraph02.';
+  var bodySrc = createBodySrc(bodyMap);
+
+//set meta contents
+  var metaMap = new Map<String,String>();
+  metaMap['keywords'] = 'Sample keywords';
+  metaMap['description'] = 'Sample Description';
+  var metaSrc = createMetaSrc(metaMap);
+  
+//set title contents  
+  var titleMap = new Map<String,String>();
+  titleMap['title'] = 'Sample Title';
+  var titleSrc = createBodySrc(titleMap);
+  
+//set Contets Map
+  var contentsMap = new Map<String,String>();
+  contentsMap['meta'] = metaSrc;
+  contentsMap['title'] = titleSrc;
+  contentsMap['body'] = bodySrc;
+  
+//assemble html source
+  var htmlsource = assembleHTMLSrc(contentsMap);
+  
+  print(htmlsource);
 }
 
-String createHTMLTag() {
+String assembleHTMLSrc(Map<String,String> map) {
   var html = createTag('html');
   var head = createTag('head');
-  var title = createTag('title');
   var body = createTag('body');
-  var h1 = createTag('h1');
-  var h2 = createTag('h2');
-  var p = createTag('p');
   
-//  HeadContents
-  var titleContents = title('Sample Title');
-  var headContents = "";
-  headContents += createMetaTag('keywords','Sample keywords');
-  headContents += createMetaTag('description','Sample Description');
-  headContents += titleContents;
+  var src = "";
+  var headSrc = "";
+  var bodySrc = "";
   
-//  BodyContents
-  var bodyContents = "";
-  bodyContents += h1("Sample Head1");
-  bodyContents += h2("Sample Head2_01");
-  bodyContents += p("this is sample paragraph01.");
-  bodyContents += h2("Sample Head2_02");
-  bodyContents += p("this is sample paragraph02.");
+  map.forEach((String key, String value){
+    
+    if (key == "body") {
+      bodySrc += body(value);
+    } else {
+      headSrc += value;
+    }
+    
+  });
   
-//  assemble HTML  
-  headContents = head(headContents);
-  bodyContents = body(bodyContents);
-  var htmlSource = html('${headContents}\n${bodyContents}');
-  return htmlSource;
+  headSrc = head(headSrc);
+  
+  src = html('${headSrc}\n${bodySrc}');
+  
+  return src;
+}
+
+String createBodySrc(Map map) {
+  var src = "";
+  map.forEach((String key, String value) {
+    var tag = createTag(key);
+    src += tag(value); 
+  });
+  return src;
+}
+
+String createMetaSrc(Map map) {
+  var src = "";
+  map.forEach((String key, String value) {
+    src += createMetaTag(key,value);
+  });
+  return src;
 }
 
 Function createTag(String tag) {
-  return (String s) => '<${tag}>\n${s}\n</${tag}>\n';
+  return (String s) => '<${tag}>${s}</${tag}>\n';
 }
 
 String createMetaTag(String attr, String value) {
   return '<meta name="${attr}" content="${value}">\n';
 }
-
