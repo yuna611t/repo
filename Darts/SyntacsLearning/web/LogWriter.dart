@@ -15,7 +15,6 @@ class LogWriter {
     endInitialLog();
   }
   
-
   /**
    * start Loging
    */
@@ -30,13 +29,17 @@ class LogWriter {
     print('[-----------------End Log-----------------]');
   }
 
-  
   /**
    * Log Time
    */
-  void logTime() {
+  String getLogTime() {
     DateTime now = new DateTime.now();
-    print('Time: ' + now.toString());
+    return 'Time:\t${now}';    
   }
+  void logTime() {
+    print(getLogTime());
+  }
+  
+
 
 }
