@@ -15,10 +15,17 @@
     <h1>HTMLCreaterbyWeb</h1>
 
   <p>Body部分</p>  
-   <div> タグを入力<input type="text" id="bodyTag"></div>
-   <div>内容を入力<textarea id="bodyText" cols="50" rows="10" ></textarea></div>
-  
-  <input type="button" value="HTML生成" id="createHTML">
+   <div>
+      <strong>タグを選択</strong>
+      <input type="radio" name ="bodyTag" id="h1" value="h1"><label>H1</label>
+      <input type="radio" name ="bodyTag" id="h2" value="h2"><label>H2</label>
+      <input type="radio" name ="bodyTag" id="h3" value="h3"><label>H3</label>
+   </div>
+   <div>内容を入力<textarea id="inputText" cols="50" rows="10" ></textarea></div>
+   <input type="button" value="HTML生成" id="createHTML">
+   <div>
+    <textarea rows="10" cols="50" readonly id="outputText"></textarea>
+   </div>
 
   </body>
 </html>
