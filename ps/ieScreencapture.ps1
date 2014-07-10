@@ -4,13 +4,13 @@ $format ="png"
 
 $ie = new-object -com InternetExplorer.Application
 
-# URL ã‚’é–‹ã
+# URL ‚ğŠJ‚­
 $ie.Navigate($url)
 
-# ãƒšãƒ¼ã‚¸ã‚’ãƒ­ãƒ¼ãƒ‰ã—çµ‚ã‚ã‚‹ã¾ã§å¾…ã¤
+# ƒy[ƒW‚ğƒ[ƒh‚µI‚í‚é‚Ü‚Å‘Ò‚Â
 while ($ie.Busy) {sleep -milliseconds 10}
 
-# ãƒãƒ¼é–¢é€£ã¯ã™ã¹ã¦æ¶ˆã—ã¦ IE ã‚’å¯è¦–åŒ–
+# ƒo[ŠÖ˜A‚Í‚·‚×‚ÄÁ‚µ‚Ä IE ‚ğ‰Â‹‰»
 $ie.StatusBar = $false
 $ie.ToolBar = $false
 $ie.MenuBar = $false
@@ -18,11 +18,11 @@ $ie.AddressBar = $false
 $ie.Visible = $true
 $ie.FullScreen = $true
 
-# IE ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’å‰é¢ã«æŒã£ã¦ãã‚‹
+# IE ‚ÌƒEƒBƒ“ƒhƒE‚ğ‘O–Ê‚É‚Á‚Ä‚­‚é
 $wsh = new-object -com WScript.Shell
 $wsh.AppActivate("$ie.name")
 
-# ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚­ãƒ£ãƒ—ãƒãƒ£
+# ƒXƒNƒŠ[ƒ“ƒLƒƒƒvƒ`ƒƒ
 [Reflection.Assembly]::LoadWithPartialName("System.Drawing")
 $bitmap = new-object Drawing.Bitmap($ie.Width, $ie.Height)
 $graphics = [Drawing.Graphics]::FromImage($bitmap)

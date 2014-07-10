@@ -1,28 +1,28 @@
-################äº‹å‰å®šç¾©################
-#èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«
+################–‘O’è‹`################
+#“Ç‚İ‚Şƒtƒ@ƒCƒ‹
 $fileList = ".\urllist.txt"
-#èµ·å‹•ã™ã‚‹ãƒ–ãƒ©ã‚¦ã‚¶
+#‹N“®‚·‚éƒuƒ‰ƒEƒU
 $browserlist = "ieexplore.exe","firefox.exe","chrome.exe"
-################äº‹å‰å®šç¾©################
+################–‘O’è‹`################
 
 $wshell = new-object -com wscript.shell
 
-#ãƒ•ã‚¡ã‚¤ãƒ«å­˜åœ¨ãƒã‚§ãƒƒã‚¯
+#ƒtƒ@ƒCƒ‹‘¶İƒ`ƒFƒbƒN
 if (-not(Test-Path $fileList)) {
-	echo "ãƒ•ã‚¡ã‚¤ãƒ«ãŒãªã„ã§ã™"
+	echo "ƒtƒ@ƒCƒ‹‚ª‚È‚¢‚Å‚·"
 	exit
 }
 
-#urlãƒªã‚¹ãƒˆèª­ã¿è¾¼ã¿
+#urlƒŠƒXƒg“Ç‚İ‚İ
 $urlList = get-content $fileList
 
-#urlãƒªã‚¹ãƒˆåˆ†ãƒ–ãƒ©ã‚¦ã‚¶ã‚’èµ·å‹•
+#urlƒŠƒXƒg•ªƒuƒ‰ƒEƒU‚ğ‹N“®
 foreach ($url in $urllist){
-	#ãƒ–ãƒ©ã‚¦ã‚¶èµ·å‹•
+	#ƒuƒ‰ƒEƒU‹N“®
 	foreach ($browser in $browserlist) {
 		$wshell.run("${browser} ${url}")
 	}
-	#2ç§’å¾…æ©Ÿ
+	#2•b‘Ò‹@
 	Start-Sleep -s 2
 }
 
