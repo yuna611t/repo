@@ -4,25 +4,27 @@
 	<meta charset="UTF-8">
 	<title>D3 test</title>
 	<script src="d3/d3.js" type="text/javascript"></script>
+	<style type="text/css">
+		div.bar {
+			display:inline-block;
+			width:20px;
+			height:75px;
+			background-color: teal;
+		}
+	</style>
 </head>
 <body>
 	<script  type="text/javascript">
 		var dataset = [5,10,15,20,25];
-		d3.select("body").selectAll('p')
+		d3.select("body").selectAll("div")
 			.data(dataset)
 			.enter()
-			.append('p')
-			.style("color",function(d) {
-				if (d % 10 == 0) {
-					return "red";
-				} else {
-					return "blue";
-				}
-			})
-			.text(function(d) {
-				return  "入力データ：" + d; 
+			.append("div")
+			.attr("class","bar")
+			.style("height",function(d) {
+				var barHeight = d * 5;
+				return barHeight + "px";
 			});
-
 	</script>
 
 </body>
