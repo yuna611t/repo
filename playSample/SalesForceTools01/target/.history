@@ -1,0 +1,6 @@
+ls
+run
+eclipse with-source=true
+run
+exit
+run
