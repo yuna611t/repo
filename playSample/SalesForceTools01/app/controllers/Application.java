@@ -21,4 +21,11 @@ public class Application extends Controller {
 
     }
 
+    public static Result discussion(String id) {
+    	
+        return ok(discussion.render("話題" + id));
+
+    }
+    
+    
 }
