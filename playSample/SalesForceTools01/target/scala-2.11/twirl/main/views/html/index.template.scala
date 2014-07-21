@@ -28,20 +28,22 @@ object index extends BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,Form
 
 Seq[Any](format.raw/*1.53*/("""
 
-"""),_display_(/*3.2*/main("営業支援ツール")/*3.17*/ {_display_(Seq[Any](format.raw/*3.19*/("""
-
-       """),format.raw/*5.8*/("""<input type ="text" name="discussionText">
-       <input type="button" name="createDiscussion" value="話題作成">
-
+"""),_display_(/*3.2*/main("@message")/*3.18*/ {_display_(Seq[Any](format.raw/*3.20*/("""
+"""),format.raw/*4.1*/("""<form action="" method="GET">
+       <input type ="text" name="discussionText">
+       <input type="button" name="createDiscussion" value="Discussion">
+</form>
+<form action="discussion" method="GET">
        <div>
-           <h2>"""),_display_(/*9.17*/message),format.raw/*9.24*/("""</h2>
+           <h2>"""),_display_(/*10.17*/message),format.raw/*10.24*/("""</h2>
            <ul>
-				"""),_display_(/*11.6*/for(discussion <- discussionList) yield /*11.39*/ {_display_(Seq[Any](format.raw/*11.41*/("""
-					"""),format.raw/*12.6*/("""<li><a href=""""),_display_(/*12.20*/discussion/*12.30*/.getUrl()),format.raw/*12.39*/("""">"""),_display_(/*12.42*/discussion/*12.52*/.getTitle()),format.raw/*12.63*/("""</a></li>
-				""")))}),format.raw/*13.6*/("""
-           """),format.raw/*14.12*/("""</ul>
+				"""),_display_(/*12.6*/for(discussion <- discussionList) yield /*12.39*/ {_display_(Seq[Any](format.raw/*12.41*/("""
+					"""),format.raw/*13.6*/("""<li><a href="/discussion/"""),_display_(/*13.32*/discussion/*13.42*/.getUrl()),format.raw/*13.51*/("""">"""),_display_(/*13.54*/discussion/*13.64*/.getTitle()),format.raw/*13.75*/("""</a></li>
+				""")))}),format.raw/*14.6*/("""
+           """),format.raw/*15.12*/("""</ul>
        </div>
-""")))}),format.raw/*16.2*/("""
+</form>
+""")))}),format.raw/*18.2*/("""
 """))}
   }
 
@@ -54,11 +56,11 @@ Seq[Any](format.raw/*1.53*/("""
 }
               /*
                   -- GENERATED --
-                  DATE: Mon Jul 21 20:51:21 JST 2014
+                  DATE: Mon Jul 21 23:30:43 JST 2014
                   SOURCE: /Users/yuna/dev/repo/repo/playSample/SalesForceTools01/app/views/index.scala.html
-                  HASH: 60d7fc38e531d14d39f3b0bfbde31a45956d2e84
-                  MATRIX: 740->1|879->52|907->55|930->70|969->72|1004->81|1169->220|1196->227|1249->254|1298->287|1338->289|1371->295|1412->309|1431->319|1461->328|1491->331|1510->341|1542->352|1587->367|1627->379|1678->400
-                  LINES: 26->1|29->1|31->3|31->3|31->3|33->5|37->9|37->9|39->11|39->11|39->11|40->12|40->12|40->12|40->12|40->12|40->12|40->12|41->13|42->14|44->16
+                  HASH: d782c57a99d23371c576b7a05efd6b2b6fd5e571
+                  MATRIX: 740->1|879->52|907->55|931->71|970->73|997->74|1253->303|1281->310|1334->337|1383->370|1423->372|1456->378|1509->404|1528->414|1558->423|1588->426|1607->436|1639->447|1684->462|1724->474|1783->503
+                  LINES: 26->1|29->1|31->3|31->3|31->3|32->4|38->10|38->10|40->12|40->12|40->12|41->13|41->13|41->13|41->13|41->13|41->13|41->13|42->14|43->15|46->18
                   -- GENERATED --
               */
           

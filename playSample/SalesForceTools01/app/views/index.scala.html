@@ -1,16 +1,18 @@
 @(message: String)(discussionList: List[Discussion])
 
-@main("営業支援ツール") {
-
+@main("@message") {
+<form action="" method="GET">
        <input type ="text" name="discussionText">
-       <input type="button" name="createDiscussion" value="話題作成">
-
+       <input type="button" name="createDiscussion" value="Discussion">
+</form>
+<form action="discussion" method="GET">
        <div>
            <h2>@message</h2>
            <ul>
 				@for(discussion <- discussionList) {
-					<li><a href="@discussion.getUrl()">@discussion.getTitle()</a></li>
+					<li><a href="/discussion/@discussion.getUrl()">@discussion.getTitle()</a></li>
 				}
            </ul>
        </div>
+</form>
 }

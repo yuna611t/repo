@@ -15,6 +15,7 @@ public class Discussion extends Model{
 		this.title = _title;
 	}
 
+
 	public String getUrl() {
 		return url;
 	}

@@ -1,6 +1,6 @@
 // @SOURCE:/Users/yuna/dev/repo/repo/playSample/SalesForceTools01/conf/routes
-// @HASH:ed910996db6bcf5571dfc02252ae6355ff20dbdf
-// @DATE:Mon Jul 21 22:51:55 JST 2014
+// @HASH:93c66130608550d0debb865c3b8254597cfc8874
+// @DATE:Mon Jul 21 23:10:23 JST 2014
 
 package controllers;
 

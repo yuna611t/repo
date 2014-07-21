@@ -1,6 +1,6 @@
 // @SOURCE:/Users/yuna/dev/repo/repo/playSample/SalesForceTools01/conf/routes
-// @HASH:ed910996db6bcf5571dfc02252ae6355ff20dbdf
-// @DATE:Mon Jul 21 22:51:55 JST 2014
+// @HASH:93c66130608550d0debb865c3b8254597cfc8874
+// @DATE:Mon Jul 21 23:10:23 JST 2014
 
 import Routes.{prefix => _prefix, defaultPrefix => _defaultPrefix}
 import play.core._
@@ -42,7 +42,7 @@ class ReverseApplication {
 // @LINE:7
 def discussion(id:String): Call = {
    import ReverseRouteContext.empty
-   Call("GET", _prefix + { _defaultPrefix } + implicitly[PathBindable[String]].unbind("id", dynamicString(id)))
+   Call("GET", _prefix + { _defaultPrefix } + "discussion/" + implicitly[PathBindable[String]].unbind("id", dynamicString(id)))
 }
                         
 
@@ -93,7 +93,7 @@ def discussion : JavascriptReverseRoute = JavascriptReverseRoute(
    "controllers.Application.discussion",
    """
       function(id) {
-      return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + (""" + implicitly[PathBindable[String]].javascriptUnbind + """)("id", encodeURIComponent(id))})
+      return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "discussion/" + (""" + implicitly[PathBindable[String]].javascriptUnbind + """)("id", encodeURIComponent(id))})
       }
    """
 )
@@ -142,7 +142,7 @@ class ReverseApplication {
 
 // @LINE:7
 def discussion(id:String): play.api.mvc.HandlerRef[_] = new play.api.mvc.HandlerRef(
-   controllers.Application.discussion(id), HandlerDef(this.getClass.getClassLoader, "", "controllers.Application", "discussion", Seq(classOf[String]), "GET", """""", _prefix + """$id<[^/]+>""")
+   controllers.Application.discussion(id), HandlerDef(this.getClass.getClassLoader, "", "controllers.Application", "discussion", Seq(classOf[String]), "GET", """""", _prefix + """discussion/$id<[^/]+>""")
 )
                       
 

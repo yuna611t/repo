@@ -1,12 +1,12 @@
-@(message: String)
+@(message: String)(title: String)
 
 @main("@message") {
 
        <input type ="text" name="discussionText">
-       <input type="button" name="createDiscussion" value="話題作成">
+       <input type="button" name="createDiscussion" value="Discussion">
 
        <div>
-           <h2>@message</h2>
+           <h2>@title</h2>
 
 
        </div>
