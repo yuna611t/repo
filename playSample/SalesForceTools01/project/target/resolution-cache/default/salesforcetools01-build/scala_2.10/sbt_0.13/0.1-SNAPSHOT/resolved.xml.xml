@@ -4,7 +4,7 @@
 		module="salesforcetools01-build"
 		revision="0.1-SNAPSHOT"
 		status="integration"
-		publication="20140721140618"
+		publication="20140721205053"
 		e:sbtVersion="0.13" e:scalaVersion="2.10"
 	>
 		<description>
