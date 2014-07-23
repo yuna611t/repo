@@ -12,13 +12,16 @@
     <link rel="stylesheet" href="htmlcreaterbyweb.css">
   </head>
   <body>
-    <h1>HTMLCreaterbyWeb</h1>
+  <h1>HTMLCreaterbyWeb</h1>
 
-  <p>Body部分</p>  
-   <div> タグを入力<input type="text" id="bodyTag"></div>
+   <h2>生成するHTML</h2>  
+   <div> タグを入力<input type="text" id="bodyTag">使用許可タグ:<span id="allowedTag">h1,h2,h3,p,span</span></div>
    <div>内容を入力<textarea id="bodyText" cols="50" rows="10" ></textarea></div>
-  
-  <input type="button" value="HTML生成" id="createHTML">
+    <input type="button" value="HTML生成" id="createHTML">
+    
+    
+    <h2>生成されるHTMLソース</h2>
+    <div>内容を出力<textarea rows="10" cols=50" readonly id="generatedHTML"></textarea></div>
 
   </body>
 </html>
