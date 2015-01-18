@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Prototype</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<script type="text/javascript">
+	//ゲームキャラクターの基本情報
+	function GameCharactor (name,hp,power,defence) {
+		this.name = name;
+		this.hp = hp;
+		this.power = power;
+		this.defence = defence;
+	}
+	GameCharactor.prototype.attack = function () {
+		console.log(this.name + "の攻撃! " + this.power + "のダメージ");
+	};
+	GameCharactor.prototype.damage = function (d) {
+		var damageHP = d;
+		if (damageHP <= 0) {
+			damageHP = 10;
+		}
+		this.hp -= damageHP;
+		if (this.hp > 0) {
+			console.log(this.name + "の残りHP: " + this.hp);
+		} else {
+			console.log(this.name + "は倒れた・・・ ");
+		}
+		console.log("------------------------");
+
+	};
+
+
+	//主人公側の基本情報
+	function Hero () {
+		GameCharactor.apply(this,arguments);
+	}
+	Hero.prototype = new GameCharactor();
+	Hero.prototype.status = function() {
+		console.log("---------status--------");
+		console.log(this.name);
+		console.log(this.hp);
+		console.log(this.power);
+		console.log("---------status--------");
+	};
+
+
+	//敵側の情報
+	function Teki() {
+		GameCharactor.apply(this,arguments);
+	}
+	Teki.prototype = new GameCharactor();
+	Teki.prototype.appear = function () {
+		console.log(this.name + "が現れた!");
+	};
+
+	//ボスの情報
+	function Boss () {
+		Teki.apply(this, arguments);
+	}
+	Boss.prototype = new Teki;
+
+	var yusha;
+	var teki;
+	function statusInit() {
+		yusha = new Hero("勇者",150,40,30);
+		yusha.status();
+		teki = null;
+	}
+
+
+	//ボタンの設定
+	var goButton;
+	var buttleButton;
+	var restartButton;
+	window.onload = function() {
+		goButton = document.getElementById("go");
+		buttleButton = document.getElementById("buttle");
+		restartButton = document.getElementById("restart");
+
+		statusInit();
+	}
+
+	//アクションモードの変更
+	function actionSwitch(a) {
+		if (a == "go") {
+			goButton.style.display = "block";
+			buttleButton.style.display = "none";
+		} else if (a == "buttle") {
+			goButton.style.display = "none";
+			buttleButton.style.display = "block";
+		} else if (a == "finish") {
+			goButton.style.display = "none";
+			buttleButton.style.display = "none";
+			restartButton.style.display = "block";
+		} else if (a == "restart") {
+			goButton.style.display = "block";
+			buttleButton.style.display = "none";
+			restartButton.style.display = "none";
+			statusInit();
+		}
+	}
+
+	//探索
+	function go() {
+		var r = Math.floor( Math.random() * 10);
+		if (r < 4) {
+			console.log("敵に会わなかったので先に進む");
+			actionSwitch("go");
+		} else if (r < 8) {
+			teki = new Teki("ザコ" + (r - 4), r * 10, r * 5, r * 2);
+			teki.appear();
+			actionSwitch("buttle");
+		} else {
+			teki = new Boss("ドラゴン", r * 15, r * 6, r * 3);
+			teki.appear();
+			actionSwitch("buttle");
+		}
+
+	}
+
+	//戦闘状態
+	function buttle() {
+		if (teki.hp > 0) {
+			yusha.attack();
+			teki.damage(yusha.power);
+			if (teki.hp > 0) {
+				teki.attack();
+				yusha.damage(teki.power);
+			}
+		}
+
+		if (teki.hp <= 0) {
+			actionSwitch("go");
+		}
+		if (yusha.hp <= 0) {
+			actionSwitch("finish");
+		}
+	}
+
+
+	</script>
+
+
+	<input type="button" value="進む" onclick="go();" id="go">
+	<input type="button" value="戦う" onclick="buttle();" id="buttle" style="display:none;">
+	<input type="button" value="始めからやり直す" onclick="actionSwitch('restart');" id="restart" style="display:none;">
+
+
+
+</body>
+</html>
