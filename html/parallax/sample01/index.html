@@ -51,17 +51,28 @@
 	
 	<script type="text/javascript">
 	$(function() {
-		var top = $('#item1').offset().top;	// ボックスのy座標の初期値取得
+		var top = $('#item1').offset().top,		// ボックスのy座標の初期値取得
+			left1 = $('#item1').offset().left,	// ボックスの初期横位置取得
+			left2 = $('#item2').offset().left,	// ボックスの初期横位置取得
+			left3 = $('#item3').offset().left,	// ボックスの初期横位置取得
+			left4 = $('#item4').offset().left,	// ボックスの初期横位置取得
+			left5 = $('#item5').offset().left	// ボックスの初期横位置取得
+			;
 		$(window).scroll(function() {
 			var value = $(this).scrollTop();	// スクロール値を取得
 			$('#scrollValue').text(value);
 			// 取得したスクロール値を四角形のY座標に指定
 			// 移動距離に変化をつける
-			var v = 2;
-			$('li').each(function() {
-				$(this).css('top', top + value / v);
-				v += 2;
-			});
+			$('#item1').css({'top' :  top + value / 2 ,
+							 'left':  left1 + value / 10}) ;
+			$('#item2').css({'top' :  top + value / 4 ,
+							 'left': left2 + value / 8 });
+			$('#item3').css({'top' :  top + value / 6 ,
+							 'left': left3 + value / 6 });
+			$('#item4').css({'top' :  top + value / 8 ,
+							 'left': left4 + value / 4 });
+			$('#item5').css({'top' :  top + value / 10 ,
+							 'left': left5 + value / 2});
 		});
 	});
 	</script>
