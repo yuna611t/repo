@@ -57,11 +57,11 @@
 			$('#scrollValue').text(value);
 			// 取得したスクロール値を四角形のY座標に指定
 			// 移動距離に変化をつける
-			$('#item1').css('top', top + value / 2);
-			$('#item2').css('top', top + value / 4);
-			$('#item3').css('top', top + value / 6);
-			$('#item4').css('top', top + value / 8);
-			$('#item5').css('top', top + value / 10);
+			var v = 2;
+			$('li').each(function() {
+				$(this).css('top', top + value / v);
+				v += 2;
+			});
 		});
 	});
 	</script>
