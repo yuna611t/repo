@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Get Scroll Value</title>
+
+	<style type="text/stylesheets">
+		body {
+			height: 3300px;
+		}
+		h1 {
+			font-size: 100%;
+		}
+		.indicator {
+			margin: 0;
+			position: fixed;
+			right: 10px;
+			top: 10px;
+		}
+	</style>
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	
+	<script type="text/javascript">
+	$(function() {
+		$(window).scroll(function() {
+			var value = $(this).scrollTop();
+			$('#scrollValue').text(value);
+		})
+	});
+	</script>
+</head>
+<body>
+	<h1>スクロール値を取得</h1>
+	<p class="indicator">スクロール値 | <span id="scrollValue">0</span></p>
+	
+</body>
+</html>
