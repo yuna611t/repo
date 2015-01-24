@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Get Scroll Value</title>
+	<title>Set position Y | Learning Parallax effect</title>
 
-	<style type="text/stylesheets">
+	<style type="text/css">
 		body {
 			height: 3300px;
 		}
@@ -18,22 +18,63 @@
 			right: 10px;
 			top: 10px;
 		}
+		li {
+			display: block;
+			height: 60px;
+			position: fixed;
+			top: 40px;
+			width: 60px;
+		}
+		#item1 {
+			background: #000;
+			left: 20px;
+		}
+		#item2 {
+			background: #333;
+			left: 100px;
+		}
+		#item3 {
+			background: #ff358B;
+			left: 180px;
+		}
+		#item4 {
+			background: #01b0f0;
+			left: 260px;
+		}
+		#item5 {
+			background: #aeee00;
+			left: 340px;
+		}
 	</style>
 
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	
 	<script type="text/javascript">
 	$(function() {
+		var top = $('#item1').offset().top;	// ボックスのy座標の初期値取得
 		$(window).scroll(function() {
-			var value = $(this).scrollTop();
+			var value = $(this).scrollTop();	// スクロール値を取得
 			$('#scrollValue').text(value);
-		})
+			// 取得したスクロール値を四角形のY座標に指定
+			// 移動距離に変化をつける
+			$('#item1').css('top', top + value / 2);
+			$('#item2').css('top', top + value / 4);
+			$('#item3').css('top', top + value / 6);
+			$('#item4').css('top', top + value / 8);
+			$('#item5').css('top', top + value / 10);
+		});
 	});
 	</script>
 </head>
 <body>
-	<h1>スクロール値を取得</h1>
+	<h1>スクロール値を取得してY座標に指定する</h1>
 	<p class="indicator">スクロール値 | <span id="scrollValue">0</span></p>
-	
+	<ul>
+		<li id="item1"></li>
+		<li id="item2"></li>
+		<li id="item3"></li>
+		<li id="item4"></li>
+		<li id="item5"></li>
+	</ul>
 </body>
 </html>
