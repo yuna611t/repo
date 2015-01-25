@@ -3,111 +3,74 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Transform Images | Learning Parallax effect</title>
+	<title>Only Css Parallax | Learning Parallax effect</title>
 
 	<style type="text/css">
-		body {
-			height: 2000px;
-		}
-		h1 {
-			font-size: 100%;
-		}
-		.indicator {
-			margin: 0;
-			position: fixed;
-			right: 10px;
-			top: 10px;
-		}
-		.indicator {
-			background: rgba(255, 255, 255, 0.8);
-		}
 		section {
-			background-size: 100%;
-			height: 100px;
-			position: fixed;
-			width: 300px;
-
-		}
-		section p {
-			color: #fff;
-			margin: 0;
-			padding: 8px;
-		}
-		#section1 {
-			background: url(img/p4057911-500x375.jpg) repeat-x;
-			left: 30px;
-			-webkit-transform: scalse(0.5, 0.5);
-			-moz-transform: scalse(0.5, 0.5);
-			-ms-transform: scalse(0.5, 0.5);
-			-o-transform: scale(0.5, 0.5);
-			transform: scalse(0.5, 0.5);
-		}
-		#section2 {
-			background: url(img/P5020772-500x375.jpg) repeat-x;
-			top: 200px;
-			right: 0;
-		}
-		#section3 {
-			background: url(img/pc071520-500x375.jpg) repeat-x;
-			top: 500px;
-			right: 60px;
-			-webkit-transform: scale(2, 2);
-			-moz-transform: scale(2, 2);
-			-ms-transform: scale(2, 2);
-			-o-transform: scale(2, 2);
-			transform: scale(2, 2);
-		}
-		#section4 {
-			background: url(img/showa004-500x375.jpg) repeat-x;
 			height: 300px;
-			top: 400px;
-			width: 500px;
-			opacity: 0;
+			color: white;
 		}
-
+		section h1,
+		section h2 {
+			margin: 0;
+		}
+		.content {
+			position: relative;
+		}
+		#first {
+			background: url(img/p4057911-500x375.jpg) 50% 0 repeat-x fixed;
+		}
+		#second {
+			background: url(img/P5020772-500x375.jpg) 50% 0 repeat-x fixed #000;
+		}
+		#third {
+			background: url(img/pc071520-500x375.jpg) 50% 0 repeat-x fixed #e6cda4;
+		}
+		.logo {
+			position: fixed;
+			top: 100px;
+			left: 50px;
+		}
+		#first article {
+			position: absolute;
+			top: 200px;
+			width: 800px;
+		}
+		#third article {
+			position: absolute;
+			top: 0;
+		}
+		#theend {
+			background-color: black;
+		}
+		#theend h2 {
+			position: absolute;
+		}
 	</style>
 
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-	
-	<script type="text/javascript">
-	$(function() {
-		$(window).scroll(function() {
-			var value = $(this).scrollTop();
-			$('#scrollValue').text(value);
-
-			var hoge1 = value * 0.001 + 0.5;
-			if (hoge1 > 0.5) {
-				$('#section1').css('transform', 'scale(' + hoge1 + ')');
-			}
-			if (hoge1 > 0.1) {
-				$('#section2').css('transform', 'perspective(1000px) rotateY(' + value + 'deg)');
-			}
-			var hoge3 = 2 - value * 0.0009;
-			$('#section3').css('transform', 'scale(' + hoge3 + ') rotate(' + value + 'deg)');
-			var hoge4 = value * 0.0009;
-			if (hoge4 <= 1) {
-				$('#section4').css('opacity',hoge4);
-			}
-			
-		});
-	});
-	</script>
 </head>
 <body>
-	<h1>画像を変形させる</h1>
-	<p class="indicator">スクロール値 | <span id="scrollValue">0</span></p>
-	
-	<section id="section1">
-		<p>Section 1</p>
+	<section id="first" class="content">
+		<p class="logo">jQuery x HTML5 x CSS3</p>
+		<article>
+			<h1>Parallax Sample.</h1>
+			<p>Lorem ipsum dolor sit amet, ....</p>
+		</article>
 	</section>
-	<section id="section2">
-		<p>Section 2</p>
+	<section id="second" class="content">
+		<article>
+			<h2 id="toc-only-css">Only Css.</h2>
+			<p>Lorem ipsum dolor sit amet, ....</p>
+		</article>
 	</section>
-	<section id="section3">
-		<p>Section 3</p>
+	<section id="third" class="content">
+		<article>
+			<h2 id="toc-without-jquery">Without jQuery</h2>
+			<p>Lorem ipsum dolor sit amet, ....</p>
+		</article>
 	</section>
-	<section id="section4">
-		<p>Section 4</p>
+	<section id="theend" class="content">
+		<h2 id="toc-the-end">The End.</h2>
 	</section>
 </body>
 </html>
