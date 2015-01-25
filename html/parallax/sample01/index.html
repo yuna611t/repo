@@ -3,11 +3,11 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Set position Y | Learning Parallax effect</title>
+	<title>Move Images | Learning Parallax effect</title>
 
 	<style type="text/css">
 		body {
-			height: 3300px;
+			height: 2000px;
 		}
 		h1 {
 			font-size: 100%;
@@ -18,74 +18,87 @@
 			right: 10px;
 			top: 10px;
 		}
-		li {
-			display: block;
-			height: 60px;
-			position: fixed;
-			top: 40px;
-			width: 60px;
+		.indicator {
+			background: rgba(255, 255, 255, 0.8);
 		}
-		#item1 {
-			background: #000;
-			left: 20px;
+		section {
+			height: 350px;
 		}
-		#item2 {
-			background: #333;
-			left: 100px;
+		section p {
+			color: #fff;
+			margin: 0;
+			padding: 8px;
 		}
-		#item3 {
-			background: #ff358B;
-			left: 180px;
+		#section1 {
+			background: url(img/p4057911-500x375.jpg) repeat-x;
 		}
-		#item4 {
-			background: #01b0f0;
-			left: 260px;
+		#section2 {
+			background: url(img/P5020772-500x375.jpg) repeat-x;
 		}
-		#item5 {
-			background: #aeee00;
-			left: 340px;
+		#section3 {
+			background: url(img/pc071520-500x375.jpg) repeat-x;
 		}
+		#section4 {
+			background: url(img/showa004-500x375.jpg) repeat-x;
+		}
+		#sectionAshColor {
+			background: #666;
+		}
+		#sectionRedColor {
+			background: #900;
+		}
+
 	</style>
 
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	
 	<script type="text/javascript">
 	$(function() {
-		var top = $('#item1').offset().top,		// ボックスのy座標の初期値取得
-			left1 = $('#item1').offset().left,	// ボックスの初期横位置取得
-			left2 = $('#item2').offset().left,	// ボックスの初期横位置取得
-			left3 = $('#item3').offset().left,	// ボックスの初期横位置取得
-			left4 = $('#item4').offset().left,	// ボックスの初期横位置取得
-			left5 = $('#item5').offset().left	// ボックスの初期横位置取得
-			;
+		var section2PosTop = $('#section2').offset().top ,
+			section3PosTop = $('#section3').offset().top ,
+			section4PosTop = $('#section4').offset().top 
+		;
 		$(window).scroll(function() {
-			var value = $(this).scrollTop();	// スクロール値を取得
+			var value = $(this).scrollTop();
 			$('#scrollValue').text(value);
-			// 取得したスクロール値を四角形のY座標に指定
-			// 移動距離に変化をつける
-			$('#item1').css({'top' :  top + value / 2 ,
-							 'left':  left1 + value / 10}) ;
-			$('#item2').css({'top' :  top + value / 4 ,
-							 'left': left2 + value / 8 });
-			$('#item3').css({'top' :  top + value / 6 ,
-							 'left': left3 + value / 6 });
-			$('#item4').css({'top' :  top + value / 8 ,
-							 'left': left4 + value / 4 });
-			$('#item5').css({'top' :  top + value / 10 ,
-							 'left': left5 + value / 2});
+			
+			$('#area1').css({'background-position': 0 + 'px ' + value + 'px'});
+
+			if (value > section2PosTop) {
+				$('#section2').css({'background-position': 0 + 'px ' + (value - section2PosTop)*2 + 'px'});
+			} else {
+				$('#section2').css({'background-position': 'top' });
+			}
+			if (value > section3PosTop) {
+				$('#section3').css({'background-position': 0 + 'px ' + (value - section3PosTop)*2 + 'px'});
+			} else {
+				$('#section3').css({'background-position': 'top' });
+			}
+			if (value > section4PosTop) {
+				$('#section4').css({'background-position': 0 + 'px '  + (value - section4PosTop)*2 + 'px' });
+			} else {
+				$('#section4').css({'background-position': 'top'});
+			}
+			
 		});
 	});
 	</script>
 </head>
 <body>
-	<h1>スクロール値を取得してY座標に指定する</h1>
+	<h1>背景画像を上下に動かす</h1>
 	<p class="indicator">スクロール値 | <span id="scrollValue">0</span></p>
-	<ul>
-		<li id="item1"></li>
-		<li id="item2"></li>
-		<li id="item3"></li>
-		<li id="item4"></li>
-		<li id="item5"></li>
-	</ul>
+	
+	<section id="section1">
+		<p>Section 1</p>
+	</section>
+	<section id="section2">
+		<p>Section 2</p>
+	</section>
+	<section id="section3">
+		<p>Section 3</p>
+	</section>
+	<section id="section4">
+		<p>Section 4</p>
+	</section>
 </body>
 </html>
