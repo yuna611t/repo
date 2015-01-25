@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Move Images | Learning Parallax effect</title>
+	<title>Transform Images | Learning Parallax effect</title>
 
 	<style type="text/css">
 		body {
@@ -22,7 +22,11 @@
 			background: rgba(255, 255, 255, 0.8);
 		}
 		section {
-			height: 350px;
+			background-size: 100%;
+			height: 100px;
+			position: fixed;
+			width: 300px;
+
 		}
 		section p {
 			color: #fff;
@@ -31,21 +35,34 @@
 		}
 		#section1 {
 			background: url(img/p4057911-500x375.jpg) repeat-x;
+			left: 30px;
+			-webkit-transform: scalse(0.5, 0.5);
+			-moz-transform: scalse(0.5, 0.5);
+			-ms-transform: scalse(0.5, 0.5);
+			-o-transform: scale(0.5, 0.5);
+			transform: scalse(0.5, 0.5);
 		}
 		#section2 {
 			background: url(img/P5020772-500x375.jpg) repeat-x;
+			top: 200px;
+			right: 0;
 		}
 		#section3 {
 			background: url(img/pc071520-500x375.jpg) repeat-x;
+			top: 500px;
+			right: 60px;
+			-webkit-transform: scale(2, 2);
+			-moz-transform: scale(2, 2);
+			-ms-transform: scale(2, 2);
+			-o-transform: scale(2, 2);
+			transform: scale(2, 2);
 		}
 		#section4 {
 			background: url(img/showa004-500x375.jpg) repeat-x;
-		}
-		#sectionAshColor {
-			background: #666;
-		}
-		#sectionRedColor {
-			background: #900;
+			height: 300px;
+			top: 400px;
+			width: 500px;
+			opacity: 0;
 		}
 
 	</style>
@@ -54,30 +71,22 @@
 	
 	<script type="text/javascript">
 	$(function() {
-		var section2PosTop = $('#section2').offset().top ,
-			section3PosTop = $('#section3').offset().top ,
-			section4PosTop = $('#section4').offset().top 
-		;
 		$(window).scroll(function() {
 			var value = $(this).scrollTop();
 			$('#scrollValue').text(value);
-			
-			$('#area1').css({'background-position': 0 + 'px ' + value + 'px'});
 
-			if (value > section2PosTop) {
-				$('#section2').css({'background-position': 0 + 'px ' + (value - section2PosTop)*2 + 'px'});
-			} else {
-				$('#section2').css({'background-position': 'top' });
+			var hoge1 = value * 0.001 + 0.5;
+			if (hoge1 > 0.5) {
+				$('#section1').css('transform', 'scale(' + hoge1 + ')');
 			}
-			if (value > section3PosTop) {
-				$('#section3').css({'background-position': 0 + 'px ' + (value - section3PosTop)*2 + 'px'});
-			} else {
-				$('#section3').css({'background-position': 'top' });
+			if (hoge1 > 0.1) {
+				$('#section2').css('transform', 'perspective(1000px) rotateY(' + value + 'deg)');
 			}
-			if (value > section4PosTop) {
-				$('#section4').css({'background-position': 0 + 'px '  + (value - section4PosTop)*2 + 'px' });
-			} else {
-				$('#section4').css({'background-position': 'top'});
+			var hoge3 = 2 - value * 0.0009;
+			$('#section3').css('transform', 'scale(' + hoge3 + ') rotate(' + value + 'deg)');
+			var hoge4 = value * 0.0009;
+			if (hoge4 <= 1) {
+				$('#section4').css('opacity',hoge4);
 			}
 			
 		});
@@ -85,7 +94,7 @@
 	</script>
 </head>
 <body>
-	<h1>背景画像を上下に動かす</h1>
+	<h1>画像を変形させる</h1>
 	<p class="indicator">スクロール値 | <span id="scrollValue">0</span></p>
 	
 	<section id="section1">
