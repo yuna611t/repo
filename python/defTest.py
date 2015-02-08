@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-def test(num_1,num_2,operation):
+def test(num_1,num_2,operation=1):
     
     if operation == 1:
         print "足し算開始"
