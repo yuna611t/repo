@@ -14,7 +14,7 @@
             var socketio = io.connect('http://localhost:8080');
 
             socketio.on("connected", function(name) {});
-            socketio.on("publish", function(data) {addMessage(data.value);});
+            socketio.on("publish", function(data) {addMessage(data.value,data.id);});
             socketio.on("disconnect", function() {});
 
             // イベントに絡む関数
@@ -25,14 +25,20 @@
             function publishMessage() {
                 var textInput = $('#msg_input');
                 var msg = "[" + myName + "]" + textInput.val();
-                socketio.emit("publish", {value: msg});
+                socketio.emit("publish", {value: msg,
+                                             id: myName
+                                         });
                 textInput.val('');
             }
 
-            function addMessage(msg) {
-                $($.parseHTML('<div/>'))
-                  .html(new Date().toLocaleTimeString() + ' ' + msg)
-                  .appendTo(msgArea);
+            function addMessage(msg,id) {
+               var msgDom =  $($.parseHTML('<div/>'))
+                                .html(new Date().toLocaleTimeString() + ' ' + msg)
+                                .appendTo(msgArea);
+                // 自分の発言にのみ色をつける
+                if (id === myName) {
+                    msgDom.css("background","lime");
+                }
             }
 
             // 開始処理

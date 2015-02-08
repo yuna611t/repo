@@ -20,7 +20,7 @@ io.sockets.on("connection", function(socket) {
 
    // メッセージ送信イベント
    socket.on("publish", function (data) {
-    io.sockets.emit("publish", {value:data.value});
+    io.sockets.emit("publish", {value:data.value,id:data.id});
    });
 
    // 接続終了組み込みイベント(接続元ユーザを削除し、他ユーザへ通知)
