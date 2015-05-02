@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Jasmine Test</title>
+	<link rel="shortcut icon" type="image/png" href="jasmine-standalone-2.3.0/lib/jasmine-2.3.0/jasmine_favicon.png">
+	<link rel="stylesheet" href="jasmine-standalone-2.3.0/lib/jasmine-2.3.0/jasmine.css">
+	<script type="text/javascript" src="jasmine-standalone-2.3.0/lib/jasmine-2.3.0/jasmine.js"></script>
+	<script type="text/javascript" src="jasmine-standalone-2.3.0/lib/jasmine-2.3.0/jasmine-html.js"></script>
+	<script type="text/javascript" src="jasmine-standalone-2.3.0/lib/jasmine-2.3.0/boot.js"></script>
+
+	<!-- Test Target JS -->
+	<script type="text/javascript">
+		var Greeting = function() {
+			this.hello = function(name) {
+				return 'Hello, ' + name;
+			}
+		};
+	</script>
+
+	<!-- Test Case -->
+	<script type="text/javascript">
+		describe("A suite", function() {
+
+			var greeting = new Greeting();
+
+			// Success
+			it("contains spec with an expectation", function() {
+				expect(greeting.hello('Mike')).toEqual("Hello, Mike");
+			});
+			// Failur
+			it("contains spec with an expectation", function() {
+				expect(greeting.hello('Jack')).toEqual("Hello, Jac");
+			});
+			// Success
+			it("contains spec with an expectation", function() {
+				expect(greeting.hello('Danny')).toEqual("Hello, Danny");
+			});
+			
+		});
+	</script>
+
+</head>
+<body>
+	
+</body>
+</html>
