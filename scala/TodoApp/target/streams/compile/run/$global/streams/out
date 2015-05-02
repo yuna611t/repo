@@ -1,0 +1,74 @@
+[0m[[0minfo[0m] [0mRunning TodoApp [0m
+[0m[[0mdebug[0m] [0mWaiting for threads to exit or System.exit to be called.[0m
+[0m[[0mdebug[0m] [0m  Classpath:[0m
+[0m[[0mdebug[0m] [0m	/Users/yuna/dev/repo/repo/scala/TodoApp/target/scala-2.11/classes[0m
+[0m[[0mdebug[0m] [0m	/Users/yuna/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.2.jar[0m
+[0m[[0mdebug[0m] [0m	/Users/yuna/.ivy2/cache/org.scala-lang/scala-swing/jars/scala-swing-2.10.2.jar[0m
+[0m[[0mdebug[0m] [0mWaiting for thread run-main-0 to terminate.[0m
+[0m[[0mdebug[0m] [0m	Thread run-main-0 exited.[0m
+[0m[[0mdebug[0m] [0mWaiting for thread AWT-EventQueue-0 to terminate.[0m
+[0m[[31merror[0m] [0m(AWT-EventQueue-0) java.lang.NoClassDefFoundError: scala/collection/GenTraversableOnce$class[0m
+java.lang.NoClassDefFoundError: scala/collection/GenTraversableOnce$class
+	at scala.swing.RefSet.<init>(Publisher.scala:165)
+	at scala.swing.Publisher$$anon$1.<init>(Publisher.scala:32)
+	at scala.swing.Publisher$class.$init$(Publisher.scala:32)
+	at scala.swing.Window.<init>(Window.scala:25)
+	at scala.swing.Frame.<init>(RichWindow.scala:75)
+	at scala.swing.MainFrame.<init>(MainFrame.scala:19)
+	at TodoApp$$anon$1.<init>(TodoApp.scala:4)
+	at TodoApp$.top(TodoApp.scala:4)
+	at TodoApp$.top(TodoApp.scala:3)
+	at scala.swing.SimpleSwingApplication.startup(SimpleSwingApplication.scala:26)
+	at scala.swing.SwingApplication$$anonfun$main$1.apply$mcV$sp(SwingApplication.scala:7)
+	at scala.swing.Swing$$anon$10.run(Swing.scala:32)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:311)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:744)
+	at java.awt.EventQueue.access$400(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:697)
+	at java.awt.EventQueue$3.run(EventQueue.java:691)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:75)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:714)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+Caused by: java.lang.ClassNotFoundException: scala.collection.GenTraversableOnce$class
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at scala.swing.RefSet.<init>(Publisher.scala:165)
+	at scala.swing.Publisher$$anon$1.<init>(Publisher.scala:32)
+	at scala.swing.Publisher$class.$init$(Publisher.scala:32)
+	at scala.swing.Window.<init>(Window.scala:25)
+	at scala.swing.Frame.<init>(RichWindow.scala:75)
+	at scala.swing.MainFrame.<init>(MainFrame.scala:19)
+	at TodoApp$$anon$1.<init>(TodoApp.scala:4)
+	at TodoApp$.top(TodoApp.scala:4)
+	at TodoApp$.top(TodoApp.scala:3)
+	at scala.swing.SimpleSwingApplication.startup(SimpleSwingApplication.scala:26)
+	at scala.swing.SwingApplication$$anonfun$main$1.apply$mcV$sp(SwingApplication.scala:7)
+	at scala.swing.Swing$$anon$10.run(Swing.scala:32)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:311)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:744)
+	at java.awt.EventQueue.access$400(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:697)
+	at java.awt.EventQueue$3.run(EventQueue.java:691)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:75)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:714)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+[0m[[0mdebug[0m] [0m	Thread AWT-EventQueue-0 exited.[0m
+[0m[[0mdebug[0m] [0mInterrupting remaining threads (should be all daemons).[0m
+[0m[[0mdebug[0m] [0mSandboxed run complete..[0m
+[0m[[0mdebug[0m] [0mExited with code 0[0m

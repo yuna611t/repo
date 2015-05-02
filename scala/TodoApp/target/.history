@@ -1,0 +1,14 @@
+run
+ensime generate
+compile
+exit
+compile
+exit
+compile
+run
+exit
+compile
+run
+compile
+ensime generate
+compile
