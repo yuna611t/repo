@@ -7,27 +7,62 @@
 	<link rel="stylesheet" href="">
 </head>
 <body>
-<h1>Counter</h1>
+<h1>Counter比較</h1>
 
 
 	<script type="text/javascript" charset="utf-8" async defer>
-	var Counter = function() {
+	var CounterA = function() {
+		console.log("CounterA");
+		console.log(this);
 		this.count = 0;
 	}
-	
-	Counter.prototype.push = function() {
+	CounterA.prototype.push = function() {
 		this.count++;
 		console.log(this.count + "匹");
 	}
 
-	var c1 = new Counter();
-	c1.push();
-	c1.push();
 
-	var c2 = new Counter();
-	c2.push();
-	c2.push();
+	function counterB() {
+		console.log("counterB");
+		return {
+			count: 0 ,
+			push: function() {
+				this.count++;
+				console.log(this.count + "匹");
+			}
+		}
+	}
+
+
+	var c1 = new CounterA(),
+		c2 = new counterB(),
+		c3 = counterB(),
+		c4 = {
+			count: 0,
+			push: function() {
+				this.count++;
+				console.log(this.count + "匹");
+			}
+		};
+
+
+
+
+
+	console.log("--------c1---------");
+	console.log(c1);
+	c1.push(); c1.push();
+	console.log("--------c2---------");
+	console.log(c2);
+	c2.push(); c2.push();
+	console.log("--------c3---------");
+	console.log(c3);
+	c3.push(); c3.push();
+	console.log("--------c4---------");
+	console.log(c4);
+	c4.push(); c4.push();
 
 	</script>
+
 </body>
 </html>
