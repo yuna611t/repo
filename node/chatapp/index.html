@@ -6,7 +6,7 @@
     </head>
     <body>
         <input type="text" id="msg_input" style="width:200px;" />
-        <button onclick="publishMessage();">語る</button>
+        <button id="btn-talk" >語る</button>
         <div id="msg"></div>
         <script src="/socket.io/socket.io.js"></script>
         <script type="text/javascript">
@@ -46,6 +46,23 @@
             var myName = Math.floor(Math.random()*100) + "さん";
             addMessage("貴方は" + myName + "として入室しました");
             start(myName);
+        </script>
+        <script type="text/javascript">
+         function isValidateMsg_Input() {
+              if($('#msg_input').val() === "") {
+                    return false;
+              } else {
+                    return true;
+              }
+          }
+        </script>
+        <script type="text/javascript">
+            $('#btn-talk').bind('click',function() {
+                if (!isValidateMsg_Input()) {
+                    return false;
+                }
+                publishMessage(); 
+            });
         </script>
     </body>
 </html>
