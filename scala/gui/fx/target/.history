@@ -15,3 +15,8 @@ run
 exit
 ensime generate
 exit
+ensime generate
+compile
+run
+clean
+exit
