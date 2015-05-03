@@ -23,3 +23,10 @@ exit
 ensime generage
 run
 clean
+run
+exit
+run
+exit
+run
+clean
+exit

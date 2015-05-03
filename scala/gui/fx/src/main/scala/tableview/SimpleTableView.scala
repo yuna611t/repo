@@ -29,6 +29,12 @@ object SimpleTableView extends JFXApp {
 				cellValueFactory = {_.value.lastName}
 				prefWidth = 180
 			}
+			// Nested Column
+			val nameColumn = new TableColumn[Person, String] {
+				text = "Name"
+				columns += (firstNameColumn, lastNameColumn)
+			}
+
 			val phoneColumn = new TableColumn[Person, String] {
 				text = "phone"
 				cellValueFactory = {_.value.phone}
@@ -36,7 +42,7 @@ object SimpleTableView extends JFXApp {
 			}
 
 			content = new TableView[Person](characters) {
-				columns += (firstNameColumn, lastNameColumn, phoneColumn)
+				columns += (nameColumn, phoneColumn)
 				sortOrder += (phoneColumn, lastNameColumn, firstNameColumn)
 			}
 		}
