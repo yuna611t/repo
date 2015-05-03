@@ -4,3 +4,12 @@ sbt eclipse
 eclipse
 compile
 run
+compile
+run
+compile
+clean
+compile
+exit
+compile
+run
+exit
