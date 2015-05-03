@@ -1,0 +1,6 @@
+ensime generate
+compile
+sbt eclipse
+eclipse
+compile
+run
