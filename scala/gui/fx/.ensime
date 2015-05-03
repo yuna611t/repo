@@ -14,17 +14,17 @@
       :version "0.1-SNAPSHOT"
       :compile-deps (
         "/Users/yuna/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.10.3.jar"
-        "/Users/yuna/.ivy2/cache/org.scalafx/scalafx_2.10/jars/scalafx_2.10-8.0.0-M2.jar"
+        "/Users/yuna/.ivy2/cache/org.scalafx/scalafx_2.10/jars/scalafx_2.10-8.0.0-R4.jar"
       )
       :runtime-deps (
         "/Users/yuna/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.10.3.jar"
-        "/Users/yuna/.ivy2/cache/org.scalafx/scalafx_2.10/jars/scalafx_2.10-8.0.0-M2.jar"
+        "/Users/yuna/.ivy2/cache/org.scalafx/scalafx_2.10/jars/scalafx_2.10-8.0.0-R4.jar"
         "/Users/yuna/dev/repo/repo/scala/gui/fx/target/scala-2.10/classes"
         "/Users/yuna/dev/repo/repo/scala/gui/fx/target/scala-2.10/classes"
       )
       :test-deps (
         "/Users/yuna/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.10.3.jar"
-        "/Users/yuna/.ivy2/cache/org.scalafx/scalafx_2.10/jars/scalafx_2.10-8.0.0-M2.jar"
+        "/Users/yuna/.ivy2/cache/org.scalafx/scalafx_2.10/jars/scalafx_2.10-8.0.0-R4.jar"
         "/Users/yuna/dev/repo/repo/scala/gui/fx/target/scala-2.10/classes"
         "/Users/yuna/dev/repo/repo/scala/gui/fx/target/scala-2.10/test-classes"
       )
