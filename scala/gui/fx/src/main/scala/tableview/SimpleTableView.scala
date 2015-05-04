@@ -5,15 +5,17 @@ import scalafx.application.JFXApp.PrimaryStage
 import scalafx.collections.ObservableBuffer
 import scalafx.scene.Scene
 import scalafx.scene.control.TableColumn._
-import scalafx.scene.control.{TableColumn, TableView}
+import scalafx.scene.control.{TableCell, TableColumn, TableView}
+import scalafx.scene.paint.Color
+import scalafx.scene.shape.Circle
 
 object SimpleTableView extends JFXApp {
 
 	val characters = ObservableBuffer[Person] (
-		new Person("Peggy", "Sue", "555-6789"),
-		new Person("Rocky", "Raccoon", "555-6798"),
-		new Person("Desmond", "Sue", "555-8036"),
-		new Person("Molly", "RAccoon", "555-0789")
+		new Person("Peggy", "Sue", "555-6789", Color.VIOLET),
+		new Person("Rocky", "Raccoon", "555-6798", Color.GREEN),
+		new Person("Desmond", "Sue", "555-8036", Color.DARKSALMON),
+		new Person("Molly", "RAccoon", "555-0789",Color.BLUE)
 	)
 
 	stage = new PrimaryStage {
@@ -41,8 +43,21 @@ object SimpleTableView extends JFXApp {
 				prefWidth = 180
 			}
 
+			val colorColumn = new TableColumn[Person, Color] {
+				text = "Favorit Color"
+				cellValueFactory = {_.value.favoriteColor}
+				cellFactory = {
+					_ => new TableCell[Person, Color] {
+						item.onChange {
+							(_, _, newColor) => graphic = new Circle {fill = newColor; radius = 8}
+						}
+					}
+				}
+				prefWidth = 180
+			}
+
 			content = new TableView[Person](characters) {
-				columns += (nameColumn, phoneColumn)
+				columns += (nameColumn, phoneColumn, colorColumn)
 				sortOrder += (phoneColumn, lastNameColumn, firstNameColumn)
 			}
 		}

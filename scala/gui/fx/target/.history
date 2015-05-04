@@ -30,3 +30,8 @@ exit
 run
 clean
 exit
+ensime generate
+compile
+run
+clean
+exit
