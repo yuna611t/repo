@@ -35,3 +35,7 @@ compile
 run
 clean
 exit
+ensime generate
+compile
+run
+clean
