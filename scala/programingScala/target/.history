@@ -1,0 +1,12 @@
+exit
+ensime generate
+ls
+exit
+compile
+run
+compile
+exit
+compile
+exit
+console
+exit

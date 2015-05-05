@@ -1,0 +1,40 @@
+;; If your project contains a lot of files, it is advisable to enable (:disable-source-load-on-startup t)
+;; Otherwise Ensime might incur a massive lag at startup time
+;; See more information about that at http://aemoncannon.github.com/ensime/index.html
+
+(
+  :subprojects (
+    (
+      :name "programingscala"
+      :module-name "programingscala"
+      :depends-on-modules (
+      
+      )
+      :package "default"
+      :version "0.1-SNAPSHOT"
+      :compile-deps (
+        "/Users/yuna/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.10.3.jar"
+      )
+      :runtime-deps (
+        "/Users/yuna/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.10.3.jar"
+        "/Users/yuna/dev/repo/repo/scala/programingScala/target/scala-2.10/classes"
+        "/Users/yuna/dev/repo/repo/scala/programingScala/target/scala-2.10/classes"
+      )
+      :test-deps (
+        "/Users/yuna/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.10.3.jar"
+        "/Users/yuna/dev/repo/repo/scala/programingScala/target/scala-2.10/classes"
+        "/Users/yuna/dev/repo/repo/scala/programingScala/target/scala-2.10/test-classes"
+      )
+      :source-roots (
+        "/Users/yuna/dev/repo/repo/scala/programingScala/src/main/scala"
+        "/Users/yuna/dev/repo/repo/scala/programingScala/src/main/java"
+        "/Users/yuna/dev/repo/repo/scala/programingScala/target/scala-2.10/src_managed/main"
+        "/Users/yuna/dev/repo/repo/scala/programingScala/src/test/scala"
+        "/Users/yuna/dev/repo/repo/scala/programingScala/src/test/java"
+        "/Users/yuna/dev/repo/repo/scala/programingScala/target/scala-2.10/src_managed/test"
+      )
+      :target "/Users/yuna/dev/repo/repo/scala/programingScala/target/scala-2.10/classes"
+      :test-target "/Users/yuna/dev/repo/repo/scala/programingScala/target/scala-2.10/test-classes"
+    )
+  )
+)
