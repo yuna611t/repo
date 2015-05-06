@@ -10,3 +10,13 @@ compile
 exit
 console
 exit
+test-only QuickStartSpec
+test-only 
+test-only ButtonObserverSpec
+exit
+test-only ui.ButtonObserverImmutableSpec
+test-only ButtonObserverImmutableSpec
+test-only
+exit
+test-only
+exit
