@@ -31,6 +31,21 @@ package ui {
 		def receiveUpdate(subject: Any) = count += 1
 	}
 
+	/**
+	* ２回以上のクリックを拒否するトレイト
+	*/
+	trait VetoableClicks extends Clickable {
+		val maxAllowd = 1
+		private var count = 0
+
+		abstract override def click() = {
+			if (count < maxAllowd) {
+				count += 1
+				super.click()
+			}
+		}
+	}
+
 }
 
 package observer {
