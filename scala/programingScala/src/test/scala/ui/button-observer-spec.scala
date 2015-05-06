@@ -7,30 +7,17 @@ object ButtonObserverSpec extends Specification { def is = s2"""
 
 ボタンのオブザーバは
 
-  	クラス定義時にミックスインしたら、ボタンのクリックを観察する $e1
-  	インスタンス生成時にミックスインしたら、ボタンのクリックを観察する	$e2
+  ボタンのクリックを観察する	$e1
                                                                  """
 
   def e1 = {
-	  val observableButton = new ObservableButton("Okay")
-	  val buttonObserver = new ButtonCountObserver
-	  observableButton.addObserver(buttonObserver)
+	  val observableButton = new Button("Okay") with ObservableClicks
+	  val buttonClickCountObserver = new ButtonCountObserver
+	  observableButton.addObserver(buttonClickCountObserver)
 
 	  for (i <- 1 to 3) observableButton.click()
-	  buttonObserver.count mustEqual 3
+	  buttonClickCountObserver.count mustEqual 3
   }
 
-  def e2 = {
-  	val observalbleButton = new Button("Okay") with Subject {
-  		override def click() = {
-  			super.click()
-  			notifyObservers
-  		}
-  	}
-  	val buttonObserver = new ButtonCountObserver
-  	observalbleButton.addObserver(buttonObserver)
-  	for (i <- 1 to 3) observalbleButton.click()
-  	buttonObserver.count mustEqual 3
-  }
 
 }
