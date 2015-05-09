@@ -20,7 +20,8 @@ object UserController extends Controller {
 	val userForm = Form (
 		mapping (
 			"ID" -> longNumber,
-			"name" -> nonEmptyText(maxLength = 140)
+			"name" -> nonEmptyText(maxLength = 140),
+			"pass" -> nonEmptyText(maxLength = 140)
 		)(User.apply)(User.unapply)
 	)
 

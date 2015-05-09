@@ -5,7 +5,7 @@ import play.api.db.slick.Config.driver.simple._
 /**
 * DTOの定義
 */
-case class User(ID: Long, name: String)
+case class User(ID: Long, name: String, pass: String)
 
 /**
 * テーブルスキーマの定義
@@ -13,7 +13,8 @@ case class User(ID: Long, name: String)
 class UserTable(tag: Tag) extends Table[User](tag, "user") {
 	def ID = column[Long]("id", O.PrimaryKey, O.AutoInc)
 	def name = column[String]("name", O.NotNull)
-	def * = (ID, name) <> (User.tupled, User.unapply)
+	def pass = column[String]("pass", O.NotNull) // 後で別テーブルで管理する
+	def * = (ID, name, pass) <> (User.tupled, User.unapply)
 }
 
 /**
@@ -39,6 +40,16 @@ object UserDAO {
 	}
 
 	/**
+	* 認証
+	* @param user
+	*/
+	def authenticate(user: User)(implicit s: Session): Option[User] = {
+		userQuery
+		.filter(row => (row.name === user.name) && (row.pass === user.pass))
+		.firstOption
+	}
+
+	/**
 	* 作成
 	* @param user
 	*/
@@ -61,4 +72,6 @@ object UserDAO {
 	def remove(user: User)(implicit s: Session) {
 		userQuery.filter(_.ID === user.ID).delete
 	}
+
+
 }
