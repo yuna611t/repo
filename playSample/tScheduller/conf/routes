@@ -1,0 +1,27 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+#
+# User Management
+#
+
+# Create User information.
+GET /user/create                    controllers.UserController.showCreateForm()
+POST /user/create                   controllers.UserController.create()
+
+# Search user information.
+GET /user/search                    controllers.UserController.search(word: String ?= "")
+
+# Update user information.
+GET /user/:id/update                controllers.UserController.showUpdateForm(id: Long)
+POST /user/:id/update               controllers.UserController.update(id: Long)
+
+# Remove user information.
+GET /user/:id/remove                controllers.UserController.remove(id: Long)
