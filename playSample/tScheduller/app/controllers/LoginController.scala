@@ -41,8 +41,7 @@ object LoginController extends Controller with Secured {
 	/**
 	* ログイン処理
 	*/
-	def login = IsAuthenticated { username => implicit request =>
-	 	DB.withSession { implicit session =>
+	def login = DBAction { implicit rs =>
 			loginForm.bindFromRequest.fold(
 				errors => {
 					println("login error: " + errors)
@@ -55,7 +54,6 @@ object LoginController extends Controller with Secured {
 					Redirect(routes.Application.index).withSession(Security.username -> user._1)
 				}
 			)
-		}
 	  }
 
 
