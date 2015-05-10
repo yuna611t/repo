@@ -9,6 +9,8 @@ import play.api.data.Forms._
 import play.api.db.slick._
 import models._
 
+import play.api.Play.current
+
 /**
 * ログイン処理を行うコントローラ
 */
@@ -39,19 +41,21 @@ object LoginController extends Controller with Secured {
 	/**
 	* ログイン処理
 	*/
-	def login = DBAction { implicit rs =>
-		loginForm.bindFromRequest.fold(
-			errors => {
-				println("login error: " + errors)
-				// ログイン失敗の場合セッション消去
-				BadRequest(views.html.loginForm(errors)).withNewSession.flashing()
-			},
-			user => {
-				println("login success: " + user)
-				// ログイン成功の場合、ユーザ名をセッションに格納し持ち回る
-				Redirect(routes.Application.index).withSession(Security.username -> user._1)
-			}
-		)
+	def login = IsAuthenticated { username => implicit request =>
+	 	DB.withSession { implicit session =>
+			loginForm.bindFromRequest.fold(
+				errors => {
+					println("login error: " + errors)
+					// ログイン失敗の場合セッション消去
+					BadRequest(views.html.loginForm(errors)).withNewSession.flashing()
+				},
+				user => {
+					println("login success: " + user)
+					// ログイン成功の場合、ユーザ名をセッションに格納し持ち回る
+					Redirect(routes.Application.index).withSession(Security.username -> user._1)
+				}
+			)
+		}
 	  }
 
 

@@ -45,8 +45,7 @@ object UserDAO {
 	* @param user
 	*/
 	def authenticate(name: String, pass: String): Option[User] = {
-		
-		play.api.db.slick.DB.withSession{ implicit session =>
+		play.api.db.slick.DB.withSession{implicit session =>
 			userQuery
 			.filter(row => (row.name === name) && (row.pass === pass))
 			.firstOption

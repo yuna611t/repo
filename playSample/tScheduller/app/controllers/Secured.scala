@@ -3,6 +3,9 @@ package controllers
 import play.api._
 import play.api.mvc._
 
+import play.api.db.slick._
+
+
 trait Secured {
 	private def username(request: RequestHeader) = request.session.get(Security.username)
 
@@ -19,4 +22,5 @@ trait Secured {
 			println("認証済ユーザ: " + user)
 			Action(request => f(user)(request))
 		}
+
 }

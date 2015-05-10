@@ -9,6 +9,8 @@ import play.api.data.Forms._
 import play.api.db.slick._
 import models._
 
+import play.api.Play.current
+
 /**
 * コントローラオブジェクトの定義
 */
@@ -28,28 +30,32 @@ object UserController extends Controller with Secured {
 	/**
 	* ユーザ情報登録フォーム表示アクションメソッドの定義
 	*/
-	def showCreateForm() = Action { request =>
+	def showCreateForm() = IsAuthenticated { username => implicit request =>
 		Ok(views.html.userCreateForm(userForm))
 	}
 
 	/**
 	* ユーザ情報登録アクションメソッドの定義
 	*/
-	def create() = DBAction { implicit rs =>
-		userForm.bindFromRequest.fold(
-			errors => BadRequest(views.html.userCreateForm(errors)),
-			user => {
-				UserDAO.create(user)
-				Redirect(routes.UserController.search())
-			}
-		)
+	def create() = IsAuthenticated { username => implicit request =>
+		DB.withSession { implicit session =>
+			userForm.bindFromRequest.fold(
+				errors => BadRequest(views.html.userCreateForm(errors)),
+				user => {
+					UserDAO.create(user)
+					Redirect(routes.UserController.search())
+				}
+			)
+		}
 	}
 
 	/**
 	* ユーザ情報検索アクションメソッドの定義
 	*/
-	 def search(word: String) = DBAction { implicit rs =>
-	    Ok(views.html.userSearch(word, UserDAO.search(word)))
+	 def search(word: String) = IsAuthenticated { username => implicit request =>
+	 	DB.withSession { implicit session =>
+		    Ok(views.html.userSearch(word, UserDAO.search(word)))
+		}
 	  }
 
 	/**
@@ -62,22 +68,26 @@ object UserController extends Controller with Secured {
 	/**
 	* ユーザ情報更新アクションメソッドの定義
 	*/
-	def update(ID: Long) = DBAction { implicit rs =>
-		userForm.bindFromRequest.fold(
-			errors => BadRequest(views.html.userUpdateForm(ID, errors)),
-			user => {
-				UserDAO.update(user)
-				Redirect(routes.UserController.search())
-			}
-		)
+	def update(ID: Long) = IsAuthenticated { username => implicit request =>
+	 	DB.withSession { implicit session =>
+			userForm.bindFromRequest.fold(
+				errors => BadRequest(views.html.userUpdateForm(ID, errors)),
+				user => {
+					UserDAO.update(user)
+					Redirect(routes.UserController.search())
+				}
+			)
+		}
 	}
 
 	/**
 	* ユーザ情報削除アクションメソッドの定義
 	*/
-	def remove(ID: Long) = DBAction { implicit rs =>
-		UserDAO.remove(UserDAO.searchByID(ID))
-		Redirect(routes.UserController.search())
+	def remove(ID: Long) = IsAuthenticated { username => implicit request =>
+	 	DB.withSession { implicit session =>
+			UserDAO.remove(UserDAO.searchByID(ID))
+			Redirect(routes.UserController.search())
+		}
 	}
 
 }
