@@ -1,4 +1,4 @@
-@(loginForm: Form[User])
+@(loginForm: Form[(String, String)])
 
 @import helper._
 
@@ -22,7 +22,6 @@
 	        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	          @form(routes.LoginController.login()) {
 	            <fieldset>
-		          <input type="hidden" name="ID" value="0">
 	              @inputText(loginForm("name"), '_label -> "ユーザ名", 'size -> 30)
 	              @inputPassword(loginForm("pass"), '_label -> "パスワード", 'size -> 30)
 	            </fieldset>

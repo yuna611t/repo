@@ -3,10 +3,10 @@ package controllers
 import play.api._
 import play.api.mvc._
 
-object Application extends Controller {
+object Application extends Controller with Secured{
 
-  def index = Action {
-    Ok("Hello World")
+	def index =  IsAuthenticated { username => implicit request =>
+  	    Ok("Hello World")
   }
 
 }

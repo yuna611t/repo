@@ -12,7 +12,7 @@ import models._
 /**
 * コントローラオブジェクトの定義
 */
-object UserController extends Controller {
+object UserController extends Controller with Secured {
 
 	/**
 	* フォームの定義

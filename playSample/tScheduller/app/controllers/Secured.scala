@@ -4,17 +4,19 @@ import play.api._
 import play.api.mvc._
 
 trait Secured {
-	private def name(request: RequestHeader) = request.session.get("name")
+	private def username(request: RequestHeader) = request.session.get(Security.username)
 
 	// 未認証時のリダイレクト先
-	private def onUnauthorized(request: RequestHeader) = 
+	private def onUnauthorized(request: RequestHeader) = {
+		println("未認証ユーザ: " + username(request))
 		Results.Redirect(routes.LoginController.showLoginForm)
+	}
 
 	// Actionに認証をかませてラップ
-	def isAuthenticated(f: => String => Request[AnyContent] => Result) = 
-		Security.Authenticated(name, onUnauthorized) { user => 
+	// Securityセッションにユーザ名があれば認証済状態とする
+	def IsAuthenticated(f: => String => Request[AnyContent] => Result) = 
+		Security.Authenticated(username, onUnauthorized) { user => 
+			println("認証済ユーザ: " + user)
 			Action(request => f(user)(request))
 		}
-	// 認証
-	
 }

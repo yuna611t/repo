@@ -1,6 +1,7 @@
 package models
 
 import play.api.db.slick.Config.driver.simple._
+import play.api.Play.current
 
 /**
 * DTOの定義
@@ -43,10 +44,13 @@ object UserDAO {
 	* 認証
 	* @param user
 	*/
-	def authenticate(user: User)(implicit s: Session): Option[User] = {
-		userQuery
-		.filter(row => (row.name === user.name) && (row.pass === user.pass))
-		.firstOption
+	def authenticate(name: String, pass: String): Option[User] = {
+		
+		play.api.db.slick.DB.withSession{ implicit session =>
+			userQuery
+			.filter(row => (row.name === name) && (row.pass === pass))
+			.firstOption
+		}
 	}
 
 	/**
