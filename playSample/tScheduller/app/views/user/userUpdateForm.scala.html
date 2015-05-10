@@ -1,4 +1,4 @@
-@(ID: Long, userForm: Form[User])
+@(username: String, ID: Long, userForm: Form[User])
 
 @import helper._
 
@@ -37,6 +37,7 @@
             <fieldset>
               <input type="hidden" name="ID" value="@ID">
               @inputText(userForm("name"), '_label -> "氏名", 'size -> 30)
+              @inputPassword(userForm("pass"), '_label -> "パスワード", 'size -> 30)
             </fieldset>
             <div class="actions">
               <input type="submit" class="btn btn-primary">

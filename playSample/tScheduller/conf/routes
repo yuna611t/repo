@@ -30,3 +30,16 @@ POST /user/:id/update               controllers.UserController.update(id: Long)
 
 # Remove user information.
 GET /user/:id/remove                controllers.UserController.remove(id: Long)
+
+
+#
+# Schedule Management
+#
+
+# Create schedule information.
+GET /schedule/create                    controllers.ScheduleController.showCreateForm()
+POST /schedule/create                   controllers.ScheduleController.create()
+
+# Search schedule group by date.
+GET /schedule/search                    controllers.ScheduleController.search(name: String ?= "", date: String ?= "")
+

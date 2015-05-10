@@ -31,7 +31,7 @@ object UserController extends Controller with Secured {
 	* ユーザ情報登録フォーム表示アクションメソッドの定義
 	*/
 	def showCreateForm() = IsAuthenticated { username => implicit request =>
-		Ok(views.html.user.userCreateForm(userForm))
+		Ok(views.html.user.userCreateForm(username, userForm))
 	}
 
 	/**
@@ -40,10 +40,11 @@ object UserController extends Controller with Secured {
 	def create() = IsAuthenticated { username => implicit request =>
 		DB.withSession { implicit session =>
 			userForm.bindFromRequest.fold(
-				errors => BadRequest(views.html.user.userCreateForm(errors)),
+				errors => BadRequest(views.html.user.userCreateForm(username, errors)),
 				user => {
+					println("ユーザ新規登録: " + user)
 					UserDAO.create(user)
-					Redirect(routes.UserController.search())
+					Redirect(routes.UserController.search(username))
 				}
 			)
 		}
@@ -54,15 +55,17 @@ object UserController extends Controller with Secured {
 	*/
 	 def search(word: String) = IsAuthenticated { username => implicit request =>
 	 	DB.withSession { implicit session =>
-		    Ok(views.html.user.userSearch(word, UserDAO.search(word)))
+		    Ok(views.html.user.userSearch(username, word, UserDAO.search(word)))
 		}
 	  }
 
 	/**
 	* ユーザ情報更新フォーム表示アクションメソッドの定義
 	*/
-	def showUpdateForm(ID: Long) = DBAction { implicit rs =>
-		Ok(views.html.user.userUpdateForm(ID, userForm.fill(UserDAO.searchByID(ID))))
+	def showUpdateForm(ID: Long) = IsAuthenticated { username => implicit request =>
+	 	DB.withSession { implicit session =>
+			Ok(views.html.user.userUpdateForm(username, ID, userForm.fill(UserDAO.searchByID(ID))))
+		}
 	}
 
 	/**
@@ -71,10 +74,10 @@ object UserController extends Controller with Secured {
 	def update(ID: Long) = IsAuthenticated { username => implicit request =>
 	 	DB.withSession { implicit session =>
 			userForm.bindFromRequest.fold(
-				errors => BadRequest(views.html.user.userUpdateForm(ID, errors)),
+				errors => BadRequest(views.html.user.userUpdateForm(username, ID, errors)),
 				user => {
 					UserDAO.update(user)
-					Redirect(routes.UserController.search())
+					Redirect(routes.UserController.search(username))
 				}
 			)
 		}
@@ -86,7 +89,7 @@ object UserController extends Controller with Secured {
 	def remove(ID: Long) = IsAuthenticated { username => implicit request =>
 	 	DB.withSession { implicit session =>
 			UserDAO.remove(UserDAO.searchByID(ID))
-			Redirect(routes.UserController.search())
+			Redirect(routes.UserController.search(username))
 		}
 	}
 
