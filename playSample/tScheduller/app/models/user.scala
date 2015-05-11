@@ -76,5 +76,4 @@ object UserDAO {
 		userQuery.filter(_.ID === user.ID).delete
 	}
 
-
 }
