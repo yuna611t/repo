@@ -32,9 +32,10 @@
         <!-- 検索フォーム -->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
          @helper.form(action=routes.ScheduleController.search()) {
-          <input type="search" name="name" value="@name">
-          <input type="search" name="date" value="@date">
+          <input type="search" name="name" value="@name" placeholder="ユーザ名" title="検索対象ユーザを入力">
+          <input type="search" name="date" value="@date" placeholer="日付" title="検索対象日付を入力">
           <input type="submit" value="詳細検索" class="byn btn-primary">
+          <input type="button" value="全件検索" class="byn btn-primary" onclick="location.href='/schedule/search'" >
         }
         </div>
 

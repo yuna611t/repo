@@ -34,6 +34,7 @@ object ScheduleDAO {
 	* @param date
 	*/
 	def search(name: String, date: String)(implicit s: Session): List[Schedule] = {
+		// TODO 日付がテキストなのでソート順を修正する必要あり
 		if (name == "" && date == "") 
 			scheduleQuery
 			.sortBy(row => (row.date, row.timeFrom)).list

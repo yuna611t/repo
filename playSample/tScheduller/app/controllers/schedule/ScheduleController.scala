@@ -5,6 +5,7 @@ import play.api.mvc._
 
 import play.api.data._
 import play.api.data.Forms._
+import play.api.data.validation._
 
 import play.api.db.slick._
 import models._
@@ -23,9 +24,9 @@ object ScheduleController extends Controller with Secured {
 		mapping (
 			"ID" -> longNumber,
 			"name" -> nonEmptyText(maxLength = 140),
-			"date" -> nonEmptyText(maxLength = 140),
-			"timeFrom" -> nonEmptyText(maxLength = 6),
-			"timeTo" -> nonEmptyText(maxLength = 6),
+			"date" -> text.verifying(Constraints.pattern("([1-9]|1[0-2])/([1-9]|[1-2][0-9]|3[0-1])".r)), // 1/1~12/31の正規表現 (詳細チェックはフロントに任す)
+			"timeFrom" -> text.verifying(Constraints.pattern("(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])".r)),  // 00:00~23:59の正規表現 (詳細チェックはフロントに任す)
+			"timeTo" -> text.verifying(Constraints.pattern("(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])".r)),    // 00:00~23:59の正規表現 (詳細チェックはフロントに任す)
 			"comment" -> text(maxLength = 140)
 		)(Schedule.apply)(Schedule.unapply)
 	)
