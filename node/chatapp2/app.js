@@ -37,7 +37,9 @@ function findAllMessage() {
             console.log("find error");
         } else {
             for (var i = 0; i < docs.length; i++) {
-                console.log(docs[i].message);
+                var msg = docs[i].message;
+                console.log(msg);
+                io.emit('chat message', msg);
             }
             // mongoose.disconnect();
         }
@@ -61,9 +63,10 @@ io.on('connection', function(socket){
       findAllMessage();
   });
 
-  // publish message
-  socket.on('pub message', function(msg){
+  // chat message
+  socket.on('chat message', function(msg){
     console.log('message: ' + msg);
+    io.emit('chat message', msg);
     // save
     var message = new Message({
         message: msg
