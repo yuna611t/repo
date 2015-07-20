@@ -19,7 +19,11 @@ mongoose.connect('mongodb://localhost/message', function(err) {
 
 // create a Schema
 var messageSchema = new Schema({
-    message: String
+    user: {
+        id: Number
+        ,name: String
+    }
+    ,message: String
 });
 var Message = mongoose.model('Message', messageSchema);
 
@@ -37,11 +41,9 @@ function findAllMessage() {
             console.log("find error");
         } else {
             for (var i = 0; i < docs.length; i++) {
-                var msg = docs[i].message;
-                console.log(msg);
-                io.emit('chat message', msg);
+                var msg = docs[i];
+                // console.log(msg.user.name + ' ' + msg.message);
             }
-            // mongoose.disconnect();
         }
     });
 }
@@ -54,22 +56,37 @@ app.get('/', function(req, res){
   res.sendfile('index.html');
 });
 
+// jsonserver
+app.get('/json/oldmessages', function(req, res) {
+    Message.find(function(err, msgs) {
+        if (err) {
+            console.log(err);
+        }
+        res.json(msgs);
+    });
+});
+
 //　socket.io.on
 io.on('connection', function(socket){
   // connect chat room
-  socket.on("con room", function(name) {
-      console.log(name + "が入室しました");
+  socket.on("con room", function(user) {
+      console.log(user.name + "が入室しました");
+      userHash[socket.id] = user;
       // show old message
-      findAllMessage();
+    //   findAllMessage();
   });
 
   // chat message
   socket.on('chat message', function(msg){
-    console.log('message: ' + msg);
+    console.log('user.name: ' + msg.user.name);
+    console.log('message: ' + msg.message);
     io.emit('chat message', msg);
     // save
     var message = new Message({
-        message: msg
+        user: {
+            name: msg.user.name
+        }
+        ,message: msg.message
     });
     saveMessage(message);
   });
