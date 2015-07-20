@@ -36,7 +36,6 @@ function findAllMessage() {
         if (err) {
             console.log("find error");
         } else {
-            console.log("num of item => " + docs.length);
             for (var i = 0; i < docs.length; i++) {
                 console.log(docs[i].message);
             }
@@ -45,25 +44,31 @@ function findAllMessage() {
     });
 }
 
+// has of user control
+var userHash = {};
 
 // routing
 app.get('/', function(req, res){
   res.sendfile('index.html');
 });
 
-//on
+//　socket.io.on
 io.on('connection', function(socket){
-  socket.on('chat message', function(msg){
+  // connect chat room
+  socket.on("con room", function(name) {
+      console.log(name + "が入室しました");
+      // show old message
+      findAllMessage();
+  });
+
+  // publish message
+  socket.on('pub message', function(msg){
     console.log('message: ' + msg);
     // save
     var message = new Message({
         message: msg
     });
     saveMessage(message);
-
-    // show message
-    findAllMessage();
-
   });
 });
 
