@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            (function(what_to_do) {
+                var sentence = 'I am going to eat a ' + what_to_do;
+                console.log(sentence);
+            })('Sandwich');
+            (function(){
+                var local_var = 'Local Value';
+                console.log('local value in function = ' + local_var);
+            })();
+            console.log('local value in gloval = ' + local_var);
+        </script>
+    </body>
+</html>
