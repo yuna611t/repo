@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        var prison = {
+            name: 'Josh',
+            who: function() {
+                $.ajax({
+                    success: function() {
+                        console.log(this.name);
+                    }
+                });
+            }
+        };
+        var prison2 = {
+            name: 'Mike',
+            who: function() {
+                var that = this;
+                $.ajax({
+                    success: function() {
+                        console.log(that.name);
+                    }
+                });
+            }
+        };
+        var prison3 = function(){
+            var  name = 'Kate';
+            $.ajax({
+                success: function() {
+                    console.log(name);
+                }
+            });
+        };
+        prison.who();
+        prison2.who();
+        prison3();
+    </script>
+</body>
+
+</html>
