@@ -14,7 +14,23 @@
                 var local_var = 'Local Value';
                 console.log('local value in function = ' + local_var);
             })();
-            console.log('local value in gloval = ' + local_var);
+            // console.log('local value in gloval = ' + local_var);
+
+            var prison = (function(){
+                var prisoner_name = 'Mike Mikowski',
+                    jail_term = '20 year temr';
+                return {
+                    prisoner: function() {
+                        return prisoner_name + ' - ' + jail_term;
+                    },
+                    setJailTerm: function(term) {
+                        jail_term = term
+                    }
+                };
+            })();
+            console.log(prison.prisoner());
+            prison.setJailTerm('Sentence Commited');
+            console.log(prison.prisoner());
         </script>
     </body>
 </html>
