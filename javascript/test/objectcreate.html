@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        var proto = {
+            sentence: 4,
+            probation: 2
+        };
+        // Fuctory
+        var makePrisoner = function(name, id) {
+            var prisoner = Object.create(proto);
+            prisoner.name = name;
+            prisoner.id = id;
+            return prisoner;
+        };
+
+        var firstPrisoner = makePrisoner('Joe', '12A');
+        var secondPrisoner = makePrisoner('Sam', '28C');
+
+        console.log('firstPrisoner: ' + firstPrisoner.name);
+        console.log('secondPrisoner: ' + secondPrisoner.name);
+
+    </script>
+</body>
+
+</html>
