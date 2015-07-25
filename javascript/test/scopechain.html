@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            var regular_joe = 'I am here to save the day!';
+
+            console.log('global : ' + regular_joe);
+            function supermax() {
+                console.log('supermax-bef-invoke: ' + regular_joe);
+
+                var regular_joe = 'regular_joe is assigned';
+                console.log('supermax-aft-invoke: ' + regular_joe);
+
+                function prison() {
+                    // 変数の巻き上げによってundifined
+                    console.log('prison-bef-invoke: ' + regular_joe);
+                    var regular_joe = 'regular_joe is re assigned';
+                    console.log('prison-aft-invoke: ' + regular_joe);
+                }
+                function prison2() {
+                    console.log('prison2: ' + regular_joe);
+                }
+                prison();
+                prison2();
+            }
+            supermax();
+        </script>
+    </body>
+</html>
