@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>JsonPTest</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+        var jsonpcallback = function(data) {
+            console.log(data);
+        };
+
+            (function(){
+                console.log('bef invoke loadJS');
+                function loadJS(src) {
+                    var script = document.createElement('script');
+                    script.src = src;
+                    console.log('bef append <Script>');
+                    document.body.appendChild(script);
+                    console.log('aft append <Script>');
+                }
+                console.log('bef invoke jsonp_callback');
+                console.log('bef call loadJS');
+                loadJS('http://localhost:8124/?callback=jsonpcallback&a=10&b=test');
+                console.log('aft call loadJS');
+            })();
+        </script>
+    </body>
+</html>
