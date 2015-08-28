@@ -6,10 +6,6 @@
     </head>
     <body>
         <script type="text/javascript">
-        var jsonpcallback = function(data) {
-            console.log(data);
-        };
-
             (function(){
                 function loadJS(src) {
                     var script = document.createElement('script');
@@ -17,6 +13,9 @@
                     document.body.appendChild(script);
                 }
                 loadJS('http://localhost:8124/?callback=jsonpcallback&a=10&b=test');
+                jsonpcallback = function(data) {
+                    console.log(data);
+                };
             })();
         </script>
     </body>
