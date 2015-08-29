@@ -3,21 +3,24 @@
     <head>
         <meta charset="utf-8">
         <title>JsonPTest</title>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     </head>
     <body>
         <script type="text/javascript">
-        var jsonpcallback = function(data) {
-            console.log(data);
-        };
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8124/',
+            data: {
+                a: 10,
+                b: 'test'
+            },
+            dataType: 'jsonp',
+            jsonpCallback: 'callback',
+            success: function(json) {
+                console.log(json);
+            }
+        });
 
-            (function(){
-                function loadJS(src) {
-                    var script = document.createElement('script');
-                    script.src = src;
-                    document.body.appendChild(script);
-                }
-                loadJS('http://localhost:8124/?callback=jsonpcallback&a=10&b=test');
-            })();
         </script>
     </body>
 </html>
