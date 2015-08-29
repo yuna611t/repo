@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Event Check</title>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <style media="screen">
+            .box {
+                margin: 5px 2px 2px 0px;
+                border-radius: 10px;
+                border: 1px solid #999;
+                width: 100px;
+                height: 30px;
+                box-shadow: 0 2px 0 rgba(136,136,126,1);
+            }
+                .outer {
+                    background-color: #ffffff;
+                }
+                .inner {
+                    background-color: #5F9EA0;
+                    width: 70px;
+                    height: 15px;
+                    margin: auto;
+                    margin-top: 5px;
+                    vertical-align: middle;
+                    font-size: small;
+                    text-align: center;
+                }
+        </style>
+    </head>
+    <body>
+        <a href="#clickedA" onclick="clickFunction(); return false;">click A</a>
+        <br />
+        <a href="#clickedB" onclick="clickFunction();">click B</a>
+        <br />
+        <a href="#clickedC" class="click-in-c">click C</a>
+        <br />
+        <a href="#clickedD" class="click-in-d">click D</a>
+        <br />
+        <a href="#clickedE" class="click-in-e">click E</a>
+        <br />
+        <a href="#clickedF" class="click-in-f">click F</a>
+        <br />
+
+
+        <div class="box outer click-out-c">
+            <div class="box inner click-in-c">
+                Click C
+            </div>
+        </div>
+
+        <div class="box outer click-out-d">
+            <div class="box inner click-in-d">
+                Click D
+            </div>
+        </div>
+
+        <div class="box outer click-out-e">
+            <div class="box inner click-in-e">
+                Click E
+            </div>
+        </div>
+
+        <div class="box outer click-out-f">
+            <div class="box inner click-in-f">
+                Click F
+            </div>
+        </div>
+
+
+        <script type="text/javascript">
+            function clickFunction() {
+                console.log('Clicked');
+            }
+
+            // 入れ子関係の時のpreventDefaultの挙動
+            $('.click-in-c').click(function(e){
+                e.preventDefault();   // デフォルトイベントのキャンセル
+                console.log('Clicked Inner');
+            });
+            $('.click-out-c').click(function(e){
+                console.log('Clicked Outer');
+            });
+
+            // 入れ子関係の時のstopPropagationの挙動
+            $('.click-in-d').click(function(e){
+                e.stopPropagation();  // イベント伝播のキャンセル(デフォルトイベントは動く)
+                console.log('Clicked Inner');
+            });
+            $('.click-out-d').click(function(e){
+                console.log('Clicked Outer');
+            });
+
+            // 入れ子関係の時のpreventDefaultとstopPropagationの併用
+            $('.click-in-e').click(function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Clicked Inner');
+            });
+            $('.click-out-e').click(function(e){
+                console.log('Clicked Outer');
+            });
+
+            // 入れ子関係の時のreturn falseの挙動
+            $('.click-in-f').click(function(e){
+                console.log('Clicked Inner');
+                return false;
+            });
+            $('.click-out-f').click(function(e){
+                console.log('Clicked Outer');
+            });
+
+
+
+        </script>
+    </body>
+</html>
