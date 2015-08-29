@@ -11,18 +11,20 @@ http.createServer(function(req,res){
     var query = url.parse(req.url, true).query,
         data = [],
         callback,
-        returnData,
-        key,val
+        returnData
     ;
-    
-    for (key in query) {
-        val = query[key];
-        if (key == 'callback' && /^[a-zA-Z]+[0-9a-zA-Z]*$/.test(val)) {
-            callback = val;
-        } else {
-            data.push('"' + cnv(key) + '"' + ':' + '"' + cnv(val) + '"');
+
+    (function(){
+        for (var key in query) {
+            var val = query[key];
+            if (key == 'callback' && /^[a-zA-Z]+[0-9a-zA-Z]*$/.test(val)) {
+                callback = val;
+            } else {
+                data.push('"' + cnv(key) + '"' + ':' + '"' + cnv(val) + '"');
+            }
         }
-    }
+    })();
+
 
     data = "{" + data.join(',') + "}";
     returnData = callback ? callback + "(" + data + ");" : data;
