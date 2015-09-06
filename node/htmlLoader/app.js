@@ -1,7 +1,7 @@
 var fs = require('fs'),
     http = require('http'),
-    urlList,
-    i
+    urlList = "",
+    linenumber = 0
 ;
 
 // ファイル削除
@@ -11,15 +11,19 @@ var fs = require('fs'),
 // URLリスト読み込み
 fs.readFile('./urllist.txt', 'utf8', function (err, str) {
     urlList = str.split(/\r\n|\r|\n/);
-    i = 0;
     // urlごとに処理
     urlList.forEach(function(url) {
-        i++;
-        createHTMLSource(url, i);
+        createHTMLSource(url, ++linenumber);
     });
 });
 
-function createHTMLSource(url, i) {
+/**
+ * HTMLソースファイルを生成する
+ * @param  {string} url        HTMLファイル取得対象URL
+ * @param  {int} linenumber 処理対象の行番号
+ * @return {boolean}            正常にHTMLソース生成できたかどうか
+ */
+function createHTMLSource(url, linenumber) {
     var body = "";
     // 対象URLにアクセス
     http.get(url, function(res) {
@@ -27,9 +31,11 @@ function createHTMLSource(url, i) {
         res.on('data', function(chunk) {
             body += chunk;
             // アクセス先URLのHTMLソースをファイル保存
-            fs.writeFileSync('./downloadedhtml/'+ i +'.txt', body);
+            fs.writeFileSync('./downloadedhtml/'+ linenumber +'.txt', body);
+            return true;
         });
     }).on('error', function(e) {
-        fs.writeFileSync('./downloadedhtml/'+ i +'.txt', e);
+        fs.writeFileSync('./downloadedhtml/'+ linenumber +'.txt', e);
+        return false;
     });
 }
