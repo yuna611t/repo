@@ -14,7 +14,12 @@
                         .data(theData)
                         .enter()
                         .append("p")
-                        .text(function(d){ return d;} );
+                        .text( function (d) {
+                            var addedNumber = 2;
+                            var tempNumber;
+                            tempNumber = d + addedNumber;
+                            return tempNumber;
+                        });
             </script>
 
     </body>
