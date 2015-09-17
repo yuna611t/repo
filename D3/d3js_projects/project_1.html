@@ -9,25 +9,48 @@
     <body>
 
 <script type="text/javascript">
-var initialScalaData = [0, 1000, 3000, 2000, 5000, 4000, 7000, 6000, 9000, 8000, 10000];
+var circleData = [
+    {"cx": 20, "cy": 20, "radius": 20, "color": "green"},
+    {"cx": 70, "cy": 70, "radius": 20, "color": "purple"}
+];
 
-var newScaledData = [];
-var minDataPoint = d3.min(initialScalaData);
-var maxDataPoint = d3.max(initialScalaData);
+var rectangleData = [
+    {"rx": 110, "ry": 110, "height": 30, "width": 30, "color": "blue"},
+    {"rx": 160, "ry": 160, "height": 30, "width": 30, "color": "red"}
+];
 
-var linearScale = d3.scale.linear()
-                    .domain([minDataPoint, maxDataPoint])
-                    .range([0, 100]);
+// SVG Container
+var svgContainer = d3.select("body").append("svg")
+                    .attr("width", 200)
+                    .attr("height", 200);
 
-for (var i = 0; i < initialScalaData.length; i++) {
-    newScaledData[i] = linearScale(initialScalaData[i]);
-}
+// Circle
+var circleGroup = svgContainer.append("g")
+                    .attr("transform", "translate(80, 0)");
 
-newScaledData;
+var circles = circleGroup.selectAll("circle")
+                .data(circleData)
+                .enter()
+                .append("circle");
 
-console.log("initialData: ",  initialScalaData);
-console.log("scaledData: ",  newScaledData);
+var circleAttributes = circles
+                        .attr("cx", function(d){return d.cx;})
+                        .attr("cy", function(d){return d.cy;})
+                        .attr("r", function(d){return d.radius;})
+                        .style("fill", function(d){return d.color;});
 
+// Rectangle
+var rectangles = svgContainer.selectAll("rect")
+                    .data(rectangleData)
+                    .enter()
+                    .append("rect");
+
+var rectangleAttributes = rectangles
+                            .attr("x", function(d){return d.rx;})
+                            .attr("y", function(d){return d.ry;})
+                            .attr("height", function(d){return d.height;})
+                            .attr("width", function(d){return d.width;})
+                            .attr("fill", function(d){return d.color;});
 </script>
     </body>
 </html>
