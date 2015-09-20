@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>プログラミング言語っぽいの作ってみる</title>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <style media="screen">
+              .block--left {
+                  width: 50%;
+                  float: left;
+              }
+              .block--right {
+                  width: 50%;
+                  float: right;
+              }
+              .box__result {
+                  width: 70%;
+                  border: 1px solid #000000;
+              }
+        </style>
+    </head>
+    <body>
+
+<div class="block--left">
+    <textarea id="source" rows="8" cols="40" placeholder="ソースコードを入力してください"></textarea>
+    <br />
+    <input type="button" id="compile" value="実行">
+    <br />
+    <div id="result" class="box__result">
+        コンパイル結果出力部分
+    </div>
+</div>
+
+<div class="block--right">
+        <h2>言語仕様について</h2>
+        <h3>1文のセパレータ</h3>
+        <p>; で区切り</p>
+        <h3>変数</h3>
+        <P>=の左側が変数名、右側が代入される値</P>
+        <h3>関数の実行</h3>
+        <p>関数名 パラメータ</p>
+        <h3>エラーなど</h3>
+        <p>型チェック、予約語のエスケープ処理などはない</p>
+        <h2>サンプルコード</h2>
+        <pre>
+A=おはよう;
+B=山田さん;
+print @A@、@B@;
+        </pre>
+        <h2>組み込み関数</h2>
+        <ul>
+            <li>print &lt;param&gt;<br />
+                文字列の出力
+            </li>
+            <li>add &lt;param1&gt;,&lt;param2&gt;<br />
+                param1とparam2を合計した結果を返却
+            </li>
+        </ul>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var variableMap = {},    // 変数マップ配列
+        reservedFunctions = {   // 組み込み関数
+            "print": function(param){   // 文字出力
+                var retValue = $("#result").html() + "<br />" + param;
+                $("#result").html(retValue);
+            }/*,
+            "add": function(param1, param2) {
+                console.log("param1: ", param1);
+                console.log("param2: ", param2);
+
+            }
+            */
+        }
+    ;
+
+    // 疑似コンパイル実行
+    $("#compile").bind('click',function(){
+        var result;
+        // 出力コンソールのクリア
+        $("#result").html("");
+        // ソースコードの疑似コンパイル(インタープリタ)
+        result = compileSource($("#source").val());
+    });
+
+
+    /**
+     * ソースコードのコンパイル
+     * @param  {[type]} source [description]
+     * @return {[type]}        [description]
+     */
+    function compileSource(source) {
+        var lines = [],     // ソースコード
+            result;         // コンパイル結果
+        console.log("compiling SourceCode...");
+
+        // ソースコードを;を1文の区切りとして分割
+        lines = splitSourceCodeforLine(source);
+        $.each(lines, function(index,line) {
+            // 各行毎構文木の作成
+            createSyntaxTree(line);
+         });
+
+        return lines;
+    }
+
+    /**
+     * ソースコードを解釈できる単位に分割する
+     * @param  {[type]} source [description]
+     * @return {[type]}        [description]
+     */
+    function splitSourceCodeforLine(source) {
+        var lines = [];
+        console.log("split SourceCode per ';' ");
+        // 改行コードの削除
+        source = source.replace( /\r?\n/g , "" ) ;
+        // ;で区切り
+        lines = source.split(";");
+        return lines;
+    }
+
+    /**
+     * 式の評価
+     * @param  {[type]} line [description]
+     * @return {[type]}      [description]
+     */
+    function evaluateExpression(line) {
+    }
+
+    /**
+     * 構文木の作成
+     * @param  {[type]} line [description]
+     * @return {[type]}      [description]
+     */
+    function createSyntaxTree(line){
+        var left = "",
+            right = "",
+            tempVariableName = "",
+            tempVariable = "";
+
+        console.log("createSyntaxTree...");
+
+        for (var i = 0; i < line.length; i++) {
+            // console.log("i : ", i, " line : ", line, " line[i]: ", line[i], " left: ", left, " right: ", right);
+
+            // 構文木の区切り
+            switch (line[i]) {
+                case "=":   // 変数への代入 Variable = B
+                    line = line.slice(++i, line.length);
+                    right = createSyntaxTree(line);
+                    // 変数の登録
+                    variableMap[left] = right;
+                    break;
+                case "@":   // 変数の展開 @Variable@
+                    tempVariableName = getVariableName(line.slice(++i, line.length)); // 変数名取得
+                    tempVariable = expandVariable(tempVariableName); // 変数展開
+                    line = line.replace( tempVariableName + "@" , tempVariable ) ;  //変数展開した分の１文全体の長さ調節
+                    i += tempVariable.length - 1;   // 変数展開した分のポインタの移動
+                    left += tempVariable;
+                    break;
+                case ",":   // 複数パラメータの区切り
+                    break;
+                default:
+                    // 組み込み関数が使われているか
+                    for(func in reservedFunctions){
+                        if (left === func) {
+                            // 関数に渡すパラメータをパースする
+                            line = line.slice(++i, line.length);
+                            right = createSyntaxTree(line);
+                            reservedFunctions[left](right);
+                            break;
+                        }
+                    }
+                    left += line[i];
+                    break;
+            }
+        }
+        return left;
+    }
+
+    /**
+     * 変数名展開
+     * @param  {[type]} line [description]
+     * @return {[type]}      [description]
+     */
+    function getVariableName(line) {
+        var varElement = "";
+        for (var i = 0; i < line.length; i++) {
+            if(line[i] === "@") {
+                return varElement;
+            }
+            varElement += line[i];
+        }
+    }
+
+    /**
+     * 変数展開
+     * @param  {[type]} variableName [description]
+     * @return {[type]}              [description]
+     */
+    function expandVariable(vn) {
+        for (v in variableMap) {
+            if (vn === v) {
+                return variableMap[vn];
+            }
+        }
+    }
+
+    function outputConsole(param) {
+
+    }
+
+})();
+
+
+</script>
+    </body>
+</html>
