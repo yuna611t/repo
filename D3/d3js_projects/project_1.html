@@ -12,15 +12,17 @@ svg { width: 320px; height: 240px; border: 1px solid black; }
     <body>
 
 <h1>データに応じてグラフを表示</h1>
-<h2>HTMLファイルからデータを表示</h2>
+<h2>XMLファイルからデータを表示</h2>
 <svg id="myGraph"></svg>
 
 <script type="text/javascript">
-d3.html("mydata.html", function(error, docFragment){
-    var tr = docFragment.querySelectorAll("table tr");
+d3.xml("mydata.xml", function(error, xmlRoot){
+    var xmlData = xmlRoot.querySelectorAll("data");
+    var salesRoot = xmlData[0];
+    var salesData = salesRoot.querySelectorAll("sales");
     var dataSet = [];
-    for (var i = 1; i < tr.length; i++) {
-        var d = tr[i].querySelectorAll("td")[0].firstChild.nodeValue;
+    for (var i = 0; i < salesData.length; i++) {
+        var d = salesData[i].firstChild.nodeValue;
         dataSet.push(d);
     }
 
