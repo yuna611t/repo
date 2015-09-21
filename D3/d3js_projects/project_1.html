@@ -12,20 +12,14 @@ svg { width: 320px; height: 240px; border: 1px solid black; }
     <body>
 
 <h1>データに応じてグラフを表示</h1>
-<h2>row()メソッド内であらかじめデータ加工をする</h2>
+<h2>Json形式のデータファイルからデータを表示</h2>
 <svg id="myGraph"></svg>
 
 <script type="text/javascript">
-d3.csv("mydata.csv")
-    .row(function(d) {
-        return {
-            item1: d["商品A"] / 2
-        }
-    })
-    .get(function (error, data) {
+d3.json("mydata.json", function(error, data){
     var dataSet = [];
     for (var i = 0; i < data.length; i++) {
-        dataSet.push(data[i].item1);
+        dataSet.push(data[i].sales[0]);
     }
 
     d3.select("#myGraph")
