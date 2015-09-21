@@ -2,80 +2,27 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title></title>
+        <title>SVG</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 <style>
-#myGraph rect {
-    stroke: rgb(160, 0, 0);
-    stroke-width: 1px;
-    fill: rgb(255, 0, 0);
-}
-.axis text {
-    font-family: sans-serif;
-    font-size: 11px;
-}
-.axis path,
-.axis line {
-    fill: none;
-    stroke: black;
-}
+svg { width: 320px; height: 240px; border: 1px solid black; }
+.bar { fill: orange; }
 </style>
     </head>
     <body>
 
-<h1>横棒グラフ</h1>
-<button id="updateButton">データ更新</button>
-<svg id="myGraph"></svg>
+<h1>D3.jsで図形を操作</h1>
+<svg>
+    <rect class="bar" x="0" y="10" width="60" height="25" />
+    <rect class="bar" x="0" y="50" width="100" height="25" />
+    <rect class="bar" x="0" y="90" width="160" height="25" />
+    <rect class="bar" x="0" y="130" width="220" height="25" />
+</svg>
 
 <script type="text/javascript">
-var dataSet = [];
-
-d3.csv("./mydata.csv", function(error, data){
-    for(var i = 0; i < data.length; i++) {
-        dataSet.push(data[i].item);
-    }
-    d3.select("#myGraph")
-        .selectAll("rect")
-        .data(dataSet)
-        .enter()
-        .append("rect")
-        .attr("x", 10)
-        .attr("y", function(d, i){return i * 25;})
-        .on("click", function(){
-            d3.select(this)
-            .style("fill", "cyan");
-        })
-        .attr("height", "20px")
-        .attr("width", "0px")
-        .transition()
-        .delay(function(d, i){return i * 500;})
-        .duration(2500)
-        .attr("width", function(d, i){ d + "px";});
-    var xScale = d3.scale.linear()
-                    .domain([0, 300])
-                    .range([0, 300]);
-    d3.select("#myGraph")
-        .append("g")
-        .attr("class", "axis")
-        .attr("transform", "translate(10, " + ((1 + dataSet.length) * 20 + 5) +  ")")
-        .call(d3.svg.axis()
-                .scale(xScale)
-                .orient("bottom")
-        );
-
-});
-d3.select("#updateButton")
-    .on("click", function(){
-        for(var i = 0; i < dataSet.length; i++) {
-            dataSet[i] = Math.floor(Math.random() * 320);
-        }
-        d3.select("#myGraph")
-            .selectAll("rect")
-            .data(dataSet)
-            .transition()
-            .attr("width", function(d, i) {return d + "px";});
-    });
-
+d3.select(".bar")
+    .style("fill", "red")
+    .style("stroke", "black");
 </script>
     </body>
 </html>
