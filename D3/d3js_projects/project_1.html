@@ -11,20 +11,25 @@ svg { width: 320px; height: 240px; border: 1px solid black; }
     </head>
     <body>
 
-<h1>D3.jsで特定要素の図形を操作</h1>
-<svg>
-    <rect class="bar" x="0" y="10" width="60" height="25" />
-    <rect class="bar" x="0" y="50" width="100" height="25" />
-    <rect class="bar" x="0" y="90" width="160" height="25" />
-    <rect class="bar" x="0" y="130" width="220" height="25" />
-</svg>
+<h1>データに応じてグラフを表示</h1>
+<h2>JavaScriptの配列データを元にグラフ表示</h2>
+<svg id="myGraph"></svg>
 
 <script type="text/javascript">
-d3.selectAll(".bar")
-    .style("fill", function (d, i) {
-        if (i == 2) {
-            return "red";
-        }
+var dataset= [50, 10, 120, 200, 90];
+d3.select("#myGraph")
+    .selectAll("rect")
+    .data(dataset)
+    .enter()
+    .append("rect")
+    .attr("class", "bar")
+    .attr("width", function (d, i) {
+        return d;
+    })
+    .attr("height", 20)
+    .attr("x", 0)
+    .attr("y", function (d, i) {
+        return i * 25;
     });
 </script>
     </body>
