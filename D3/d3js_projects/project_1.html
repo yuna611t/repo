@@ -12,11 +12,19 @@ svg { width: 320px; height: 240px; border: 1px solid black; }
     <body>
 
 <h1>データに応じてグラフを表示</h1>
-<h2>CSVデータを元にグラフ表示</h2>
+<h2>CSVデータを元にグラフ表示(ラベル変更にデータ処理部分を柔軟にする)</h2>
 <svg id="myGraph"></svg>
 
 <script type="text/javascript">
-d3.csv("mydata.csv", function (error, data) {
+d3.csv("mydata.csv")
+    .row(function(d) {
+        return {
+            item1: d["商品A"],
+            item2: d["商品B"],
+            item3: d["商品C"]
+        }
+    })
+    .get(function (error, data) {
     var dataSet = [];
     for (var i = 0; i < data.length; i++) {
         dataSet.push(data[i].item1);
