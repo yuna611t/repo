@@ -12,26 +12,32 @@ svg { width: 320px; height: 240px; border: 1px solid black; }
     <body>
 
 <h1>データに応じてグラフを表示</h1>
-<h2>JavaScriptの配列データを元にグラフ表示</h2>
+<h2>CSVデータを元にグラフ表示</h2>
 <svg id="myGraph"></svg>
 
 <script type="text/javascript">
+d3.csv("mydata.csv", function (error, data) {
+    var dataSet = [];
+    for (var i = 0; i < data.length; i++) {
+        dataSet.push(data[i].item1);
+    }
 
-var dataset= [50, 10, 120, 200, 90];
-d3.select("#myGraph")
-    .selectAll("rect")
-    .data(dataset)
-    .enter()
-    .append("rect")
-    .attr("class", "bar")
-    .attr("width", function (d, i) {
-        return d;
-    })
-    .attr("height", 20)
-    .attr("x", 0)
-    .attr("y", function (d, i) {
-        return i * 25;
-    });
+    d3.select("#myGraph")
+        .selectAll("rect")
+        .data(dataSet)
+        .enter()
+        .append("rect")
+        .attr("class", "bar")
+        .attr("width", function (d, i) {
+            return d;
+        })
+        .attr("height", 20)
+        .attr("x", 0)
+        .attr("y", function (d, i) {
+            return i * 25;
+        });
+
+});
 </script>
     </body>
 </html>
