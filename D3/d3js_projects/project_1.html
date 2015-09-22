@@ -7,11 +7,15 @@
 <style>
 svg { width: 320px; height: 240px; border: 1px solid black; }
 .bar { fill: orange; }
+.barNum {
+    font-size: 9px;
+    text-anchor: middle;
+}
 </style>
     </head>
     <body>
 
-<h1>縦棒グラフを表示</h1>
+<h1>縦棒グラフに値を表示</h1>
 <svg id="myGraph"></svg>
 
 <script type="text/javascript">
@@ -24,6 +28,7 @@ barElements = d3.select("#myGraph")
     .selectAll("rect")
     .data(dataSet);
 // データの追加
+// 縦棒グラフの表示
 barElements.enter()
     .append("rect")
     .attr("class", "bar")
@@ -37,7 +42,17 @@ barElements.enter()
     .attr("y", function (d, i) {
         return svgHeight - d;
     });
-
+// テキストを表示
+barElements.enter()
+    .append("text")
+    .attr("class", "barNum")
+    .attr("x", function (d, i) {
+        return i * 25 + 10;
+    })
+    .attr("y", svgHeight - 5)
+    .text(function (d, i) {
+        return d;
+    });
 </script>
     </body>
 </html>
