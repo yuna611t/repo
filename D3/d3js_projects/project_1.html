@@ -113,8 +113,8 @@ function drawScale () {
                 .orient("left")
         )
     // 横の目盛りを表示するためにD3スケールを設定
-    var xScale = d3.scale.linear()
-        .domain([2004, 2008])
+    var xScale = d3.time.scale()
+        .domain([new Date("2004/1/1"), new Date("2008/1/1")])
         .range([0, svgWidth])
     // 横方向の軸を表示
     d3.select("#myGraph")
@@ -127,6 +127,10 @@ function drawScale () {
                 .scale(xScale)
                 .orient("bottom")
                 .ticks(5)
+                .tickFormat(function (d, i) {
+                    var fmtFunc = d3.time.format("%Y年%m月");
+                    return fmtFunc(d);
+                })
         )
 }
 
