@@ -38,12 +38,16 @@ svg { width: 320px; height: 240px; border: 1px solid black; }
 <svg id="myGraph"></svg>
 
 <script type="text/javascript">
-var svgHeight = 240, //グラフ描画範囲
+var svgWidth = 320,  // SVG要素の横幅
+    svgHeight = 240, // SVG要素の縦幅
     offsetX = 30,    // X座標オフセット
     offsetY = 20,    // Y座標オフセット
-    barElements,     // 棒グラフバー
-    yScale,          // 縦メモリ
-    dataSet = [120, 70, 175, 80, 220];
+    barElements,     // 棒グラフバーの要素
+    dataMax = 300,   // データの最大値
+    barWidth = 20,   // バーの横幅
+    barMargin = 5,   // バーの間隔
+    yScale,          // メモリのスケール
+    dataSet = [120, 70, 175, 80, 220, 40, 180, 70, 90];
 
 // グラフを描画
 barElements = d3.select("#myGraph")
@@ -57,9 +61,9 @@ barElements.enter()
     .attr("height", function (d, i) {
         return d;
     })
-    .attr("width", 20)
+    .attr("width", barWidth)
     .attr("x", function (d, i) {
-        return i * 25 + offsetX;
+        return i * (barWidth + barMargin) + offsetX;
     })
     .attr("y", function (d, i) {
         return svgHeight - d - offsetY;
@@ -69,7 +73,7 @@ barElements.enter()
     .append("text")
     .attr("class", "barNum")
     .attr("x", function (d, i) {
-        return i * 25 + 10 + offsetX;
+        return i * (barWidth + barMargin) + 10 + offsetX;
     })
     .attr("y", svgHeight - 5 -offsetY)
     .text(function (d, i) {
@@ -77,8 +81,8 @@ barElements.enter()
     })
 // 縦方向のメモリを設定
 yScale = d3.scale.linear()
-    .domain([0, 300]) // データ範囲
-    .range([300, 0])  // 画面描画サイズ
+    .domain([0, dataMax]) // データ範囲
+    .range([dataMax, 0])  // 画面描画サイズ
 // 縦方向のラベルを表示
 d3.select("#myGraph").append("g")
     .attr("class", "axis")
@@ -104,7 +108,7 @@ barElements.enter()
     })
     .attr("y", svgHeight - offsetY + 15)
     .text(function (d, i) {
-        return ["A", "B", "C", "D", "E"][i];
+        return ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"][i];
     })
 </script>
     </body>
