@@ -45,18 +45,19 @@ var dataSet2 = [90, 77, 55, 48, 64, 90, 85, 42, 13, 40];
 var dataSet3 = [50, 27, 45, 58, 84, 79, 45, 22, 30, 90];
 var margin = svgWidth/(dataSet1.length - 1);
 // 各折れ線グラフを表示
-drawGraph(dataSet1, "itemA");
-drawGraph(dataSet2, "itemB");
-drawGraph(dataSet3, "itemC");
+drawGraph(dataSet1, "itemA", "linear"); // 直線
+drawGraph(dataSet2, "itemB", "basis");  // 曲線
+drawGraph(dataSet3, "itemC", "step");   // 階段状
 // 目盛りを表示
 drawScale();
 
 /**
  * 折れ線グラフを表示する
- * @param  {Array} dataSet      データセット
+ * @param  {Array} dataSet       データセット
  * @param  {string} cssClassName 適用するCSSスタイル
+ * @param  {string} type         折れ線グラフのタイプ
  */
-function drawGraph (dataSet, cssClassName) {
+function drawGraph (dataSet, cssClassName, type) {
     // 折れ線グラフの座標値を計算するメソッド
     var line = d3.svg.line()
         .x(function (d, i) {
@@ -65,6 +66,7 @@ function drawGraph (dataSet, cssClassName) {
         .y(function (d, i) {
             return svgHeight - (d * scale)  -offSetY;
         })
+        .interpolate(type)
     // 折れ線グラフの描画
     var lineElements = d3.select("#myGraph")
         .append("path")
