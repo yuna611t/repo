@@ -20,9 +20,9 @@ svg { width: 320px; height: 240px; border: 1px solid black; }
     fill: none;
     stroke: black;
 }
-.itemA { stroke: #000; fill: #000; opacity: 0.5; }
-.itemB { stroke: #666; fill: #666; opacity: 0.5; }
-.itemC { stroke: #ccc; fill: #ccc; opacity: 0.5; }
+.itemA { stroke: #000; fill: }
+.itemB { stroke: #666; fill: }
+.itemC { stroke: #ccc; fill: }
 </style>
     </head>
     <body>
@@ -40,14 +40,34 @@ var offSetY = 20;
 // グラフ情報
 var scale = 2.0;
 // データセット
-var dataSet1 = [10, 47, 65, 8, 64, 99, 75, 22, 63, 90];
-var dataSet2 = [90, 77, 55, 48, 64, 90, 85, 42, 13, 40];
-var dataSet3 = [50, 27, 45, 58, 84, 79, 45, 22, 30, 90];
-var margin = svgWidth/(dataSet1.length - 1);
+var dataSet = [
+    [
+        { year: 2004, value: 10 },
+        { year: 2005, value: 47 },
+        { year: 2006, value: 65 },
+        { year: 2007, value: 8 },
+        { year: 2008, value: 64 }
+    ],
+    [
+        { year: 2004, value: 90 },
+        { year: 2005, value: 77 },
+        { year: 2006, value: 55 },
+        { year: 2007, value: 48 },
+        { year: 2008, value: 64 }
+    ],
+    [
+        { year: 2004, value: 50 },
+        { year: 2005, value: 27 },
+        { year: 2006, value: 45 },
+        { year: 2007, value: 58 },
+        { year: 2008, value: 84 }
+    ]
+];
+var margin = svgWidth/(dataSet[0].length - 1);
 // 各折れ線グラフを表示
-drawGraph(dataSet1, "itemA", "linear"); // 直線
-drawGraph(dataSet2, "itemB", "basis");  // 曲線
-drawGraph(dataSet3, "itemC", "step");   // 階段状
+drawGraph(dataSet[0], "itemA", "linear"); // 直線
+drawGraph(dataSet[1], "itemB", "linear");
+drawGraph(dataSet[2], "itemC", "linear");   
 // 目盛りを表示
 drawScale();
 
@@ -59,15 +79,12 @@ drawScale();
  */
 function drawGraph (dataSet, cssClassName, type) {
     // 折れ線グラフの座標値を計算するメソッド
-    var line = d3.svg.area()
+    var line = d3.svg.line()
         .x(function (d, i) {
             return i * margin + offSetX;
         })
-        .y0(function (d, i) {
-            return svgHeight - offSetY;
-        })
-        .y1(function (d, i) {
-            return svgHeight - (d * scale)  -offSetY;
+        .y(function (d, i) {
+            return svgHeight - (d.value * scale)  - offSetY;
         })
         .interpolate(type)
     // 折れ線グラフの描画
