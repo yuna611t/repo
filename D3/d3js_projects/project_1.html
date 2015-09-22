@@ -8,7 +8,7 @@
 svg { width: 320px; height: 240px; border: 1px solid black; }
 .bar { fill: orange; }
 .barNum {
-    font-size: 9px;
+    font-size: 9pt;
     text-anchor: end;
     writing-mode: tb; /* can not use firefox */
     glyph-orientation-vertical: 0;
@@ -22,6 +22,14 @@ svg { width: 320px; height: 240px; border: 1px solid black; }
     fill: none;
     stroke: black;
 }
+.axis_x line {
+    fill: none;
+    stroke: black;
+}
+.barName {
+    font-size: 9pt;
+    text-anchor: midde;
+}
 </style>
     </head>
     <body>
@@ -32,7 +40,7 @@ svg { width: 320px; height: 240px; border: 1px solid black; }
 <script type="text/javascript">
 var svgHeight = 240, //グラフ描画範囲
     offsetX = 30,    // X座標オフセット
-    offsetY = 10,    // Y座標オフセット
+    offsetY = 20,    // Y座標オフセット
     barElements,     // 棒グラフバー
     yScale,          // 縦メモリ
     dataSet = [120, 70, 175, 80, 220];
@@ -67,11 +75,11 @@ barElements.enter()
     .text(function (d, i) {
         return d;
     })
-// メモリを表示するためにスケールを設定
+// 縦方向のメモリを設定
 yScale = d3.scale.linear()
     .domain([0, 300]) // データ範囲
     .range([300, 0])  // 画面描画サイズ
-// メモリを設定し表示
+// 縦方向のラベルを表示
 d3.select("#myGraph").append("g")
     .attr("class", "axis")
     .attr("transform", "translate(" + offsetX + ", " + ((svgHeight - 300) - offsetY) + ")")
@@ -80,6 +88,24 @@ d3.select("#myGraph").append("g")
             .scale(yScale)
             .orient("left")
     )
+// 縦方向の線を表示する
+d3.select("#myGraph")
+    .append("rect")
+    .attr("class", "axis_x")
+    .attr("width", 320)
+    .attr("height", 1)
+    .attr("transform", "translate(" + offsetX + ", " + (svgHeight - offsetY) + ")")
+// 横のラベルを表示する
+barElements.enter()
+    .append("text")
+    .attr("class", "barName")
+    .attr("x", function (d, i) {
+        return i * 25 + 10 + offsetX;
+    })
+    .attr("y", svgHeight - offsetY + 15)
+    .text(function (d, i) {
+        return ["A", "B", "C", "D", "E"][i];
+    })
 </script>
     </body>
 </html>
