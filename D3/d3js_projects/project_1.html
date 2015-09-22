@@ -11,7 +11,7 @@ svg { width: 320px; height: 240px; border: 1px solid black; }
     </head>
     <body>
 
-<h1>データに応じてグラフ表示</h1>
+<h1>データに応じてグラフ表示(データ数が異なる場合)</h1>
 <div>
     <button data-src="mydata1.csv">mydata1.csvを読み込み</button>
     <button data-src="mydata2.csv">mydata2.csvを読み込み</button>
@@ -27,14 +27,13 @@ d3.selectAll("button").on("click", function () {
         for (var i = 0; i < data.length; i++) {
             dataSet.push(data[i]["商品A"]);
         }
-        // データセットを束縛
-        d3.select("#myGraph")
+        // グラフを描画
+        var barElements = d3.select("#myGraph")
             .selectAll("rect")
-            .data(dataSet)
-            .enter()
-            .append("rect");
-        // 要素の更新
-        d3.selectAll("rect")
+            .data(dataSet);
+        // データの追加を行う場合
+        barElements.enter()
+            .append("rect")
             .attr("class", "bar")
             .attr("width", function (d, i) {
                 return d;
@@ -44,6 +43,15 @@ d3.selectAll("button").on("click", function () {
             .attr("y", function (d, i) {
                 return i * 25;
             });
+        // データの更新が行われる場合
+        barElements
+            .attr("width", function (d, i) {
+                return d;
+            });
+        // 不要な要素の削除
+        barElements
+            .exit()
+            .remove();
     });
 });
 
