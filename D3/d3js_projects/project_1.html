@@ -34,7 +34,7 @@ svg { width: 320px; height: 240px; border: 1px solid black; }
     </head>
     <body>
 
-<h1>アニメーション付き縦棒グラフ</h1>
+<h1>イベント付き縦棒グラフ</h1>
 <svg id="myGraph"></svg>
 
 <script type="text/javascript">
@@ -64,6 +64,11 @@ barElements.enter()
         return i * (barWidth + barMargin) + offsetX;
     })
     .attr("y", svgHeight - offsetY) // グラフの一番下に座業を設定
+    // イベント処理
+    .on("mouseover", function () {
+        d3.select(this)
+            .style("fill", "gray")
+    })
     // アニメーション処理
     .transition()
     .duration(1000)
