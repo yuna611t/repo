@@ -67,7 +67,7 @@ var margin = svgWidth/(dataSet[0].length - 1);
 // 各折れ線グラフを表示
 drawGraph(dataSet[0], "itemA", "linear"); // 直線
 drawGraph(dataSet[1], "itemB", "linear");
-drawGraph(dataSet[2], "itemC", "linear");   
+drawGraph(dataSet[2], "itemC", "linear");
 // 目盛りを表示
 drawScale();
 
@@ -112,13 +112,22 @@ function drawScale () {
                 .scale(yScale)
                 .orient("left")
         )
+    // 横の目盛りを表示するためにD3スケールを設定
+    var xScale = d3.scale.linear()
+        .domain([2004, 2008])
+        .range([0, svgWidth])
     // 横方向の軸を表示
     d3.select("#myGraph")
-        .append("rect")
-        .attr("class", "axis_x")
+        .append("g")
+        .attr("class", "axis")
         .attr("width", svgWidth)
-        .attr("height", 1)
-        .attr("transform", "translate("+ offSetX + ", " + (svgHeight - offSetY - 0.5) +")")
+        .attr("transform", "translate("+ offSetX + ", " + (svgHeight - offSetY) +")")
+        .call(
+            d3.svg.axis()
+                .scale(xScale)
+                .orient("bottom")
+                .ticks(5)
+        )
 }
 
 
