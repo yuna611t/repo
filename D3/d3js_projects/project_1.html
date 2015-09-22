@@ -11,49 +11,32 @@ svg { width: 320px; height: 240px; border: 1px solid black; }
     </head>
     <body>
 
-<h1>データに応じてグラフ表示(データ数が異なる場合)</h1>
-<div>
-    <button data-src="mydata1.csv">mydata1.csvを読み込み</button>
-    <button data-src="mydata2.csv">mydata2.csvを読み込み</button>
-    <button data-src="mydata3.csv">mydata3.csvを読み込み</button>
-</div>
+<h1>縦棒グラフを表示</h1>
 <svg id="myGraph"></svg>
 
 <script type="text/javascript">
-d3.selectAll("button").on("click", function () {
-    var csvFile = this.getAttribute("data-src");
-    d3.csv(csvFile, function (error, data) {
-        var dataSet = [];
-        for (var i = 0; i < data.length; i++) {
-            dataSet.push(data[i]["商品A"]);
-        }
-        // グラフを描画
-        var barElements = d3.select("#myGraph")
-            .selectAll("rect")
-            .data(dataSet);
-        // データの追加を行う場合
-        barElements.enter()
-            .append("rect")
-            .attr("class", "bar")
-            .attr("width", function (d, i) {
-                return d;
-            })
-            .attr("height", 20)
-            .attr("x", 0)
-            .attr("y", function (d, i) {
-                return i * 25;
-            });
-        // データの更新が行われる場合
-        barElements
-            .attr("width", function (d, i) {
-                return d;
-            });
-        // 不要な要素の削除
-        barElements
-            .exit()
-            .remove();
+var svgHeight = 240,
+    barElements,
+    dataSet = [120, 70, 175, 80, 220];
+
+// グラフを描画
+barElements = d3.select("#myGraph")
+    .selectAll("rect")
+    .data(dataSet);
+// データの追加
+barElements.enter()
+    .append("rect")
+    .attr("class", "bar")
+    .attr("height", function (d, i) {
+        return d;
+    })
+    .attr("width", 20)
+    .attr("x", function (d, i) {
+        return i * 25;
+    })
+    .attr("y", function (d, i) {
+        return svgHeight - d;
     });
-});
 
 </script>
     </body>
