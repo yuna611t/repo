@@ -11,24 +11,41 @@ svg { width: 320px; height: 240px; border: 1px solid black; }
     </head>
     <body>
 
-<h1>要素にデータを設定</h1>
+<h1>データに応じてグラフ表示</h1>
+<div>
+    <button data-src="mydata1.csv">mydata1.csvを読み込み</button>
+    <button data-src="mydata2.csv">mydata2.csvを読み込み</button>
+    <button data-src="mydata3.csv">mydata3.csvを読み込み</button>
+</div>
 <svg id="myGraph"></svg>
 
 <script type="text/javascript">
-d3.select("#myGraph")
-    .selectAll("rect")
-    .data(["S", "B", "C", "r"])
-    .enter()
-    .append("rect")
-    .datum(function(d, i) {
-        console.log(i + " = " +d);
-        return d;
+d3.selectAll("button").on("click", function () {
+    var csvFile = this.getAttribute("data-src");
+    d3.csv(csvFile, function (error, data) {
+        var dataSet = [];
+        for (var i = 0; i < data.length; i++) {
+            dataSet.push(data[i]["商品A"]);
+        }
+        // データセットを束縛
+        d3.select("#myGraph")
+            .selectAll("rect")
+            .data(dataSet)
+            .enter()
+            .append("rect");
+        // 要素の更新
+        d3.selectAll("rect")
+            .attr("class", "bar")
+            .attr("width", function (d, i) {
+                return d;
+            })
+            .attr("height", 20)
+            .attr("x", 0)
+            .attr("y", function (d, i) {
+                return i * 25;
+            });
     });
-var dom_rect = document.querySelectorAll("rect");
-for (var i = 0; i < dom_rect.length; i++) {
-    console.log(dom_rect[i].__data__);
-}
-
+});
 
 </script>
     </body>
