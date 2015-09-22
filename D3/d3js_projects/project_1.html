@@ -20,6 +20,9 @@ svg { width: 320px; height: 240px; border: 1px solid black; }
     fill: none;
     stroke: black;
 }
+.itemA { stroke: #000; }
+.itemB { stroke: #666; }
+.itemC { stroke: #ccc; }
 </style>
     </head>
     <body>
@@ -36,42 +39,67 @@ var offSetX = 30;
 var offSetY = 20;
 // グラフ情報
 var scale = 2.0;
-var dataSet = [10, 47, 65, 8, 64, 99, 75, 22, 63, 90];
-var margin = svgWidth/(dataSet.length - 1);
-// 折れ線グラフの座標値を計算するメソッド
-var line = d3.svg.line()
-    .x(function (d, i) {
-        return i * margin + offSetX;
-    })
-    .y(function (d, i) {
-        return svgHeight - (d * scale)  -offSetY;
-    })
-// 折れ線グラフの描画
-var lineElements = d3.select("#myGraph")
-    .append("path")
-    .attr("class", "line")
-    .attr("d", line(dataSet))
-// 目盛りを表示するためにスケールを設定
-var yScale = d3.scale.linear()
-    .domain([10, 100])
-    .range([scale * 100, 0])
+// データセット
+var dataSet1 = [10, 47, 65, 8, 64, 99, 75, 22, 63, 90];
+var dataSet2 = [90, 77, 55, 48, 64, 90, 85, 42, 13, 40];
+var dataSet3 = [50, 27, 45, 58, 84, 79, 45, 22, 30, 90];
+var margin = svgWidth/(dataSet1.length - 1);
+// 各折れ線グラフを表示
+drawGraph(dataSet1, "itemA");
+drawGraph(dataSet2, "itemB");
+drawGraph(dataSet3, "itemC");
 // 目盛りを表示
-d3.select("#myGraph")
-    .append("g")
-    .attr("class", "axis")
-    .attr("transform", "translate("+ offSetX + ", " + offSetY +")")
-    .call(
-        d3.svg.axis()
-            .scale(yScale)
-            .orient("left")
-    )
-// 横方向の軸を表示
-d3.select("#myGraph")
-    .append("rect")
-    .attr("class", "axis_x")
-    .attr("width", svgWidth)
-    .attr("height", 1)
-    .attr("transform", "translate("+ offSetX + ", " + (svgHeight - offSetY - 0.5) +")")
+drawScale();
+
+/**
+ * 折れ線グラフを表示する
+ * @param  {Array} dataSet      データセット
+ * @param  {string} cssClassName 適用するCSSスタイル
+ */
+function drawGraph (dataSet, cssClassName) {
+    // 折れ線グラフの座標値を計算するメソッド
+    var line = d3.svg.line()
+        .x(function (d, i) {
+            return i * margin + offSetX;
+        })
+        .y(function (d, i) {
+            return svgHeight - (d * scale)  -offSetY;
+        })
+    // 折れ線グラフの描画
+    var lineElements = d3.select("#myGraph")
+        .append("path")
+        .attr("class", "line " + cssClassName )
+        .attr("d", line(dataSet))
+}
+
+/**
+ * 目盛りを表示する
+ */
+function drawScale () {
+    // 目盛りを表示するためにスケールを設定
+    var yScale = d3.scale.linear()
+        .domain([10, 100])
+        .range([scale * 100, 0])
+    // 目盛りを表示
+    d3.select("#myGraph")
+        .append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate("+ offSetX + ", " + offSetY +")")
+        .call(
+            d3.svg.axis()
+                .scale(yScale)
+                .orient("left")
+        )
+    // 横方向の軸を表示
+    d3.select("#myGraph")
+        .append("rect")
+        .attr("class", "axis_x")
+        .attr("width", svgWidth)
+        .attr("height", 1)
+        .attr("transform", "translate("+ offSetX + ", " + (svgHeight - offSetY - 0.5) +")")
+}
+
+
 
 </script>
     </body>
