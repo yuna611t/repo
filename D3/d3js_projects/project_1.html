@@ -6,12 +6,12 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 <style>
 svg { width: 320px; height: 240px; border: 1px solid black; }
-.pie { fill: orange; stroke: black;}
+.pie { fill: white; stroke: white;}
 </style>
     </head>
     <body>
 
-<h1>円グラフを色分けして表示</h1>
+<h1>円グラフをアニメーション表示</h1>
 <svg id="myGraph"></svg>
 
 <script type="text/javascript">
@@ -20,6 +20,7 @@ var svgWidth = 320;   // SVG要素の横幅
 var svgHeight = 240;  // SVG要素の高さ
 // データセット
 var dataSet = [50, 30, 12, 5, 3];
+var color = d3.scale.category10();
 // 円グラフの座業を計算するメソッド
 var pie = d3.layout.pie()
 var arc = d3.svg.arc()
@@ -35,8 +36,23 @@ pieElements.enter()
     .attr("class", "pie")
     .attr("d", arc)
     .attr("transform", "translate(" + svgWidth/2 + ", " + svgHeight/2 + ")") // 円グラフを中心にする
+    .transition()
+    .duration(1000)
+    .delay(function (d, i) {
+        return i * 1000;
+    })
+    .ease("linear") // 直線的な動きに変更する
     .style("fill", function (d, i) {
-        return ["red", "orange", "yellow", "cyan", "#3f3"][i];
+        return color(i);
+    })
+    .attrTween("d", function (d, i) {
+        var interpolate = d3.interpolate(
+            { startAngle: d.startAngle, endAngle: d.startAngle }, // 各部分の開始角度
+            { startAngle: d.startAngle, endAngle: d.endAngle }    // 各部分の終了角度
+        );
+        return function (t) {
+            return arc(interpolate(t));
+        }
     })
 
 </script>
