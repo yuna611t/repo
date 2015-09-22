@@ -34,7 +34,7 @@ svg { width: 320px; height: 240px; border: 1px solid black; }
     </head>
     <body>
 
-<h1>縦棒グラフにメモリを表示</h1>
+<h1>アニメーション付き縦棒グラフ</h1>
 <svg id="myGraph"></svg>
 
 <script type="text/javascript">
@@ -58,15 +58,23 @@ barElements = d3.select("#myGraph")
 barElements.enter()
     .append("rect")
     .attr("class", "bar")
-    .attr("height", function (d, i) {
-        return d;
-    })
+    .attr("height", 0)  // 縦棒グラフの初期値を0に設定
     .attr("width", barWidth)
     .attr("x", function (d, i) {
         return i * (barWidth + barMargin) + offsetX;
     })
+    .attr("y", svgHeight - offsetY) // グラフの一番下に座業を設定
+    // アニメーション処理
+    .transition()
+    .duration(1000)
+    .delay(function (d, i) {
+        return i * 100; // 0.1秒ごとにアニメーション処理
+    })
     .attr("y", function (d, i) {
         return svgHeight - d - offsetY;
+    })
+    .attr("height", function (d, i) {
+        return d;
     })
 // テキストを表示
 barElements.enter()
