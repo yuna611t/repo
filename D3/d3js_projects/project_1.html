@@ -11,13 +11,13 @@ svg { width: 320px; height: 240px; border: 1px solid black; }
     </head>
     <body>
 
-<h1>円グラフを表示</h1>
+<h1>円グラフを色分けして表示</h1>
 <svg id="myGraph"></svg>
 
 <script type="text/javascript">
 // SVG要素
-var svgWidth = 320;
-var svgHeight = 240;
+var svgWidth = 320;   // SVG要素の横幅
+var svgHeight = 240;  // SVG要素の高さ
 // データセット
 var dataSet = [50, 30, 12, 5, 3];
 // 円グラフの座業を計算するメソッド
@@ -35,6 +35,9 @@ pieElements.enter()
     .attr("class", "pie")
     .attr("d", arc)
     .attr("transform", "translate(" + svgWidth/2 + ", " + svgHeight/2 + ")") // 円グラフを中心にする
+    .style("fill", function (d, i) {
+        return ["red", "orange", "yellow", "cyan", "#3f3"][i];
+    })
 
 </script>
     </body>
