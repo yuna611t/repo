@@ -5,7 +5,7 @@
         <title>SVG</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 <style>
-svg { width: 320px; height: 240px; border: 1px solid black; }
+svg { width: 320px; height: 300px; border: 1px solid black; }
 .line { fill: none; stroke: black; }
 .axis text {
     font-family: sans-serif;
@@ -126,12 +126,17 @@ function drawScale () {
             d3.svg.axis()
                 .scale(xScale)
                 .orient("bottom")
-                .ticks(5)
+                .ticks(10)
                 .tickFormat(function (d, i) {
                     var fmtFunc = d3.time.format("%Y年%m月");
                     return fmtFunc(d);
                 })
         )
+        .selectAll("text")
+        .attr("transform", "rotate(90)")
+        .attr("dx", "0.7em")
+        .attr("dy","-0.4em")
+        .style("text-anchor", "start")
 }
 
 
