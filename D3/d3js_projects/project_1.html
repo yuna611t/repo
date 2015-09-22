@@ -6,74 +6,96 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 <style>
 svg { width: 320px; height: 240px; border: 1px solid black; }
-.pie { fill: white; stroke: white;}
+.pie { fill: orange; stroke: white;}
 .total { font-size: 9pt; text-anchor: middle; }
-.pieNum { font-size: 10pt; text-anchor: middle; }
+.pieNum { font-size: 15pt; color: white; text-anchor: middle; }
 </style>
     </head>
     <body>
 
-<h1>円グラフに数値を表示</h1>
+<h1>携帯電話のシェアを表示</h1>
 <svg id="myGraph"></svg>
 
-<script type="text/javascript">
-// SVG要素
-var svgWidth = 320;   // SVG要素の横幅
-var svgHeight = 240;  // SVG要素の高さ
-// データセット
-var dataSet = [50, 30, 12, 5, 3];
-var color = d3.scale.category10();
-// 円グラフの座業を計算するメソッド
-var pie = d3.layout.pie()
-            .value(function (d, i) { return d; }) // データセットを返す
-var arc = d3.svg.arc()
-            .innerRadius(30)    // 内径
-            .outerRadius(100)  // 半径(外径)
-// 円グラフを描画
-var pieElements = d3.select("#myGraph")
-                    .selectAll("g")
-                    .data(pie(dataSet))
-                    .enter()
-                    .append("g")
-                    .attr("transform", "translate("+ svgWidth/2 + ", " + svgHeight/2 +")")
-// データの追加
-pieElements
-    .append("path")
-    .attr("class", "pie")
-    .style("fill", function (d, i) {
-        return color(i);
-    })
-    .transition()
-    .duration(200)
-    .delay(function (d, i) {
-        return i * 200;
-    })
-    .ease("linear") // 直線的な動きに変更する
-    .attrTween("d", function (d, i) {
-        var interpolate = d3.interpolate(
-            { startAngle: d.startAngle, endAngle: d.startAngle }, // 各部分の開始角度
-            { startAngle: d.startAngle, endAngle: d.endAngle }    // 各部分の終了角度
-        );
-        return function (t) {
-            return arc(interpolate(t));
-        }
-    })
-// 合計の数と文字の表示
-var textElements = d3.select("#myGraph")
-    .append("text")
-    .attr("class", "total")
-    .attr("transform", "translate("+ svgWidth/2 + ", "+ (svgHeight/2 + 5) +")")
-    .text("合計:" + d3.sum(dataSet))
-// 数値を円弧の中に表示
-pieElements.append("text")
-    .attr("class", "piNum")
-    .attr("transform", function (d, i) {
-        return "translate("+ arc.centroid(d) +")";
-    })
-    .text(function (d, i) {
-        return d.value;
-    })
+<form>
+    <select id="year">
+        <option value="2008">2008年</option>
+        <option value="2009">2009年</option>
+        <option value="2010">2010年</option>
+        <option value="2011">2011年</option>
+    </select>
+</form>
 
+<script type="text/javascript">
+// 初期表示は2008年データ
+drawPie("mydata2008.csv");
+// セレクトメニューが選択された場合の処理
+d3.select("#year").on("change", function() {
+    d3.select("#myGraph").selectAll("*").remove();  // SVG内の要素全てを削除
+    drawPie("mydata" + this.value + ".csv", this.value);
+});
+function drawPie (filename, year) {
+    d3.csv(filename, function (error, data) {
+        var dataSet = [];
+        for (var i in data[0]) {
+            dataSet.push(data[0][i]);
+        }
+        // SVG要素の幅と高さを求める
+        var svgEle = document.getElementById("myGraph");
+        var svgWidth = window.getComputedStyle(svgEle, null).getPropertyValue("width");
+        var svgHeight = window.getComputedStyle(svgEle, null).getPropertyValue("height");
+        svgWidth = parseFloat(svgWidth);    // 単位を削除
+        svgHeight = parseFloat(svgHeight);  // 単位を削除
+        // 円グラフの座標値を計算するメソッド
+        var pie = d3.layout.pie()   // 円グラフレイアウト
+        // 円グラフの外径・内径を設定
+        var arc = d3.svg.arc().innerRadius(30).outerRadius(100)
+        // 円グラフを描画
+        var pieElements = d3.select("#myGraph")
+            .selectAll("g")
+            .data(pie(dataSet))
+            .enter()
+            .append("g")
+            .attr("transform", "translate("+ svgWidth/2 + ", "+ svgHeight/2 +")")
+        // データの追加
+        pieElements
+            .append("path")
+            .attr("class", "pie")
+            .style("fill", function (d, i) {
+                return ["#ff3344", "#ff7328", "#d3d4d5", "#dfd"][i];
+            })
+            .transition()
+            .duration(200)
+            .delay(function (d, i) {
+                return i * 200;
+            })
+            .ease("linear")
+            .attrTween("d", function (d, i) {
+                var interpolate = d3.interpolate(
+                    { startAngle: d.startAngle, endAngle: d.startAngle },
+                    { startAngle: d.startAngle, endAngle: d.endAngle }
+                );
+                return function (t) {
+                    return arc(interpolate(t));
+                }
+            })
+        // 合計の数と文字の表示
+        var textElements = d3.select("#myGraph")
+            .append("text")
+            .attr("class", "total")
+            .attr("transform", "translate("+ svgWidth/2 + ", "+ (svgHeight/2 + 5) +")")
+            .text("携帯シェア")
+        // 数値を円弧の中に表示
+        pieElements
+            .append("text")
+            .attr("class", "piNum")
+            .attr("transform", function (d, i) {
+                return "translate("+ arc.centroid(d) +")";
+            })
+            .text(function (d, i) {
+                return d.value;
+            })
+    })
+}
 </script>
     </body>
 </html>
