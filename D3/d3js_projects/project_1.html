@@ -34,95 +34,109 @@ svg { width: 320px; height: 240px; border: 1px solid black; }
     </head>
     <body>
 
-<h1>イベント付き縦棒グラフ</h1>
+<h1>CSVファイルを読み込んで縦棒グラフを表示</h1>
 <svg id="myGraph"></svg>
 
 <script type="text/javascript">
-var svgWidth = 320,  // SVG要素の横幅
-    svgHeight = 240, // SVG要素の縦幅
-    offsetX = 30,    // X座標オフセット
-    offsetY = 20,    // Y座標オフセット
-    barElements,     // 棒グラフバーの要素
-    dataMax = 300,   // データの最大値
-    barWidth = 20,   // バーの横幅
-    barMargin = 5,   // バーの間隔
-    yScale,          // メモリのスケール
-    dataSet = [120, 70, 175, 80, 220, 40, 180, 70, 90];
+d3.csv("mydata.csv", function (error, data) {
+    var dataSet = [],
+        labelName = [];
+    for (var i in data[0]) {
+        dataSet.push(data[0][i]); // データ格納
+        labelName.push(i);        // ラベルを格納
+    }
+    // SVG要素の幅と高さを求める
+    var svgEle = document.getElementById("myGraph");
+    var svgWidth = window.getComputedStyle(svgEle, null).getPropertyValue("width");
+    var svgHeight = window.getComputedStyle(svgEle, null).getPropertyValue("height");
+    svgWidth = parseFloat(svgWidth);
+    svgHeight = parseFloat(svgHeight);
+    // グラフで使用する変数
+    var offsetX = 30;    // X座標オフセット
+    var offsetY = 20;    // Y座標オフセット
+    var barElements;     // 棒グラフバーの要素
+    var dataMax = 300;   // データの最大値
+    var barWidth = 20;   // バーの横幅
+    var barMargin = 5;   // バーの間隔
+    // メモリで使用する変数
+    var yScale;          // メモリのスケール
 
-// グラフを描画
-barElements = d3.select("#myGraph")
-    .selectAll("rect")
-    .data(dataSet)
-// データの追加
-// 縦棒グラフの表示
-barElements.enter()
-    .append("rect")
-    .attr("class", "bar")
-    .attr("height", 0)  // 縦棒グラフの初期値を0に設定
-    .attr("width", barWidth)
-    .attr("x", function (d, i) {
-        return i * (barWidth + barMargin) + offsetX;
-    })
-    .attr("y", svgHeight - offsetY) // グラフの一番下に座業を設定
-    // イベント処理
-    .on("mouseover", function () {
-        d3.select(this)
-            .style("fill", "gray")
-    })
-    // アニメーション処理
-    .transition()
-    .duration(1000)
-    .delay(function (d, i) {
-        return i * 100; // 0.1秒ごとにアニメーション処理
-    })
-    .attr("y", function (d, i) {
-        return svgHeight - d - offsetY;
-    })
-    .attr("height", function (d, i) {
-        return d;
-    })
-// テキストを表示
-barElements.enter()
-    .append("text")
-    .attr("class", "barNum")
-    .attr("x", function (d, i) {
-        return i * (barWidth + barMargin) + 10 + offsetX;
-    })
-    .attr("y", svgHeight - 5 -offsetY)
-    .text(function (d, i) {
-        return d;
-    })
-// 縦方向のメモリを設定
-yScale = d3.scale.linear()
-    .domain([0, dataMax]) // データ範囲
-    .range([dataMax, 0])  // 画面描画サイズ
-// 縦方向のラベルを表示
-d3.select("#myGraph").append("g")
-    .attr("class", "axis")
-    .attr("transform", "translate(" + offsetX + ", " + ((svgHeight - 300) - offsetY) + ")")
-    .call(
-        d3.svg.axis()
-            .scale(yScale)
-            .orient("left")
-    )
-// 縦方向の線を表示する
-d3.select("#myGraph")
-    .append("rect")
-    .attr("class", "axis_x")
-    .attr("width", 320)
-    .attr("height", 1)
-    .attr("transform", "translate(" + offsetX + ", " + (svgHeight - offsetY) + ")")
-// 横のラベルを表示する
-barElements.enter()
-    .append("text")
-    .attr("class", "barName")
-    .attr("x", function (d, i) {
-        return i * 25 + 10 + offsetX;
-    })
-    .attr("y", svgHeight - offsetY + 15)
-    .text(function (d, i) {
-        return ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"][i];
-    })
+    // グラフを描画
+    barElements = d3.select("#myGraph")
+        .selectAll("rect")
+        .data(dataSet)
+    // データの追加
+    // 縦棒グラフの表示
+    barElements.enter()
+        .append("rect")
+        .attr("class", "bar")
+        .attr("height", 0)  // 縦棒グラフの初期値を0に設定
+        .attr("width", barWidth)
+        .attr("x", function (d, i) {
+            return i * (barWidth + barMargin) + offsetX;
+        })
+        .attr("y", svgHeight - offsetY) // グラフの一番下に座業を設定
+        // イベント処理
+        .on("mouseover", function () {
+            d3.select(this)
+                .style("fill", "gray")
+        })
+        // アニメーション処理
+        .transition()
+        .duration(1000)
+        .delay(function (d, i) {
+            return i * 100; // 0.1秒ごとにアニメーション処理
+        })
+        .attr("y", function (d, i) {
+            return svgHeight - d - offsetY;
+        })
+        .attr("height", function (d, i) {
+            return d;
+        })
+        // テキストを表示
+        barElements.enter()
+            .append("text")
+            .attr("class", "barNum")
+            .attr("x", function (d, i) {
+                return i * (barWidth + barMargin) + 10 + offsetX;
+            })
+            .attr("y", svgHeight - 5 -offsetY)
+            .text(function (d, i) {
+                return d;
+            })
+        // 縦方向のメモリを設定
+        yScale = d3.scale.linear()
+            .domain([0, dataMax]) // データ範囲
+            .range([dataMax, 0])  // 画面描画サイズ
+        // 縦方向のラベルを表示
+        d3.select("#myGraph").append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(" + offsetX + ", " + ((svgHeight - 300) - offsetY) + ")")
+            .call(
+                d3.svg.axis()
+                    .scale(yScale)
+                    .orient("left")
+            )
+        // 縦方向の線を表示する
+        d3.select("#myGraph")
+            .append("rect")
+            .attr("class", "axis_x")
+            .attr("width", 320)
+            .attr("height", 1)
+            .attr("transform", "translate(" + offsetX + ", " + (svgHeight - offsetY) + ")")
+        // 横のラベルを表示する
+        barElements.enter()
+            .append("text")
+            .attr("class", "barName")
+            .attr("x", function (d, i) {
+                return i * 25 + 10 + offsetX;
+            })
+            .attr("y", svgHeight - offsetY + 15)
+            .text(function (d, i) {
+                return labelName[i];    // ラベル返却
+            })
+
+})
 </script>
     </body>
 </html>
