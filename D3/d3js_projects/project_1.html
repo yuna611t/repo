@@ -20,9 +20,9 @@ svg { width: 320px; height: 240px; border: 1px solid black; }
     fill: none;
     stroke: black;
 }
-.itemA { stroke: #000; }
-.itemB { stroke: #666; }
-.itemC { stroke: #ccc; }
+.itemA { stroke: #000; fill: #000; opacity: 0.5; }
+.itemB { stroke: #666; fill: #666; opacity: 0.5; }
+.itemC { stroke: #ccc; fill: #ccc; opacity: 0.5; }
 </style>
     </head>
     <body>
@@ -59,11 +59,14 @@ drawScale();
  */
 function drawGraph (dataSet, cssClassName, type) {
     // 折れ線グラフの座標値を計算するメソッド
-    var line = d3.svg.line()
+    var line = d3.svg.area()
         .x(function (d, i) {
             return i * margin + offSetX;
         })
-        .y(function (d, i) {
+        .y0(function (d, i) {
+            return svgHeight - offSetY;
+        })
+        .y1(function (d, i) {
             return svgHeight - (d * scale)  -offSetY;
         })
         .interpolate(type)
