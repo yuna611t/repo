@@ -21,11 +21,27 @@ svg { width: 380px; height: 240px; border: 1px solid black; }
     stroke-dasharray: 4, 2;
     shape-rendering: crispEdges;
 }
+.tip {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 9999;
+    visibility: hidden;
+    border: 1px solid black;
+    background-color: yellow;
+    width: 80px;
+    height: 16px;
+    overflow: hidden;
+    text-align: center;
+    font-size: 9pt;
+    font-family: Tahoma, Optima, Helvetica;
+    color: black;
+}
 </style>
     </head>
     <body>
 
-<h1>散布図にグリッド線を表示</h1>
+<h1>散布図にツールチップを表示</h1>
 <svg id="myGraph"></svg>
 
 <script type="text/javascript">
@@ -156,13 +172,34 @@ function drawScale () {
                 .scale(xScale)
                 .orient("bottom")
         )
+    // ツールチップを生成
+    var tooltip = d3.select("body")
+        .append("div")
+        .attr("class", "tip")
+    // ツールチップを表示
+    circleElements
+        .on("mouseover", function (d) {
+            var x = parseInt(d[0]);
+            var y = parseInt(d[1]);
+            var data = d3.select(this).datum(); //要素のデータを読み出す
+            var dx = parseInt(data[0]);
+            var dy = parseInt(data[1]);
+            tooltip
+                .style("left", offsetX + x + "px")
+                .style("top", svgHeight + offsetY - y + "px")
+                .style("visibility", "visible")
+                .text(dx + ", " + dy)
+        })
+        .on("mouseout", function () {
+            tooltip.style("visibility", "hidden")
+        })
 }
 
 drawScale();
 setInterval(function () {
     dataSet = updateData(dataSet);
     updateGraph();
-}, 2000);
+}, 4000);
 </script>
     </body>
 </html>
