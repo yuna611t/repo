@@ -16,17 +16,23 @@ svg { width: 380px; height: 240px; border: 1px solid black; }
     fill: none;
     stroke: black;
 }
+.grid {
+    stroke: gray;
+    stroke-dasharray: 4, 2;
+    shape-rendering: crispEdges;
+}
 </style>
     </head>
     <body>
 
-<h1>散布図に目盛りを表示</h1>
+<h1>散布図にグリッド線を表示</h1>
 <svg id="myGraph"></svg>
 
 <script type="text/javascript">
 // SVG要素
 var svgWidth = 320;
 var svgHeight = 240;
+var svg = d3.select("#myGraph");
 // X座標/Y座標のオフセット
 var offsetX = 30;
 var offsetY = 20;
@@ -37,7 +43,7 @@ var dataSet = [
 ];
 // 散布図を描画
 // データを連結
-var circleElements = d3.select("#myGraph")
+var circleElements = svg
     .selectAll("circle")
     .data(dataSet)
 // 要素を追加
@@ -95,8 +101,7 @@ function drawScale () {
         .range([maxY, 0])
     console.log(svgHeight, " ", maxY, " ", offsetY);
     // 目盛りを表示
-    d3.select("#myGraph")
-        .append("g")
+    svg.append("g")
         .attr("class", "axis")
         .attr("transform", "translate("+ offsetX + ", "+ (svgHeight - maxY - offsetY) +")")
         .call(
@@ -104,6 +109,39 @@ function drawScale () {
                 .scale(yScale)
                 .orient("left")
         )
+    // グリッドの表示
+    var grid = svg.append("g")
+    // 横方向と縦方向のグリッド間隔を自動生成
+    var rangeX = d3.range(50, maxX, 50);
+    var rangeY = d3.range(20, maxY, 20);
+    // 縦方向のグリッドを生成
+    grid.selectAll("line.y")
+        .data(rangeY)
+        .enter()
+        .append("line")
+        .attr("class", "grid")
+        .attr("x1", offsetX)
+        .attr("y1", function (d, i) {
+            return svgHeight - d -offsetY;
+        })
+        .attr("x2", maxX + offsetX)
+        .attr("y2", function (d, i) {
+            return svgHeight - d - offsetY;
+        })
+    // 横方向のグリッドを生成
+    grid.selectAll("line.x")
+        .data(rangeX)
+        .enter()
+        .append("line")
+        .attr("class", "grid")
+        .attr("x1", function (d, i) {
+            return d + offsetX;
+        })
+        .attr("y1", svgHeight - offsetY)
+        .attr("x2", function (d, i) {
+            return d + offsetX;
+        })
+        .attr("y2", svgHeight - offsetY - maxY)
     // 縦の目盛りを表示するためにD3スケールを設定
     var xScale = d3.scale.linear()
         .domain([0, maxX])
