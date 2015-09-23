@@ -11,7 +11,7 @@ svg { width: 380px; height: 240px; border: 1px solid black; }
     </head>
     <body>
 
-<h1>散布図を表示</h1>
+<h1>散布図をアニメーション表示</h1>
 <svg id="myGraph"></svg>
 
 <script type="text/javascript">
@@ -23,9 +23,12 @@ var dataSet = [
     [60, 40], [140, 145], [165, 110], [200, 170], [250, 190]
 ];
 // 散布図を描画
+// データを連結
 var circleElements = d3.select("#myGraph")
     .selectAll("circle")
     .data(dataSet)
+// 要素を追加
+circleElements
     .enter()
     .append("circle")
     .attr("class", "mark")
@@ -36,6 +39,38 @@ var circleElements = d3.select("#myGraph")
         return svgHeight - d[1];
     })
     .attr("r", 5)
+/**
+ * データセットを更新する
+ * @param  {array} data データセット
+ * @return {array}      更新されたデータセット
+ */
+function updateData (data) {
+    var result = data.map(function (d, i) {
+        var x = Math.random() * svgWidth;
+        var y = Math.random() * svgHeight;
+        return [x, y];
+    })
+    return result;
+}
+/**
+ * 散布図の更新
+ */
+function updateGraph () {
+    circleElements
+        .data(dataSet)
+        .transition()
+        .attr("cx", function (d, i) {
+            return d[0];
+        })
+        .attr("cy", function (d, i) {
+            return svgHeight - d[1];
+        })
+}
+
+setInterval(function () {
+    dataSet = updateData(dataSet);
+    updateGraph();
+}, 2000);
 </script>
     </body>
 </html>
