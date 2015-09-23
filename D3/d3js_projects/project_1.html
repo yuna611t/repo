@@ -16,130 +16,161 @@ svg { width: 320px; height: 300px; border: 1px solid black; }
     fill: none;
     stroke: black;
 }
-.axis_x line {
-    fill: none;
-    stroke: black;
-}
-.itemA { stroke: #000; fill: }
-.itemB { stroke: #666; fill: }
-.itemC { stroke: #ccc; fill: }
+.itemA { stroke: #000; }
+.itemB { stroke: #666; }
+.itemC { stroke: #ccc; }
 </style>
     </head>
     <body>
 
 <h1>折れ線グラフを表示</h1>
 <svg id="myGraph"></svg>
+<button id="prev">前へ</button>
+<button id="next">次へ</button>
 
 <script type="text/javascript">
-// SVG要素
-var svgWidth = 320;
-var svgHeight = 240;
-// 軸
-var offSetX = 30;
-var offSetY = 20;
-// グラフ情報
-var scale = 2.0;
-// データセット
-var dataSet = [
-    [
-        { year: 2004, value: 10 },
-        { year: 2005, value: 47 },
-        { year: 2006, value: 65 },
-        { year: 2007, value: 8 },
-        { year: 2008, value: 64 }
-    ],
-    [
-        { year: 2004, value: 90 },
-        { year: 2005, value: 77 },
-        { year: 2006, value: 55 },
-        { year: 2007, value: 48 },
-        { year: 2008, value: 64 }
-    ],
-    [
-        { year: 2004, value: 50 },
-        { year: 2005, value: 27 },
-        { year: 2006, value: 45 },
-        { year: 2007, value: 58 },
-        { year: 2008, value: 84 }
-    ]
-];
-var margin = svgWidth/(dataSet[0].length - 1);
-// 各折れ線グラフを表示
-drawGraph(dataSet[0], "itemA", "linear"); // 直線
-drawGraph(dataSet[1], "itemB", "linear");
-drawGraph(dataSet[2], "itemC", "linear");
-// 目盛りを表示
-drawScale();
-
-/**
- * 折れ線グラフを表示する
- * @param  {Array} dataSet       データセット
- * @param  {string} cssClassName 適用するCSSスタイル
- * @param  {string} type         折れ線グラフのタイプ
- */
-function drawGraph (dataSet, cssClassName, type) {
-    // 折れ線グラフの座標値を計算するメソッド
-    var line = d3.svg.line()
-        .x(function (d, i) {
-            return i * margin + offSetX;
-        })
-        .y(function (d, i) {
-            return svgHeight - (d.value * scale)  - offSetY;
-        })
-        .interpolate(type)
-    // 折れ線グラフの描画
-    var lineElements = d3.select("#myGraph")
-        .append("path")
-        .attr("class", "line " + cssClassName )
-        .attr("d", line(dataSet))
-}
-
-/**
- * 目盛りを表示する
- */
-function drawScale () {
-    // 目盛りを表示するためにスケールを設定
-    var yScale = d3.scale.linear()
-        .domain([10, 100])
-        .range([scale * 100, 0])
+// Jsonデータの読み込み
+d3.json("mydata.json", function (error, data) {
+    var dataSet = [];
+    // SVG要素
+    var svgEle = document.getElementById("myGraph");
+    var svgWidth = window.getComputedStyle(svgEle, null).getPropertyValue("width");
+    var svgHeight = window.getComputedStyle(svgEle, null).getPropertyValue("height");
+    svgWidth = parseFloat(svgWidth) - 60;
+    svgHeight = parseFloat(svgHeight) - 60;
+    // 軸
+    var offSetX = 30;
+    var offSetY = 20;
+    // グラフ情報
+    var scale = 2.0;
+    // 1回の表示範囲
+    var rangeYear = 10;
+    // 最大値と最小値の年数
+    var year = d3.extent(data, function (d) {
+        return d.year;
+    });
+    var startYear = year[0];
+    var currentYear = 2000;  // 最初の表示年
+    var margin = svgWidth/(rangeYear - 1);
+    // 最初にグラフを表示する
+    pickupData(data, currentYear - startYear);
+    // 各折れ線グラフを表示
+    drawGraph(dataSet, "item1", "itemA", "linear"); // 直線
+    drawGraph(dataSet, "item2", "itemB", "linear");
+    drawGraph(dataSet, "item3", "itemC", "linear");
     // 目盛りを表示
-    d3.select("#myGraph")
-        .append("g")
-        .attr("class", "axis")
-        .attr("transform", "translate("+ offSetX + ", " + offSetY +")")
-        .call(
-            d3.svg.axis()
-                .scale(yScale)
-                .orient("left")
-        )
-    // 横の目盛りを表示するためにD3スケールを設定
-    var xScale = d3.time.scale()
-        .domain([new Date("2004/1/1"), new Date("2008/1/1")])
-        .range([0, svgWidth])
-    // 横方向の軸を表示
-    d3.select("#myGraph")
-        .append("g")
-        .attr("class", "axis")
-        .attr("width", svgWidth)
-        .attr("transform", "translate("+ offSetX + ", " + (svgHeight - offSetY) +")")
-        .call(
-            d3.svg.axis()
-                .scale(xScale)
-                .orient("bottom")
-                .ticks(10)
-                .tickFormat(function (d, i) {
-                    var fmtFunc = d3.time.format("%Y年%m月");
-                    return fmtFunc(d);
-                })
-        )
-        .selectAll("text")
-        .attr("transform", "rotate(90)")
-        .attr("dx", "0.7em")
-        .attr("dy","-0.4em")
-        .style("text-anchor", "start")
-}
+    drawScale();
 
 
+    /**
+     * 折れ線グラフを表示する
+     * @param  {Array} dataSet       データセット
+     * @param  {string} itemName     [description]
+     * @param  {string} cssClassName 適用するCSSスタイル
+     * @param  {string} type         折れ線グラフのタイプ
+     */
+    function drawGraph (dataSet, itemName, cssClassName, type) {
+        // 折れ線グラフの座標値を計算するメソッド
+        var line = d3.svg.line()
+            .x(function (d, i) {
+                return i * margin + offSetX;
+            })
+            .y(function (d, i) {
+                return svgHeight - (d[itemName] * scale)  - offSetY;
+            })
+            .interpolate(type)
+        // 折れ線グラフの描画
+        var lineElements = d3.select("#myGraph")
+            .append("path")
+            .attr("class", "line " + cssClassName )
+            .attr("d", line(dataSet))
+    }
+
+    /**
+     * 目盛りを表示する
+     */
+    function drawScale () {
+        // 目盛りを表示するためにスケールを設定
+        var yScale = d3.scale.linear()
+            .domain([0, 100])
+            .range([scale * 100, 0])
+        // 目盛りを表示
+        d3.select("#myGraph")
+            .append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate("+ offSetX + ", " + ((100 - (scale - 1)*100 + offSetY)) +")")
+            .call(
+                d3.svg.axis()
+                    .scale(yScale)
+                    .orient("left")
+            )
+        // 横の目盛りを表示するためにD3スケールを設定
+        var xScale = d3.time.scale()
+            .domain([new Date(currentYear + "/1/1"), new Date((currentYear + rangeYear - 1) + "/1/1")])
+            .range([0, svgWidth])
+
+        // 横方向の軸を表示
+        d3.select("#myGraph")
+            .append("g")
+            .attr("class", "axis")
+            .attr("width", svgWidth)
+            .attr("transform", "translate("+ offSetX + ", " + (svgHeight - offSetY) +")")
+            .call(
+                d3.svg.axis()
+                    .scale(xScale)
+                    .orient("bottom")
+                    .ticks(rangeYear)
+                    .tickFormat(function (d, i) {
+                        var fmtFunc = d3.time.format("%Y年%m月");
+                        return fmtFunc(d);
+                    })
+            )
+            .selectAll("text")
+            .attr("transform", "rotate(90)")
+            .attr("dx", "0.7em")
+            .attr("dy","-0.4em")
+            .style("text-anchor", "start")
+    }
+
+    /**
+     * Jsonデータから表示する範囲のデータセットを抽出し
+     * SVG要素内を消去
+     * @param  {array} data  データセット
+     * @param  {date} start データ表示開始年
+     */
+    function pickupData (data, start) {
+        dataSet = [];
+        for (var i = 0; i < rangeYear; i++) {
+            dataSet[i] = data[start + i];
+        }
+        d3.select("#myGraph").selectAll("*").remove();
+    }
+
+    // 前へボタンにイベントを割り当てる
+    d3.select("#prev").on("click", function () {
+        if (currentYear > year[0]) {
+            currentYear = currentYear - 1;
+        }
+        // グラフ描画
+        pickupData(data, currentYear - startYear);
+        drawGraph(dataSet, "item1", "itemA", "linear");
+        drawGraph(dataSet, "item2", "itemB", "linear");
+        drawGraph(dataSet, "item3", "itemC", "linear");
+        drawScale();
+    })
+    // 次へボタンにイベントを割り当てる
+    d3.select("#next").on("click", function () {
+        if (currentYear <= year[1] - rangeYear) {
+            currentYear = currentYear + 1;
+        }
+        // グラフ描画
+        pickupData(data, currentYear - startYear);
+        drawGraph(dataSet, "item1", "itemA", "linear");
+        drawGraph(dataSet, "item2", "itemB", "linear");
+        drawGraph(dataSet, "item3", "itemC", "linear");
+        drawScale();
+    })
+})
 
 </script>
     </body>
