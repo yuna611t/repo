@@ -41,7 +41,7 @@ svg { width: 380px; height: 240px; border: 1px solid black; }
     </head>
     <body>
 
-<h1>散布図をアニメーションでplot</h1>
+<h1>スケールをデータサイズに合わせてグリッドサイズ変更</h1>
 <svg id="myGraph"></svg>
 
 <script type="text/javascript">
@@ -54,12 +54,19 @@ d3.csv("mydata.csv", function (error, data) {
     svgHeight = parseFloat(svgHeight); // 単位削除
     var offsetX = 30;
     var offsetY = 20;
+    var xScale;
+    var yScale;
+    var yAxisHeight = svgHeight - 20;
+    var xAxisWidth = svgWidth - 40;
     var svg = d3.select("#myGraph");    // SVG要素
     // データ読み込み設定
     var dataSet = [];
     data.forEach(function (d, i) {
         dataSet.push([d.total/100, d.bug*1, d.time*1]);
     });
+    // 目盛りとグリッドを表示する
+    drawScale();
+
     // 散布図を描画
     var circleElements = svg
         .selectAll("circle")
@@ -78,10 +85,10 @@ d3.csv("mydata.csv", function (error, data) {
         .ease("bounce")
         // アニメーション後
         .attr("cx", function (d, i) {
-            return d[0] + offsetX;
+            return xScale(d[0]) + offsetX;
         })
         .attr("cy", function (d, i) {
-            return svgHeight - d[1] - offsetY;
+            return yScale(d[1]);
         })
         .attr("r", 5)
         .attr("opacity", 1.0)
@@ -90,29 +97,29 @@ d3.csv("mydata.csv", function (error, data) {
          * 目盛りを描画する
          */
         function drawScale () {
-            var maxX = d3.max(dataSet, function (d, i) {
+            maxX = d3.max(dataSet, function (d, i) {
                 return d[0];
             })
-            var maxY = d3.max(dataSet, function (d, i) {
+            maxY = d3.max(dataSet, function (d, i) {
                 return d[1];
             })
             // 縦の目盛りを表示するためにD3スケールを設定
-            var yScale = d3.scale.linear()
+            yScale = d3.scale.linear()
                 .domain([0, maxY])
-                .range([maxY, 0])
+                .range([yAxisHeight, 0])
             // 目盛りを表示
             svg.append("g")
                 .attr("class", "axis")
-                .attr("transform", "translate("+ offsetX + ", "+ (svgHeight - maxY - offsetY) +")")
+                .attr("transform", "translate("+ offsetX + ", "+ (svgHeight - yAxisHeight - offsetY) +")")
                 .call(
                     d3.svg.axis()
                         .scale(yScale)
                         .orient("left")
                 )
             // 縦の目盛りを表示するためにD3スケールを設定
-            var xScale = d3.scale.linear()
+            xScale = d3.scale.linear()
                 .domain([0, maxX])
-                .range([0, maxX])
+                .range([0, xAxisWidth])
             // 目盛りを表示
             d3.select("#myGraph")
                 .append("g")
@@ -136,11 +143,11 @@ d3.csv("mydata.csv", function (error, data) {
                 .attr("class", "grid")
                 .attr("x1", offsetX)
                 .attr("y1", function (d, i) {
-                    return svgHeight - d -offsetY;
+                    return svgHeight - yScale(d) - offsetY;
                 })
                 .attr("x2", maxX + offsetX)
                 .attr("y2", function (d, i) {
-                    return svgHeight - d - offsetY;
+                    return svgHeight - yScale(d) - offsetY;
                 })
             // 横方向のグリッドを生成
             grid.selectAll("line.x")
@@ -149,13 +156,20 @@ d3.csv("mydata.csv", function (error, data) {
                 .append("line")
                 .attr("class", "grid")
                 .attr("x1", function (d, i) {
-                    return d + offsetX;
+                    return xScale(d) + offsetX;
                 })
                 .attr("y1", svgHeight - offsetY)
                 .attr("x2", function (d, i) {
-                    return d + offsetX;
+                    return xScale(d) + offsetX;
                 })
-                .attr("y2", svgHeight - offsetY - maxY)
+                .attr("y2", svgHeight - offsetY - yAxisHeight)
+        }
+
+        /**
+         * Tooltipを表示する
+         * @return {[type]} [description]
+         */
+        function drawToolTip() {
             // ツールチップを生成
             var tooltip = d3.select("body")
                 .append("div")
@@ -163,22 +177,20 @@ d3.csv("mydata.csv", function (error, data) {
             // ツールチップを表示
             circleElements
                 .on("mouseover", function (d) {
-                    var x = parseInt(d[0]);
-                    var y = parseInt(d[1]);
-                    var data = d3.select(this).datum(); //要素のデータを読み出す
+                    var x = parseInt(xScale[0]);
+                    var y = parseInt(yScale[1]);
                     var t = parseInt(data[2]);
                     tooltip
                         .style("left", offsetX + x + "px")
-                        .style("top", svgHeight + offsetY - y + "px")
+                        .style("top",  offsetY + 30 + y + "px")
                         .style("visibility", "visible")
                         .text(t + "時間")
                 })
                 .on("mouseout", function () {
                     tooltip.style("visibility", "hidden")
                 })
+
         }
-        // 目盛りとグリッドを表示する
-        drawScale();
 
 })
 </script>
