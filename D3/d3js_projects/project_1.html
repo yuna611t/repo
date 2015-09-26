@@ -7,12 +7,24 @@
 <style>
 svg { width: 380px; height: 240px; border: 1px solid black; }
 .bar { fill: #aaa; stroke : white; stroke-width : 1; }
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+}
 </style>
     </head>
     <body>
 
 <h1>ヒストグラムを表示</h1>
 <svg id="myGraph"></svg>
+<form>
+    <p>間隔: <input type="text" value="10" id="step" /></p>
+</form>
 
 <script type="text/javascript">
 // SVGの幅と高さを求める
@@ -21,8 +33,18 @@ var svgWidth = window.getComputedStyle(svgEle, null).getPropertyValue("width");
 var svgHeight = window.getComputedStyle(svgEle, null).getPropertyValue("height");
 svgWidth = parseFloat(svgWidth);   // 単位削除
 svgHeight = parseFloat(svgHeight); // 単位削除
-// バー
-var barWidth = svgWidth / 11;
+// オフセット
+var offsetX = 30;
+var offsetY = 10;
+// スケール
+var xScale;
+var yScale;
+// 軸の幅
+var yAxisHeight = svgHeight - 30;
+var xAxisWidth = svgWidth - 40;
+// 棒グラフ
+var stepX = 10; // 棒グラフの数
+var barWidth = svgWidth / 11;   // 棒グラフの幅
 // データセット
 var dataSet = [
     50, 95, 60, 44, 60, 35, 20, 10, 8,
@@ -32,32 +54,97 @@ var dataSet = [
 // ヒストグラムのデータを設定
 var histogram = d3.layout.histogram()
     .range([0, 100])
-    .bins([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
-// データセットから最大値を求める
-var maxValue = d3.max(histogram(dataSet), function (d, i) {
-        return d.y;
-    })
-// 縦のスケールを設定
-var yScale = d3.scale.linear()
-    .domain([0, maxValue])
-    .range([svgHeight, 0])
-// ヒストグラムを描画
-var barElements = d3.select("#myGraph")
-    .selectAll("rect")
-    .data(histogram(dataSet))
-    .enter()
-    .append("rect")
-    .attr("class", "bar")
-    .attr("x", function (d, i) {
-        return i * barWidth;
-    })
-    .attr("y", function (d, i) {
-        return yScale(d.y);
-    })
-    .attr("width", barWidth)
-    .attr("height", function (d, i) {
-        return svgHeight - yScale(d.y);
-    })
+    .bins(d3.range(0, 100.1, stepX))
+/**
+ * データセットからスケールを計算
+ */
+function calcScale() {
+    // データセットから最大値を求める
+    var maxValue = d3.max(histogram(dataSet), function (d, i) {
+            return d.y;
+        })
+    // 縦のスケールを設定
+    yScale = d3.scale.linear()
+        .domain([0, maxValue])
+        .range([yAxisHeight, 0])
+    // 横のスケールを設定
+    xScale = d3.scale.linear()
+        .domain([0, 100])
+        .range([0, xAxisWidth])
+}
+
+/**
+ * 目盛りを表示
+ */
+function drawScale() {
+    // 縦の目盛りを表示
+    d3.select("#myGraph")
+        .append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate("+ offsetX + ", " + offsetY  +")")
+        .call(
+            d3.svg.axis()
+                .scale(yScale)
+                .orient("left")
+        )
+    d3.select("#myGraph")
+        .append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate("+ offsetX + ", "+ (yAxisHeight + offsetY) +")")
+        .call(
+            d3.svg.axis()
+                .scale(xScale)
+                .orient("bottom")
+        )
+}
+
+/**
+ * ヒストグラムの要素を設定
+ */
+function drawHistgram() {
+    var barElements = d3.select("#myGraph")
+            .selectAll("rect")
+            .data(histogram(dataSet))
+            .enter()
+            .append("rect")
+            .attr("class", "bar")
+            .attr("width", function (d, i) {
+                return xScale(d.dx);
+            })
+            .attr("x", function (d, i) {
+                return i * xScale(d.dx) + offsetX;
+            })
+            .attr("y", function (d, i) {
+                return yScale(d.y) + offsetY;
+            })
+            .attr("y", yAxisHeight + offsetY)
+            .attr("height", 0)
+            .transition()
+            .duration(1000)
+            .attr("y", function (d, i) {
+                return yScale(d.y) + offsetY;
+            })
+            .attr("height", function (d, i) {
+                return yAxisHeight - yScale(d.y);
+            })
+}
+
+// 間隔が変更されたらヒストグラムを更新
+d3.select("#step").on("change", function () {
+    stepX = this.value;
+    histogram
+        .bins(d3.range(0, 100.1, stepX))
+    d3.select("#myGraph").selectAll("*").remove();
+    calcScale();
+    drawHistgram();
+    drawScale();
+})
+
+// 最初のヒストグラムの表示処理
+calcScale();
+drawHistgram();
+drawScale();
+
 
 </script>
     </body>
