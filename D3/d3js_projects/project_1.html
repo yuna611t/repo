@@ -5,171 +5,52 @@
         <title>D3.jsの勉強</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 <style>
-svg { width: 380px; height: 240px; border: 1px solid black;
-    background-image: url(images/paisley.png);
-}
-.bar { fill: #aaa; stroke : white; stroke-width : 1; }
-.axis text {
-    font-family: sans-serif;
-    font-size: 11px;
-}
-.axis path,
-.axis line {
-    fill: none;
-    stroke: black;
-}
+svg { width: 380px; height: 320px; border: 1px solid black; }
+circle { stroke: red; fill: none; }
 </style>
     </head>
     <body>
 
-<h1>ヒストグラムに画像を表示</h1>
+<h1>パックレイアウトを表示</h1>
 <svg id="myGraph"></svg>
-<form id="dataSelect">
-    <input type="button" data-grader="g1" value="1年生">
-    <input type="button" data-grader="g2" value="2年生">
-    <input type="button" data-grader="g3" value="3年生">
-    <input type="button" data-grader="g4" value="4年生">
-    <input type="button" data-grader="g5" value="5年生">
-    <input type="button" data-grader="g6" value="6年生">
-    <p>間隔: <input type="text" value="10" id="step" /></p>
-</form>
 
 <script type="text/javascript">
-d3.csv("mydata.csv", function (error, data) {
-    // SVGの幅と高さを求める
-    var svgEle = document.getElementById("myGraph");
-    var svgWidth = window.getComputedStyle(svgEle, null).getPropertyValue("width");
-    var svgHeight = window.getComputedStyle(svgEle, null).getPropertyValue("height");
-    svgWidth = parseFloat(svgWidth);   // 単位削除
-    svgHeight = parseFloat(svgHeight); // 単位削除
-    // オフセット
-    var offsetX = 30;
-    var offsetY = 10;
-    // スケール
-    var xScale;
-    var yScale;
-    // 軸の幅
-    var yAxisHeight = svgHeight - 30;
-    var xAxisWidth = svgWidth - 40;
-    // 棒グラフ
-    var stepX = 10; // 棒グラフの数
-    var barWidth = svgWidth / 11;   // 棒グラフの幅
-    // データセット
-    var dataSet = [];
-    data.forEach(function (d, i) {
-        dataSet.push(d.g1);
+// SVG要素
+var svgEle = document.getElementById("myGraph");
+var svgWidth = window.getComputedStyle(svgEle,null).getPropertyValue("width");
+var svgHeight = window.getComputedStyle(svgEle,null).getPropertyValue("height");
+// データセット
+var dataSet = {
+    value: 40,
+    children: [
+        { value: 35 },
+        { value: 100 },
+        { value: 200 },
+        { value: 900,
+            children: [
+                { value: 20 },
+                { value: 50 }
+            ]
+        }
+    ]
+};
+// パックレイアウト
+var bubble = d3.layout.pack()
+    .size([320, 320])
+d3.select("#myGraph")
+    .selectAll("circle")
+    .data(bubble.nodes(dataSet))
+    .enter()
+    .append("circle")
+    .attr("r", function (d) {
+        return d.r;
     })
-
-    // ヒストグラムのデータを設定
-    var histogram = d3.layout.histogram()
-        .range([0, 100])
-        .bins(d3.range(0, 100.1, stepX))
-    /**
-     * データセットからスケールを計算
-     */
-    function calcScale() {
-        // データセットから最大値を求める
-        var maxValue = d3.max(histogram(dataSet), function (d, i) {
-                return d.y;
-            })
-        // 縦のスケールを設定
-        yScale = d3.scale.linear()
-            .domain([0, maxValue])
-            .range([yAxisHeight, 0])
-        // 横のスケールを設定
-        xScale = d3.scale.linear()
-            .domain([0, 100])
-            .range([0, xAxisWidth])
-    }
-
-    /**
-     * 目盛りを表示
-     */
-    function drawScale() {
-        // 縦の目盛りを表示
-        d3.select("#myGraph")
-            .append("g")
-            .attr("class", "axis")
-            .attr("transform", "translate("+ offsetX + ", " + offsetY  +")")
-            .call(
-                d3.svg.axis()
-                    .scale(yScale)
-                    .orient("left")
-            )
-        d3.select("#myGraph")
-            .append("g")
-            .attr("class", "axis")
-            .attr("transform", "translate("+ offsetX + ", "+ (yAxisHeight + offsetY) +")")
-            .call(
-                d3.svg.axis()
-                    .scale(xScale)
-                    .orient("bottom")
-            )
-    }
-
-    /**
-     * ヒストグラムの要素を設定
-     */
-    function drawhistogram() {
-        var barElements = d3.select("#myGraph")
-                .selectAll("image")
-                .data(histogram(dataSet))
-                .enter()
-                .append("image")
-                .attr("class", "bar")
-                .attr("xlink:href", "images/man.png")
-                .attr("width", function (d, i) {
-                    return xScale(d.dx);
-                })
-                .attr("x", function (d, i) {
-                    return i * xScale(d.dx) + offsetX;
-                })
-                .attr("y", function (d, i) {
-                    return yScale(d.y) + offsetY;
-                })
-                .attr("y", yAxisHeight + offsetY)
-                .attr("height", 0)
-                .transition()
-                .duration(1000)
-                .attr("y", function (d, i) {
-                    return yScale(d.y) + offsetY;
-                })
-                .attr("height", function (d, i) {
-                    return yAxisHeight - yScale(d.y);
-                })
-    }
-
-    // 間隔が変更されたらヒストグラムを更新
-    d3.select("#step").on("change", function () {
-        stepX = this.value;
-        histogram
-            .bins(d3.range(0, 100.1, stepX))
-        d3.select("#myGraph").selectAll("*").remove();
-        calcScale();
-        drawhistogram();
-        drawScale();
+    .attr("cx", function (d, i) {
+        return d.x;
     })
-
-    // 最初のヒストグラムの表示処理
-    calcScale();
-    drawhistogram();
-    drawScale();
-
-    // イベント設定
-    d3.select("#dataSelect").selectAll("input[type='button']")
-        .on("click", function () {
-            var grader = d3.select(this).attr("data-grader");
-            dataSet = [];
-            data.forEach(function (d, i) {
-                dataSet.push(d[grader]);
-            })
-            // ヒストグラムを更新
-            d3.select("#myGraph").selectAll("*").remove();
-            calcScale();
-            drawhistogram();
-            drawScale();
-        })
-})
+    .attr("cy", function (d, i) {
+        return d.y;
+    })
 
 </script>
     </body>
