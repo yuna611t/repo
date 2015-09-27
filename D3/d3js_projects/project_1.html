@@ -61,6 +61,11 @@ tmap.enter()
     .attr("height", function (d, i) {
         return d.dy;
     })
+    .style("opacity", 0)
+    .transition()
+    .delay(function (d, i) {
+        return d.depth * 500;
+    })
     .style("opacity", function (d, i) {
         return d.depth / 10;
     })
@@ -82,6 +87,12 @@ tmap.enter()
         }
         return d.name;
     })
+    .style("opacity", 0)
+    .transition()
+    .delay(function (d, i) {
+        return d.depth * 500;
+    })
+    .style("opacity", 1.0)
 </script>
     </body>
 </html>
