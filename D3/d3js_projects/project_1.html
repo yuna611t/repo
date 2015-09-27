@@ -6,12 +6,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 <style>
 svg { width: 380px; height: 320px; border: 1px solid black; }
-circle { stroke: none; }
+circle { stroke: none; opacity: 0.25;}
+text { font-size: 10pt; text-anchor: middle; fill: black; opacity: 0; }
 </style>
     </head>
     <body>
 
-<h1>パックレイアウトを表示</h1>
+<h1>人口をパックレイアウトを表示</h1>
 <svg id="myGraph"></svg>
 
 <script type="text/javascript">
@@ -21,15 +22,16 @@ var svgWidth = window.getComputedStyle(svgEle,null).getPropertyValue("width");
 var svgHeight = window.getComputedStyle(svgEle,null).getPropertyValue("height");
 // データセット
 var dataSet = {
-    value: 40,
+    name: "全国", value: 128057352,
     children: [
-        { value: 35 },
-        { value: 100 },
-        { value: 200 },
-        { value: 900,
+        { name: "東京都", value: 12159388 },
+        { name: "大阪府", value: 8865245  },
+        { name: "愛知県", value: 7410719  },
+        { name: "長野県", value: 2152449,
             children: [
-                { value: 20 },
-                { value: 50 }
+                { name: "長野市", value: 381511 },
+                { name: "松本市", value: 243037 },
+                { name: "塩尻市", value: 67670  }
             ]
         }
     ]
@@ -39,17 +41,17 @@ var color = d3.scale.category10();
 // パックレイアウト
 var bubble = d3.layout.pack()
     .size([320, 320])
-d3.select("#myGraph")
-    .selectAll("circle")
+// パックレイアウトで使用するグループ生成
+var pack = d3.select("#myGraph")
+    .selectAll("g")
     .data(bubble.nodes(dataSet))
     .enter()
-    .append("circle")
-    .attr("cx", function (d, i) {
-        return d.x;
+    .append("g")
+    .attr("transform", function (d, i) {
+        return "translate("+ d.x + ", "+ d.y +")"
     })
-    .attr("cy", function (d, i) {
-        return d.y;
-    })
+// 円を生成
+pack.append("circle")
     .attr("r", 0)
     .transition()
     .duration(function (d, i) {
@@ -60,6 +62,18 @@ d3.select("#myGraph")
     })
     .style("fill", function (d, i) {
         return color(i);
+    })
+// 円に表示する文字を生成
+pack.append("text")
+    .style("opacity", 0)
+    .transition()
+    .duration(3000)
+    .style("opacity", 1.0)
+    .text(function (d, i) {
+        if (d.depth == 1) {
+            return d.name;
+        }
+        return null;
     })
 
 </script>
