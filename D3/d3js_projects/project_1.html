@@ -7,6 +7,7 @@
 <style>
 svg { width: 380px; height: 240px; border: 1px solid black; }
 .block { stroke: black; fill: #ddd; }
+.name { font-size: 18pt; text-anchor: middle; }
 </style>
     </head>
     <body>
@@ -24,9 +25,17 @@ svgHeight = parseFloat(svgHeight);
 // データセット
 var dataSet = {
     children: [
-        { value: 10 },
-        { value: 8 },
-        { value: 2 }
+        { value: 100 },
+        {
+            children: [
+                { value: 50 },
+                { children: [
+                    { value: 30 },
+                    { value: 20 },
+                    { value: 10 }
+                ]}
+            ]
+        }
     ]
 };
 // ツリーマップレイアウト
@@ -51,6 +60,20 @@ tmap.enter()
     })
     .attr("height", function (d, i) {
         return d.dy;
+    })
+// マップに文字を追加
+tmap.enter()
+    .append("text")
+    .attr("class", "name")
+    .attr("transform", function (d, i) {
+        return "translate("+ (d.x + d.dx/2) +", "+ (d.y+d.dy/2) +")";
+    })
+    .attr("dy", "0.35em")
+    .text(function (d, i) {
+        if ((d.depth == 0) || (d.children)) { // ルートか子ノードがあるの時は表示しない
+            return null;
+        }
+        return d.value;
     })
 </script>
     </body>
