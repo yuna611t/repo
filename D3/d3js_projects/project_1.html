@@ -5,14 +5,13 @@
         <title>D3.jsの勉強</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 <style>
-svg { width: 380px; height: 320px; border: 1px solid black; }
-circle { stroke: none; opacity: 0.25;}
-text { font-size: 10pt; text-anchor: middle; fill: black; opacity: 0; }
+svg { width: 380px; height: 240px; border: 1px solid black; }
+.block { stroke: black; fill: #ddd; }
 </style>
     </head>
     <body>
 
-<h1>人口をパックレイアウトを表示</h1>
+<h1>ツリーレイアウトを表示</h1>
 <svg id="myGraph"></svg>
 
 <script type="text/javascript">
@@ -20,62 +19,39 @@ text { font-size: 10pt; text-anchor: middle; fill: black; opacity: 0; }
 var svgEle = document.getElementById("myGraph");
 var svgWidth = window.getComputedStyle(svgEle,null).getPropertyValue("width");
 var svgHeight = window.getComputedStyle(svgEle,null).getPropertyValue("height");
+svgWidth = parseFloat(svgWidth);
+svgHeight = parseFloat(svgHeight);
 // データセット
 var dataSet = {
-    name: "全国", value: 128057352,
     children: [
-        { name: "東京都", value: 12159388 },
-        { name: "大阪府", value: 8865245  },
-        { name: "愛知県", value: 7410719  },
-        { name: "長野県", value: 2152449,
-            children: [
-                { name: "長野市", value: 381511 },
-                { name: "松本市", value: 243037 },
-                { name: "塩尻市", value: 67670  }
-            ]
-        }
+        { value: 10 },
+        { value: 8 },
+        { value: 2 }
     ]
 };
-// カラーの準備
-var color = d3.scale.category10();
-// パックレイアウト
-var bubble = d3.layout.pack()
-    .size([320, 320])
-// パックレイアウトで使用するグループ生成
-var pack = d3.select("#myGraph")
-    .selectAll("g")
-    .data(bubble.nodes(dataSet))
-    .enter()
-    .append("g")
-    .attr("transform", function (d, i) {
-        return "translate("+ d.x + ", "+ d.y +")"
+// ツリーマップレイアウト
+var treemap = d3.layout.treemap()
+    .size([svgWidth, svgHeight])
+var tmap = d3.select("#myGraph")
+    .selectAll("rect")
+    .data(treemap.nodes(dataSet))
+// 分割マップ領域を追加
+tmap.enter()
+    .append("rect")
+    .attr("class", "block")
+    .attr("x", function (d, i) {
+        console.log("x: ", d);
+        return d.x;
     })
-// 円を生成
-pack.append("circle")
-    .attr("r", 0)
-    .transition()
-    .duration(function (d, i) {
-        return d.depth * 1000 + 500;
+    .attr("y", function (d, i) {
+        return d.y;
     })
-    .attr("r", function (d) {
-        return d.r;
+    .attr("width", function (d, i) {
+        return d.dx;
     })
-    .style("fill", function (d, i) {
-        return color(i);
+    .attr("height", function (d, i) {
+        return d.dy;
     })
-// 円に表示する文字を生成
-pack.append("text")
-    .style("opacity", 0)
-    .transition()
-    .duration(3000)
-    .style("opacity", 1.0)
-    .text(function (d, i) {
-        if (d.depth == 1) {
-            return d.name;
-        }
-        return null;
-    })
-
 </script>
     </body>
 </html>
