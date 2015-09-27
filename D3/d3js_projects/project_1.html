@@ -6,7 +6,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 <style>
 svg { width: 380px; height: 320px; border: 1px solid black; }
-circle { stroke: red; fill: none; }
+circle { stroke: none; }
 </style>
     </head>
     <body>
@@ -34,6 +34,8 @@ var dataSet = {
         }
     ]
 };
+// カラーの準備
+var color = d3.scale.category10();
 // パックレイアウト
 var bubble = d3.layout.pack()
     .size([320, 320])
@@ -42,14 +44,22 @@ d3.select("#myGraph")
     .data(bubble.nodes(dataSet))
     .enter()
     .append("circle")
-    .attr("r", function (d) {
-        return d.r;
-    })
     .attr("cx", function (d, i) {
         return d.x;
     })
     .attr("cy", function (d, i) {
         return d.y;
+    })
+    .attr("r", 0)
+    .transition()
+    .duration(function (d, i) {
+        return d.depth * 1000 + 500;
+    })
+    .attr("r", function (d) {
+        return d.r;
+    })
+    .style("fill", function (d, i) {
+        return color(i);
     })
 
 </script>
