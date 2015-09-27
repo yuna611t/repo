@@ -6,13 +6,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 <style>
 svg { width: 380px; height: 240px; border: 1px solid black; }
-.block { stroke: black; fill: #888; }
-.name { font-size: 18pt; text-anchor: middle; }
+.file { stroke: black; fill: #777; }
+.name { font-size: 10pt; text-anchor: middle; }
 </style>
     </head>
     <body>
 
-<h1>ツリーレイアウトを表示</h1>
+<h1>ファイル階層を表示</h1>
 <svg id="myGraph"></svg>
 
 <script type="text/javascript">
@@ -24,18 +24,19 @@ svgWidth = parseFloat(svgWidth);
 svgHeight = parseFloat(svgHeight);
 // データセット
 var dataSet = {
+    name: "ルート",
     children: [
-        { value: 100 },
-        {
-            children: [
-                { value: 50 },
-                { children: [
-                    { value: 30 },
-                    { value: 20 },
-                    { value: 10 }
+        { name: "Dir1", children: [
+            { name: "ファイルA", value: 5000 },
+            { name: "ファイルB", value: 3000 },
+            { name: "Dir3", children: [
+                { name: "ファイルC", value: 5000 },
+                { name: "Dir4", children: [
+                    { name: "ファイルD", value: 1000 },
+                    { name: "ファイルE", value: 1500 }
                 ]}
-            ]
-        }
+            ]}
+        ]}
     ]
 };
 // ツリーマップレイアウト
@@ -47,7 +48,7 @@ var tmap = d3.select("#myGraph")
 // 分割マップ領域を追加
 tmap.enter()
     .append("rect")
-    .attr("class", "block")
+    .attr("class", "file")
     .attr("x", function (d, i) {
         return d.x;
     })
@@ -61,21 +62,25 @@ tmap.enter()
         return d.dy;
     })
     .style("opacity", function (d, i) {
-        return d.depth / 5;
+        return d.depth / 10;
     })
 // マップに文字を追加
 tmap.enter()
     .append("text")
     .attr("class", "name")
     .attr("transform", function (d, i) {
-        return "translate("+ (d.x + d.dx/2) +", "+ (d.y+d.dy/2) +")";
+        var deg = 0;
+        if (d.dx < d.dy) {
+            deg = -90;
+        }
+        return "translate("+ (d.x + d.dx/2) +", "+ (d.y+d.dy/2) +") rotate("+ deg +")";
     })
     .attr("dy", "0.35em")
     .text(function (d, i) {
         if ((d.depth == 0) || (d.children)) { // ルートか子ノードがあるの時は表示しない
             return null;
         }
-        return d.value;
+        return d.name;
     })
 </script>
     </body>
