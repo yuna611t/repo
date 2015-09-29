@@ -6,10 +6,16 @@
         <title></title>
     </head>
     <body>
-        <div>
-            <p><input type="text" ng-model="x"></p>
-            <p><input type="text" ng-model="y"></p>
-            <p>{{x}} vs {{y}} : {{(x > y) ? x : y}} is big.</p>
-        </div>
+{{12345678|number}} カンマ区切り<br>
+{{12.34|number:4}} 少数以下４桁<br>
+{{12.34|currency}} 通過<br>
+{{'2099-12-31T12:59:59'|date}} 日付フォーマット1<br>
+{{'2099-12-31T12:59:59'|date:'yyyy/MM/dd'}} 日付フォーマット2<br>
+{{[1,2,3,4]|limitTo:3}} 最初の３件<br>
+{{"Yamada"|lowercase}} 小文字<br>
+{{"Yamada"|uppercase}} 大文字<br>
+{{{name:"Yamada",age:36}|json}} JSON形式<br>
+{{[1,3,5,2,4]|orderBy}} ソート表示<br>
+{{[1,3,5,2,4]|orderBy:'':true}} 逆順ソート<br>
     </body>
 </html>
