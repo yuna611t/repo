@@ -16,8 +16,9 @@ app.controller('myController', function () {
 </head>
 <body>
  <div ng-controller="myController as myCtrl">
+     <input type="text" ng-model="searchText">
      <ul>
-         <li ng-repeat="member in myCtrl.members">
+         <li ng-repeat="member in myCtrl.members|filter:searchText">
              {{member.name}}  {{member.age}}
          </li>
      </ul>
