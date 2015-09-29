@@ -12,6 +12,11 @@ app.controller('myController', function () {
         { name: 'Yamada', age: 26 }
     ]
 });
+app.controller('myActionController', function () {
+    this.count = 0;
+    this.inc = function () { this.count++; }
+    this.dec = function () { this.count--; }
+});
 </script>
 </head>
 <body>
@@ -24,6 +29,11 @@ app.controller('myController', function () {
      </ul>
      <div>
          {{myCtrl.members.length}} members
+     </div>
+     <div ng-controller="myActionController as myACtrl">
+         {{myACtrl.count}}
+         <button ng-click="myACtrl.inc()">+1</button>
+         <button ng-click="myACtrl.dec()">-1</button>
      </div>
  </div>
 </body>
