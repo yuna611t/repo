@@ -11,10 +11,19 @@
     myApp.controller('MessageCtrl', ['$scope',function($scope){
         $scope.message = 'set variable in Controller';
     }]);
+    myApp.controller('DoubleCtrl',['$scope', function($scope){
+        $scope.double = function(value) {
+            value = value === undefined ? 0 : value;
+            return value * 2;
+        };
+    }]);
 </script>
 
 <div ng-controller="MessageCtrl">
     {{message}}
+</div>
+<div ng-controller="DoubleCtrl">
+    Two times <input type="number" ng-model="num"> equals {{double(num)}}
 </div>
     </body>
 </html>
