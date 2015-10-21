@@ -1,0 +1,77 @@
+demo()
+a <- c(1, 2, 5, 10, 15, 5)
+mean(a)
+median(a)
+table(a)
+var(a)
+sd(a)
+sqrt(mean(a-mean(a)^2))
+sqrt(mean((a-mean(a)^2))
+a <- c(1, 2, 5, 10, 15, 5)
+median(a)
+table(a)
+var(a)
+sd(a)
+sqrt(mean((a-mean(a))^2))
+varp <- function(x) {}
+;
+varp <- function(x){
+標本分散 <- var(x)*(length(x) -1)/length(x)
+}
+varp(a)
+varp <- function(x){
+標本分散 <- var(x)*(length(x) -1)/length(x)
+標本分散
+}
+varp(a)
+a <- c(1,2,3,4,5)
+b < - a * 2
+b <- a * 2
+plot(a,b)
+cov(a,b)
+cor(a,b)
+math <- c('like','hate','like','like','hate')
+statistics <- c('hate','like','hate','like','like')
+table(math, statistics)
+math_zero <- ifelse(math=='like',1,0)
+math_zero
+statistics_zero <- ifelse(statistics=='like',1,0)
+staitstics_zero
+statistics_zero <- ifelse(statistics=='like',1,0)
+statistics_zero
+cor(math_zero, statistics_zero)
+plot(math_zero, statistics_zero)
+cars
+speed
+cars
+cars.lm <- lm(dist ~ speed, data = cars) #回帰直線を求める
+cars.lm
+dist = 017.579 + 3.932 * speed
+dist = 017.579 + 3.932 * 1
+dist
+dist = 017.579 + 3.932 * 2
+dist
+function 回帰モデル {
+plot(dist ~ speed, data = cars)
+abline(cars.lm)
+cars
+cars.lm
+date()
+2^2
+身長 <- c(173,178,180,183,182,174,179,179,174,192)
+身長
+ホークス <- matrix(身長,10,2)
+ホークス
+ホークス <- matrix(身長,5,2)
+ホークス
+source("varp.Rd")
+身長 <- c(178,180,190,162)
+varp(身長)
+指導法 <- c("C","B","B","A")
+table(指導法)
+心理学テスト <- c(13,14,7,12,10,6,8,15,4,14,9,6,10,12,5,12,8,8,8,12,15)
+心理学テスト
+table(心理学テスト)
+hist(心理学)
+hist(心理学テスト)
+library(Rcmdr)
