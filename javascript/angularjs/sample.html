@@ -1,22 +1,20 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="myApp">
     <head>
         <meta charset="utf-8">
-<script src="http://code.angularjs.org/1.2.9/angular.min.js"></script>
+            <script src="http://code.angularjs.org/1.2.9/angular.min.js"></script>
         <title></title>
     </head>
     <body>
-        <div ng-init="qty=1;cost=2">
-            <b>Invoice:</b>
-            <div>
-                Quantity: <input type="number" ng-model="qty" required >
-            </div>
-            <div>
-                Costs: <input type="number" ng-model="cost" required >
-            </div>
-            <div>
-                <b>Total:</b> {{qty * cost | currency}}
-            </div>
-        </div>
+<script>
+    var myApp = angular.module('myApp',[]);
+    myApp.controller('MessageCtrl', ['$scope',function($scope){
+        $scope.message = 'set variable in Controller';
+    }]);
+</script>
+
+<div ng-controller="MessageCtrl">
+    {{message}}
+</div>
     </body>
 </html>
