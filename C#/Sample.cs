@@ -2,6 +2,8 @@ using System;
 
 class Program {
     static void Main(string[] args) {
-        Console.WriteLine("Program is a class");
+        int a = 1, b = 2;
+        a = b;
+        Console.WriteLine(a);
     }
 }
