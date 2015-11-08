@@ -1,13 +1,10 @@
 using System;
 
 class Program {
-    private static void doit(Action<string> sayit) {
-        sayit("Hello");
-    }
     static void Main(string[] args) {
-        Action<string> say = (s) => Console.WriteLine(s);
-        Action<string> sayWithParen = (s) => Console.WriteLine("("+s+")");
-        doit(say);
-        doit(sayWithParen);
+        long a = 1;
+        Console.WriteLine(a.GetType().Name);
+        var b = 1;
+        Console.WriteLine(b.GetType().Name);
     }
 }
