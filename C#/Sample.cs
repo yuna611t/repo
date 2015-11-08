@@ -1,12 +1,19 @@
 using System;
 
+delegate void SayIt(string s);
+
 class Program {
+    private static void doit1(string s) {
+        Console.WriteLine(s + " Everybody");
+    }
+    private static void doit2(string s) {
+        Console.WriteLine(s + " World");
+    }
+
     static void Main(string[] args) {
-        int i = 0;
-        string s = "Hello";
-        bool b = true;
-        Console.WriteLine("i.GetType().FullName: {0}", i.GetType().FullName);
-        Console.WriteLine("s.GetType().FullName: {0}", s.GetType().FullName);
-        Console.WriteLine("b.GetType().FullName: {0}", b.GetType().FullName);
+        SayIt a = doit1;
+        a("Hello");
+        a = doit2;
+        a("Hello");
     }
 }
