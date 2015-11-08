@@ -1,12 +1,16 @@
 using System;
 
 class Program {
+    private static Action Sample() {
+        var msg = "Hello Sample";
+        // 変数のキャプチャ
+        // ラムダ式の中から外の変数を参照できる
+        // クロージャっぽいけど違うらしいので後で調べる
+        return () => Console.WriteLine(msg);
+    }
 
     static void Main(string[] args) {
-        Action<int, int> act = (a,b) => Console.WriteLine("{0}", a + b);
-        act(1, 3);
-
-        Func<byte, double, int> f = (x, y) => (int)(x * y);
-        Console.WriteLine(f(2,3));
+        var result = Sample();
+        result(); // ラムダ式内でキャプチャした変数は使用されるここまで生存する
     }
 }
