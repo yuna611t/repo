@@ -1,9 +1,12 @@
 using System;
-using System.Threading.Tasks;
 
 class Program {
     static void Main(string[] args) {
-        Task.Delay(1000).Wait();
-        Console.WriteLine("Hello World!");
+        int i = 0;
+        string s = "Hello";
+        bool b = true;
+        Console.WriteLine("i.GetType().FullName: {0}", i.GetType().FullName);
+        Console.WriteLine("s.GetType().FullName: {0}", s.GetType().FullName);
+        Console.WriteLine("b.GetType().FullName: {0}", b.GetType().FullName);
     }
 }
