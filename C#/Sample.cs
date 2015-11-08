@@ -1,11 +1,7 @@
 using System;
 
 class Program {
-    private static int abc(int a, int b, int c) {
-        var result = a * b + c;
-        return result;
-    }
     static void Main(string[] args) {
-        Console.WriteLine(abc(1,2,3));
+        Console.WriteLine("今日{0}さんが{1}円で{2}を書いました", "太郎", 120, "缶コーヒー");
     }
 }
