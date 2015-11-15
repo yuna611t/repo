@@ -1,16 +1,22 @@
 using System;
 
 class Program {
-    private static Action Sample() {
-        var msg = "Hello Sample";
-        // 変数のキャプチャ
-        // ラムダ式の中から外の変数を参照できる
-        // クロージャっぽいけど違うらしいので後で調べる
-        return () => Console.WriteLine(msg);
-    }
-
     static void Main(string[] args) {
-        var result = Sample();
-        result(); // ラムダ式内でキャプチャした変数は使用されるここまで生存する
+        // 変数をキャプチャ
+        var a = new Action[10];
+        for (int i = 0; i < 10; i++) {
+            a[i] = () => Console.WriteLine(i);
+        }
+        foreach(var item in a) {
+            item();
+        }
+        // 値をキャプチャ
+        for (int i = 0; i < 10; i++) {
+            int j = i;
+            a[i] = () => Console.WriteLine(j);
+        }
+        foreach(var item in a) {
+            item();
+        }
     }
 }
