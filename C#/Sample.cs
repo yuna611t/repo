@@ -3,23 +3,12 @@ using System.Linq;
 
 class Program {
 
-    // LinQの値加工
-    private static int[] calc(int[] prices) {
-        return (from n in prices select n * 105/100).ToArray();
-    }
-    // LinQメッソド形式
-    private static int[] calc2(int[] prices) {
-        return prices.Select(c => c * 105/100).ToArray();
-    }
-
     static void Main(string[] args) {
-        int[] prices = {100, 1000, 150};
-        var cP1 = calc(prices);
-        var cP2 = calc2(prices);
-        foreach(var item in cP1) {
+        int[] numbers = {7, 5, 3, 13};
+        foreach(var item in from n in numbers orderby n select n) {
             Console.WriteLine(item);
         }
-        foreach(var item in cP2) {
+        foreach(var item in numbers.OrderBy(c=>c)) {
             Console.WriteLine(item);
         }
     }
