@@ -3,10 +3,7 @@ using System;
 class Program {
 
     static void Main(string[] args) {
-        byte a = 1, b = 2;
-        // 加算などの演算子の結果はint型に昇格される
-        // byte c = a + b;
-        var c = a + b;
-        Console.WriteLine(c);
+        Console.WriteLine(3/2*2); // 3/2 => 1; 1*2 => 2
+        Console.WriteLine(3.0/2.0*2.0); 3.0/2.0 => 1.5; 1.5 * 2.0 => 3.0
     }
 }
