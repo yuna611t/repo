@@ -1,11 +1,27 @@
 using System;
-using System.Linq;
+
+public class A { public int X; }
+public struct B { public int X; }
+
 
 class Program {
 
     static void Main(string[] args) {
-        int[] a = {1,2,3};
-        var q = a.Select(n => new {x = n, y = n * 2});
-        foreach(var item in q) Console.WriteLine("{0}*2={1}", item.x, item.y);
+        A a1 = new A();
+        B b1 = new B();
+        a1.X = 123;
+        b1.X = 123;
+
+        A a2 = a1; // 参照先のコピー(class)
+        B b2 = b1; // 値のコピー(struct)
+
+        a2.X = 456;
+        b2.X = 456;
+
+        Console.WriteLine("a1.X={0}", a1.X);
+        Console.WriteLine("a2.X={0}", a2.X);
+
+        Console.WriteLine("b1.X={0}", b1.X);
+        Console.WriteLine("b2.X={0}", b2.X);
     }
 }
