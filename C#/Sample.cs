@@ -1,15 +1,16 @@
 using System;
 using System.Linq;
 
+class B {
+    public int x,y;
+}
+
 class Program {
 
-    class X {
-        public string Name;
-    }
-
     static void Main(string[] args) {
-        string[] names = {"alice", "BETTY", "Cindy"};
-        var upperNames = names.Select(c => new X(){Name = c.ToUpper()});
-        foreach(var item in upperNames) Console.WriteLine(item.Name);
+        var a = new {x = 1, y = 2};
+        var b = new B {x = 1, y = 2};
+        Console.WriteLine(a); // 匿名オブジェクト
+        Console.WriteLine(b);
     }
 }
