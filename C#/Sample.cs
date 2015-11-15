@@ -3,9 +3,10 @@ using System;
 class Program {
 
     static void Main(string[] args) {
-        // 整数の計算結果
-        Console.WriteLine("3/2={0}", 3 / 2);
-        // 実数の計算結果
-        Console.WriteLine("3.0/2.0={0}", 3.0 / 2.0);
+        byte a = 1, b = 2;
+        // 加算などの演算子の結果はint型に昇格される
+        // byte c = a + b;
+        var c = a + b;
+        Console.WriteLine(c);
     }
 }
