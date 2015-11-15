@@ -1,16 +1,11 @@
 using System;
 using System.Linq;
 
-class B {
-    public int x,y;
-}
-
 class Program {
 
     static void Main(string[] args) {
-        var a = new {x = 1, y = 2};
-        var b = new B {x = 1, y = 2};
-        Console.WriteLine(a); // 匿名オブジェクト
-        Console.WriteLine(b);
+        int[] a = {1,2,3};
+        var q = a.Select(n => new {x = n, y = n * 2});
+        foreach(var item in q) Console.WriteLine("{0}*2={1}", item.x, item.y);
     }
 }
