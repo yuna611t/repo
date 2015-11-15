@@ -2,13 +2,13 @@ using System;
 
 class Program {
 
-    private static void twoitems(ref int a) {
-        a = a * 2;
+    private static void twoitems(int a, out int b) {
+        b = a * 2;
     }
 
     static void Main(string[] args) {
-        int a = 2;
-        twoitems(ref a);
-        Console.WriteLine(a);
+        int r;
+        twoitems(2, out r);
+        Console.WriteLine(r);
     }
 }
