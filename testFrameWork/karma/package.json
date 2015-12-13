@@ -1,17 +1,11 @@
 {
-  "name": "karma-sample",
+  "name": "karma-test",
   "version": "1.0.0",
-  "description": "karma+jasmineの実験",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "yuna",
-  "license": "ISC",
-  "devDependencies": {
-    "karma": "^0.13.15",
-    "karma-chrome-launcher": "^0.2.2",
-    "karma-jasmine": "^0.3.6"
-  },
-  "dependencies": {}
+  "author": "",
+  "license": "ISC"
 }
