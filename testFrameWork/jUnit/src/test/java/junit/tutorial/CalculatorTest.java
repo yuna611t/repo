@@ -17,7 +17,7 @@ public class CalculatorTest {
 	@Test
 	public void multyplyで5と7の乗算結果を取得できる() {
 		Calculator calc = new Calculator();
-		int expected = 12;
+		int expected = 35;
 		int actual = calc.multiply(5, 7);
 		assertThat(actual, is(expected));
 	}
