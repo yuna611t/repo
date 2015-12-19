@@ -13,7 +13,7 @@ public class CalculatorTest {
 		int actual = calc.multiply(3, 4);
 		assertThat(actual, is(expected));
 	}
-	
+
 	@Test
 	public void multyplyで5と7の乗算結果を取得できる() {
 		Calculator calc = new Calculator();
@@ -21,12 +21,12 @@ public class CalculatorTest {
 		int actual = calc.multiply(5, 7);
 		assertThat(actual, is(expected));
 	}
-	
+
 	@Test
 	public void divideで3と除算結果が取得できる() {
 		Calculator calc = new Calculator();
 		float expected = 1.5f;
-		float actual = calc.divide(3,2);
+		float actual = calc.divide(3, 2);
 		assertThat(actual, is(expected));
 	}
 }
