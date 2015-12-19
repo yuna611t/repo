@@ -2,6 +2,11 @@ package junit.tutorial;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+import static junit.tutorial.custommatcher.IsDate.*;
+
+import java.util.Calendar;
+import java.util.Date;
+
 import org.junit.Test;
 
 public class CalculatorTest {
@@ -34,5 +39,17 @@ public class CalculatorTest {
 	public void divideで5と0の時IllegalArgumentExceptionを創出する() {
 		Calculator calc = new Calculator();
 		calc.divide(5, 0);
+	}
+	
+	@Test
+	public void minusDateでDate型が返却される() {
+		Calendar cal = Calendar.getInstance();
+		cal.set(2015, 11, 13);
+		Date date = cal.getTime();
+
+		Calculator calc = new Calculator();
+		Date actual = calc.minusDate(date, 4); // 失敗した時のメッセージ確認
+
+		assertThat(actual, is(dateOf(2015, 12, 10)));
 	}
 }
