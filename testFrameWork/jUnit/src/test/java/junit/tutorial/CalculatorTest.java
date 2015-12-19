@@ -40,15 +40,15 @@ public class CalculatorTest {
 		Calculator calc = new Calculator();
 		calc.divide(5, 0);
 	}
-	
+
 	@Test
-	public void minusDateでDate型が返却される() {
+	public void minusDateで2015年12月13日と3で2015年12月10日が返却される() {
 		Calendar cal = Calendar.getInstance();
 		cal.set(2015, 11, 13);
 		Date date = cal.getTime();
 
 		Calculator calc = new Calculator();
-		Date actual = calc.minusDate(date, 4); // 失敗した時のメッセージ確認
+		Date actual = calc.minusDate(date, 3);
 
 		assertThat(actual, is(dateOf(2015, 12, 10)));
 	}
