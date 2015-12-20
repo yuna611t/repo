@@ -1,0 +1,6 @@
+14:51:43.728 [main] TRACE HelloWorld - Hello, World
+14:51:43.729 [main] DEBUG HelloWorld - Hello, World
+14:51:43.729 [main] INFO  HelloWorld - Hello, World
+14:51:43.729 [main] WARN  HelloWorld - Hello, World
+14:51:43.729 [main] ERROR HelloWorld - Hello, World
+14:51:43.729 [main] FATAL HelloWorld - Hello, World
