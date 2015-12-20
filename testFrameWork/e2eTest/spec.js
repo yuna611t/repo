@@ -7,6 +7,6 @@ describe('Protractor Demo App', function() {
     element(by.id('gobutton')).click();
 
     expect(element(by.binding('latest')).getText()).
-        toEqual('5'); // This is wrong
+        toEqual('3'); // This is correct
   });
 });
