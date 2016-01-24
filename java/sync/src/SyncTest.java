@@ -67,7 +67,7 @@ class Counter {
      * カウントアップし、現在のカウントを表示する
      * 表示例: [1], [2]
      */
-    void countUp() {
+    synchronized void countUp() {
         System.out.print("[");
         int n = count;
         System.out.print(n);
