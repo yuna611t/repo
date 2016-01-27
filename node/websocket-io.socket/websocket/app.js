@@ -41,7 +41,7 @@ wss.on('connection', function(ws) {
     // when client send message -- message
     ws.on('message', function(data) {
         logger("WebSocket on message", "recieve: " + data);
-        broadcast("Message from any client " + data);
+        broadcast("Message from any client :  " + data);
     });
 
     // when client is disconected
