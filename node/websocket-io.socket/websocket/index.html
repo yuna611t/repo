@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>WebSocketTest</title>
-
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
         <script type="text/javascript">
             var host = window.document.location.host.replace(/:.*/, '');
             var ws = new WebSocket('ws://' + host + ':3001');
@@ -22,13 +22,24 @@
             }
         </script>
 
-
-
+        <script type="text/javascript">
+            $(document).ready(function(){
+                var $node = $('.message-box'),
+                    $text = $node.find('input[type=text]');
+                $node.on('click', 'input[type=button]', function(e) {
+                    e.preventDefault();
+                    var msg = $text.val(); $text.val("");
+                    // socket send
+                    ws.send(msg);
+                });
+            });
+        </script>
     </head>
     <body>
         This is Websocket Page
-        <div>
-            <input type="button" value="送信" id="send_message" onclick="(function(){ws.send('From Client Message');})();">
+        <div class="message-box">
+            <input type="text">
+            <input type="button" value="送信">
         </div>
         <div id="msg_list"></div>
 
