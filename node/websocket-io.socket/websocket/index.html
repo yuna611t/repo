@@ -3,8 +3,35 @@
     <head>
         <meta charset="utf-8">
         <title>WebSocketTest</title>
+
+        <script type="text/javascript">
+            var host = window.document.location.host.replace(/:.*/, '');
+            var ws = new WebSocket('ws://' + host + ':3001');
+
+            ws.onopen = function(e) {
+                console.log('onoepn: ' + e);
+            }
+            ws.onmessage = function(data) {
+                console.log('onmessage: ' + data.data);
+            }
+            ws.onclose = function() {
+                console.log('onclose');
+            }
+            ws.onerror = function() {
+                console.log('onerror');
+            }
+        </script>
+
+
+
     </head>
     <body>
         This is Websocket Page
+        <div>
+            <input type="button" value="送信" id="send_message" onclick="(function(){ws.send('From Client Message');})();">
+        </div>
+        <div id="msg_list"></div>
+
+
     </body>
 </html>
