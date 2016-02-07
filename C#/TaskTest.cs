@@ -16,6 +16,9 @@ public class Example
         extract = new Extract00(); extract.extract();
         extract = new Extract01(); extract.extract();
         extract = new Extract02(); extract.extract();
+        extract = new Extract02withSort(); extract.extract();
+        extract = new Extract02withSort02(); extract.extract();
+        
     }
 }
 
@@ -115,7 +118,7 @@ abstract class Extract
     protected void stopTimer() {
         sw.Stop();
         Console.WriteLine("");
-        Console.WriteLine(sw.Elapsed);
+        Console.WriteLine("*******************" + sw.Elapsed);
     }
 }
 
@@ -191,4 +194,103 @@ class Extract02 : Extract
             });
         return array;
     }
+}
+
+/// <summary>
+/// データの抽出を並列に行う
+/// 並列処理の中でデータの抽出判定を行う
+/// 抽出したデータを週順にしてから返却する
+/// </summary> 
+class Extract02withSort : Extract02
+{
+    /// <summary>
+    /// データの抽出を並列に行う
+    /// 並列処理の中でデータの抽出判定を行う
+    /// 抽出したデータを週順にしてから返却する
+    /// <param name="items">データ抽出対象</param>
+    /// <returns>抽出されたデータ</returns>    
+    /// </summary>
+     protected override ArrayList correctItems(Item[] items) {
+        ArrayList array = base.correctItems(items);
+        ItemCompararer comp = new ItemCompararer();
+        array.Sort(comp);
+        return array;
+    }
+    
+    /// <summary>
+    /// データの並び替えを行う
+    /// </summary> 
+    class ItemCompararer : System.Collections.IComparer
+    {
+        /// <summary>
+        /// Itemインスタンスのidの照準にデータの並び替えを行う
+        /// <param name="_x">比較対象1</param>
+        /// <param name="_y">比較対象2</param>        
+        /// <returns>比較結果</returns>    
+        /// </summary>        
+        public int Compare(object _x, object _y)
+        {
+            Item x = (Item) _x;
+            Item y = (Item) _y;
+
+            if (x.id < y.id) return -1;
+            if (x.id > y.id) return 1;
+            if (x.id == y.id) return 0;
+            return 0;
+        }
+    }   
+}
+
+
+/// <summary>
+/// データの抽出を並列に行う
+/// 並列処理の中でデータの抽出判定を行う
+/// ソート処理を含むロジックが短時間で終わってしまったため、
+/// 確認のために親クラスのメソッドを使用しないパターンを作成
+/// </summary> 
+class Extract02withSort02 : Extract
+{
+    /// <summary>
+    /// データの抽出を並列に行う
+    /// 並列処理の中でデータの抽出判定を行う
+    /// <param name="items">データ抽出対象</param>
+    /// <returns>抽出されたデータ</returns>    
+    /// </summary>
+     protected override ArrayList correctItems(Item[] items) {
+        ArrayList array = new ArrayList();
+        object lockobj = new object();
+        IEnumerable<Item> records = from n in items select n;
+        Parallel.ForEach(records,
+            (x) => {
+                if (x.status == "new") {
+                    lock (lockobj) { array.Add(x); }
+                }
+            });
+        ItemCompararer comp = new ItemCompararer();
+        array.Sort(comp);
+        return array;
+    }
+    
+    /// <summary>
+    /// データの並び替えを行う
+    /// </summary> 
+    class ItemCompararer : System.Collections.IComparer
+    {
+        /// <summary>
+        /// Itemインスタンスのidの照準にデータの並び替えを行う
+        /// <param name="_x">比較対象1</param>
+        /// <param name="_y">比較対象2</param>        
+        /// <returns>比較結果</returns>    
+        /// </summary>        
+        public int Compare(object _x, object _y)
+        {
+            Item x = (Item) _x;
+            Item y = (Item) _y;
+
+            if (x.id < y.id) return -1;
+            if (x.id > y.id) return 1;
+            if (x.id == y.id) return 0;
+            return 0;
+        }
+    }   
 }
