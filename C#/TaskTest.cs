@@ -25,6 +25,8 @@ public class Example
             
         }
         
+        System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+        sw.Start();
         
         ArrayList array = new ArrayList();
         object lockobj = new object();
@@ -46,6 +48,8 @@ public class Example
             Console.WriteLine("new item is " + item.id);
         }
 
+        sw.Stop();
+        Console.WriteLine(sw.Elapsed);
     }
 }
 
