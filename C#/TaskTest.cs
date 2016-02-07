@@ -31,12 +31,12 @@ public class Example
         
         Console.WriteLine("----Before Pallarel----");
 
-        IEnumerable<Item> records = from n in items select n;
+        IEnumerable<Item> records = from n in items where n.status == "new" select n;
         Parallel.ForEach(records,
             (x) => {
-                if (x.status == "new") {
+                // if (x.status == "new") {
                     lock (lockobj) { array.Add(x); }
-                }
+                // }
             });
 
           Console.WriteLine("----After Parallel----");
