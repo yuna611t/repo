@@ -50,20 +50,33 @@ abstract class Extract
         }
         return items;
     }
+    
+    protected void printExtractedItems(ArrayList array) {
+        foreach (Item item in array)
+        {
+            Console.Write("new item is " + item.id + ", ");
+        }
+    }
+    
+    System.Diagnostics.Stopwatch sw;
+    protected void startTimer() {
+        sw = new System.Diagnostics.Stopwatch();
+        sw.Start();        
+    }
+    protected void stopTimer() {
+        sw.Stop();
+        Console.WriteLine("");
+        Console.WriteLine(sw.Elapsed);
+    }
 }
 
 class Extract00 : Extract
 {
      public override void extract() {
-        Item[] items = createItemList(10000);
-                
-        System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-        sw.Start();
-        
+        Item[] items = createItemList(10000);    
+        startTimer();                    
         ArrayList array = new ArrayList();
-        
         Console.WriteLine("----Before Loop----");
-        
         foreach (Item item in items)
         {
             if (item.status == "new")
@@ -71,17 +84,9 @@ class Extract00 : Extract
                 array.Add(item);                
             }
         }
-
         Console.WriteLine("----After Loop----");
-
-        foreach (Item item in array)
-        {
-            Console.Write("new item is " + item.id + ", ");
-        }
-
-        sw.Stop();
-        Console.WriteLine("");
-        Console.WriteLine(sw.Elapsed);
+        printExtractedItems(array);
+        stopTimer();
     }
 }
 
@@ -89,31 +94,18 @@ class Extract01 : Extract
 {
     public override void extract() {
         Item[] items = createItemList(10000);
-                
-        System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-        sw.Start();
-        
+        startTimer();
         ArrayList array = new ArrayList();
         object lockobj = new object();
-        
         Console.WriteLine("----Before Pallarel----");
-
         IEnumerable<Item> records = from n in items where n.status == "new" select n;
         Parallel.ForEach(records,
             (x) => {
                 lock (lockobj) { array.Add(x); }
             });
-
-          Console.WriteLine("----After Parallel----");
-
-        foreach (Item item in array)
-        {
-            Console.Write("new item is " + item.id + ", ");
-        }
-
-        sw.Stop();
-        Console.WriteLine("");
-        Console.WriteLine(sw.Elapsed);        
+        Console.WriteLine("----After Parallel----");
+        printExtractedItems(array);
+        stopTimer();
     }
 }
 
@@ -121,15 +113,10 @@ class Extract02 : Extract
 {
     public override void extract() {
         Item[] items = createItemList(10000);
-                
-        System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-        sw.Start();
-        
+        startTimer();
         ArrayList array = new ArrayList();
         object lockobj = new object();
-        
         Console.WriteLine("----Before Pallarel----");
-
         IEnumerable<Item> records = from n in items select n;
         Parallel.ForEach(records,
             (x) => {
@@ -137,16 +124,8 @@ class Extract02 : Extract
                     lock (lockobj) { array.Add(x); }
                 }
             });
-
-          Console.WriteLine("----After Parallel----");
-
-        foreach (Item item in array)
-        {
-            Console.Write("new item is " + item.id + ", ");
-        }
-
-        sw.Stop();
-        Console.WriteLine("");
-        Console.WriteLine(sw.Elapsed);        
+        Console.WriteLine("----After Parallel----");
+        printExtractedItems(array);
+        stopTimer();
     }
 }
