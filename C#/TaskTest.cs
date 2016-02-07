@@ -10,12 +10,51 @@ public class Example
 {
     public static void Main()
     {
-        extract00();
-        extract01();
-        extract02();
+        Extract extract;
+        extract = new Extract00(); extract.extract();
+        extract = new Extract01(); extract.extract();
+        extract = new Extract02(); extract.extract();
     }
-    
-    static void extract00() {
+}
+
+class Item
+{
+    public int id { get; }
+    public string status { get; set; }
+
+    public Item(int id, string status)
+    {
+        this.id = id;
+        this.status = status;   
+    }
+}
+
+abstract class Extract
+{
+    public abstract void extract();
+
+    protected Item[] createItemList(int _size) {
+        int size = _size > 0 ? _size : 1000;
+        
+        Item[] items = new Item[size];
+        for (int i = 0; i < size; i++)
+        {
+            Item item = null;
+            if (i % 300 == 0) {
+                items[i] = new Item(i, "new");
+            } else if(i % 2 == 0) {
+                items[i] = new Item(i, "mod");
+            } else {
+                items[i] = new Item(i, "del");
+            }   
+        }
+        return items;
+    }
+}
+
+class Extract00 : Extract
+{
+     public override void extract() {
         Item[] items = createItemList(10000);
                 
         System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
@@ -44,9 +83,11 @@ public class Example
         Console.WriteLine("");
         Console.WriteLine(sw.Elapsed);
     }
+}
 
-    
-    static void extract01() {
+class Extract01 : Extract
+{
+    public override void extract() {
         Item[] items = createItemList(10000);
                 
         System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
@@ -74,8 +115,11 @@ public class Example
         Console.WriteLine("");
         Console.WriteLine(sw.Elapsed);        
     }
-    
-     static void extract02() {
+}
+
+class Extract02 : Extract
+{
+    public override void extract() {
         Item[] items = createItemList(10000);
                 
         System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
@@ -105,35 +149,4 @@ public class Example
         Console.WriteLine("");
         Console.WriteLine(sw.Elapsed);        
     }
-    
-    static Item[] createItemList(int _size) {
-        int size = _size > 0 ? _size : 1000;
-        
-        Item[] items = new Item[size];
-        for (int i = 0; i < size; i++)
-        {
-            Item item = null;
-            if (i % 300 == 0) {
-                items[i] = new Item(i, "new");
-            } else if(i % 2 == 0) {
-                items[i] = new Item(i, "mod");
-            } else {
-                items[i] = new Item(i, "del");
-            }   
-        }
-        return items;
-    }
-}
-
-class Item
-{
-    public int id { get; }
-    public string status { get; set; }
-
-    public Item(int id, string status)
-    {
-        this.id = id;
-        this.status = status;   
-    }
-
 }
