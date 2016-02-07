@@ -31,8 +31,19 @@ class Item
 
 abstract class Extract
 {
-    public abstract void extract();
-
+    public void extract() 
+    {
+        Item[] items = createItemList(10000);    
+        startTimer();                            
+        Console.WriteLine("----Before Loop----");
+        ArrayList array = correctItems(items);
+        Console.WriteLine("----After Loop----");
+        printExtractedItems(array);
+        stopTimer(); 
+    }
+    
+    protected abstract ArrayList correctItems(Item[] items);
+    
     protected Item[] createItemList(int _size) {
         int size = _size > 0 ? _size : 1000;
         
@@ -72,11 +83,8 @@ abstract class Extract
 
 class Extract00 : Extract
 {
-     public override void extract() {
-        Item[] items = createItemList(10000);    
-        startTimer();                    
+     protected override ArrayList correctItems(Item[] items) {
         ArrayList array = new ArrayList();
-        Console.WriteLine("----Before Loop----");
         foreach (Item item in items)
         {
             if (item.status == "new")
@@ -84,39 +92,29 @@ class Extract00 : Extract
                 array.Add(item);                
             }
         }
-        Console.WriteLine("----After Loop----");
-        printExtractedItems(array);
-        stopTimer();
+        return array;
     }
 }
 
 class Extract01 : Extract
 {
-    public override void extract() {
-        Item[] items = createItemList(10000);
-        startTimer();
+     protected override ArrayList correctItems(Item[] items) {
         ArrayList array = new ArrayList();
         object lockobj = new object();
-        Console.WriteLine("----Before Pallarel----");
         IEnumerable<Item> records = from n in items where n.status == "new" select n;
         Parallel.ForEach(records,
             (x) => {
                 lock (lockobj) { array.Add(x); }
             });
-        Console.WriteLine("----After Parallel----");
-        printExtractedItems(array);
-        stopTimer();
+        return array;
     }
 }
 
 class Extract02 : Extract
 {
-    public override void extract() {
-        Item[] items = createItemList(10000);
-        startTimer();
+     protected override ArrayList correctItems(Item[] items) {
         ArrayList array = new ArrayList();
         object lockobj = new object();
-        Console.WriteLine("----Before Pallarel----");
         IEnumerable<Item> records = from n in items select n;
         Parallel.ForEach(records,
             (x) => {
@@ -124,8 +122,6 @@ class Extract02 : Extract
                     lock (lockobj) { array.Add(x); }
                 }
             });
-        Console.WriteLine("----After Parallel----");
-        printExtractedItems(array);
-        stopTimer();
+        return array;
     }
 }
