@@ -1,18 +1,28 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Collections;
 
 public class Example
 {
     public static void Main()
     {
-        Console.WriteLine("----Before Task Start----");
-
-        Parallel.For(0, 100000,
+        ArrayList array = new ArrayList();
+        object lockobj = new object();
+        array.Add(100);
+        
+        Console.WriteLine("----Before Pallarel----");
+        Parallel.For(0, 10,
             ctr => {
-                Console.WriteLine("Finished {0} loop iterations", ctr);                
+                Console.WriteLine(ctr);
+                lock (lockobj) { array.Add(ctr); }
             });
-        Console.WriteLine("----After Task Start----");
-        Console.WriteLine("----After Task Wait----");
+        Console.WriteLine("----After Parallel----");
+
+        foreach (var item in array)
+        {
+            Console.WriteLine(item);
+        }
+
     }
 }
