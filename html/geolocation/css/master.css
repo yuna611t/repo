@@ -1,0 +1,31 @@
+.button {
+  display: inline-block;
+  width: 200px;
+  height: 54px;
+  text-align: center;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all .3s;
+  transition: all .3s; }
+  .button::before, .button::after {
+    position: absolute;
+    z-index: -1;
+    display: block;
+    content: '';
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all .3s;
+    transition: all .3s; }
+  .button:hover {
+    background-color: #59b1eb; }
+  .button__geo {
+    background-color: #333; }
+    .button__geo > a {
+      text-decoration: none;
+      line-height: 54px;
+      outline: none;
+      color: #fff; }
+
+/*# sourceMappingURL=master.css.map */
