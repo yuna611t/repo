@@ -45,7 +45,10 @@ def index():
     """ Top Page
     display a page with templates
     """
-    return render_template('index.html')
+    # load post data
+    greeting_list = load_data()
+    return render_template('index.html',greeting_list=greeting_list)
+
 
 if __name__ == '__main__':
     # execute application with IP 127.0.0.1 and port 8000
