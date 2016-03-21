@@ -3,6 +3,7 @@
 import shelve
 
 from flask import Flask, request, render_template, redirect, escape, Markup
+from datetime import datetime
 
 application = Flask(__name__)
 
@@ -49,6 +50,18 @@ def index():
     greeting_list = load_data()
     return render_template('index.html',greeting_list=greeting_list)
 
+@application.route('/post', methods=['POST'])
+def post():
+    """ URL for post
+    """
+    # retrieve data from post
+    name = request.form.get('name') # name
+    comment = request.form.get('comment') # comment
+    create_at = datetime.now() # post date
+    # save data
+    save_data(name, comment, create_at)
+    # redirect to top page after save data
+    return redirect('/')
 
 if __name__ == '__main__':
     # execute application with IP 127.0.0.1 and port 8000
