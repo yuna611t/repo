@@ -63,6 +63,18 @@ def post():
     # redirect to top page after save data
     return redirect('/')
 
+@application.template_filter('nl2br')
+def nl2br_filter(s):
+    """ template filter for replacing line break character with br tag
+    """
+    return escape(s).replace('\n', Markup('<br>'))
+
+@application.template_filter('datetime_fmt')
+def datetime_fmt_filter(dt):
+    """ template filter for transforming datetime object to object easy to look at
+    """
+    return dt.strftime('%Y%m%d %H:%M:%S')
+
 if __name__ == '__main__':
     # execute application with IP 127.0.0.1 and port 8000
     application.run('127.0.0.1', 8000, debug=True)
