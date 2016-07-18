@@ -12,7 +12,14 @@ class SimpleQuery
                       select n;
         
         Console.WriteLine("The positive values in nums:");
-
         foreach (int i in posNums) Console.WriteLine(i);
+
+        // deferred execution
+        nums[2] = 99;
+        Console.WriteLine("The positive values in nums - 2nd:");
+        foreach (int i in posNums) Console.WriteLine(i);
+        
+
+
     }
 }
