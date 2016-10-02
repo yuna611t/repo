@@ -15,10 +15,13 @@ generate_list()
 #[print(" - ",c) for c in country_list]
 #print("---------")
 
+# which is faster? => real    0m4.996s 
+[print("{}:{}".format(c, country_list.count(c))) for c in  {c:0 for c in country_list}]
+
 # which is faster? => real    0m5.101s 
-country_names = {c:0 for c in country_list}
-for c in country_names:
-    print("{}:{}".format(c, country_list.count(c)))
+#country_names = {c:0 for c in country_list}
+#for c in country_names:
+#    print("{}:{}".format(c, country_list.count(c)))
 
 # which is faster? => real    0m6.156s   
 #results = {}                                                                                                                                    
