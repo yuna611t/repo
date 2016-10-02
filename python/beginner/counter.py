@@ -15,12 +15,6 @@ print("country_list is following:")
 [print(" - ",c) for c in country_list]
 print("---------")
 
-results = {}
-for c in country_list:
-    if c in results:
-        results[c] += 1
-    else:
-        results[c] = 1
-
-for c in results:
-    print("{}:{}".format(c, results[c]))
+country_names = {c:0 for c in country_list}
+for c in country_names:
+    print("{}:{}".format(c, country_list.count(c)))
