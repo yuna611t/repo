@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*- 
 
-import calendar
+from calendar import TextCalendar
 
-cal = calendar.TextCalendar(6)
+cal = TextCalendar(6)
 cal.prmonth(2016,1)
