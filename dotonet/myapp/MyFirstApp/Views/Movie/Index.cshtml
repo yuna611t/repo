@@ -1,0 +1,23 @@
+@model List<MyFirstApp.Models.Movie>
+
+@{
+    ViewData["Title"] = "Movie";
+}
+
+<h2>@ViewData["Title"].</h2>
+
+<h3>Movie List</h3>
+
+<ul>
+@foreach(var movie in Model) {
+    <li>
+        <ul>
+            <li>@movie.ID</li>
+            <li>@movie.Title</li>
+            <li>@movie.ReleaseDate</li>
+            <li>@movie.Genre</li>
+            <li>@movie.Price</li>
+        </ul>
+    </li>
+}
+</ul>
