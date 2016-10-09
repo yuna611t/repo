@@ -3,14 +3,25 @@
 
 @* @MovieHelper.DisplayMovies(Model) *@
     
-    <div>
-    @foreach(var movie in Model) {
-        <ul class="list-group">
-            <li class="list-group-item">@movie.ID</li>
-            <li class="list-group-item">@movie.Title</li>
-            <li class="list-group-item">@movie.ReleaseDate</li>
-            <li class="list-group-item">@movie.Genre</li>
-            <li class="list-group-item">@movie.Price</li>
-        </ul>
-    }
-    </div>
+    <table class="table table-striped">
+    <thead>
+        <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>ReleaseDate</th>
+        <th>Genre</th>
+        <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var movie in Model) {
+            <tr>
+            <th scope="row">@movie.ID</th>
+            <td>@movie.ID</td>
+            <td>@movie.ReleaseDate</td>
+            <td>@movie.Genre</td>
+            <td>@movie.Price</td>
+            </tr>
+        }
+    </tbody>
+    </table>
