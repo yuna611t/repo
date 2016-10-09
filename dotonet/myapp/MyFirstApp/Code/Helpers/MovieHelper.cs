@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
+using Microsoft.AspNetCore.Html;
 
-namespace MyFirstApp.Code.Helpers
+namespace MyFirstApp.Code.Helper
 {
     public static class MovieHelper 
     {
-        public static string DisplayMovies(List<MyFirstApp.Models.Movie> model){
-            string html = "";
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+        public static HtmlString DisplayMovies(List<MyFirstApp.Models.Movie> model){
+            StringBuilder sb = new StringBuilder();
             sb.Append("<ul><li>");
             // build contents
             foreach(var movie in model) {
@@ -20,8 +21,7 @@ namespace MyFirstApp.Code.Helpers
                 sb.Append("</ul>");
             }
             sb.Append("</li></ul>");
-            html = sb.ToString();
-            return html;
+            return new HtmlString(sb.ToString());
         }
     }
 }

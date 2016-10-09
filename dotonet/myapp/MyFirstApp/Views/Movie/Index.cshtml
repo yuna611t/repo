@@ -1,5 +1,5 @@
 @model List<MyFirstApp.Models.Movie>
-@using MyFirstApp.Code.Helpers;
+@using MyFirstApp.Code.Helper;
 
 @{
     ViewData["Title"] = "Movie";
@@ -9,4 +9,5 @@
 <h2>@ViewData["Title"].</h2>
 
 <h3>Movie List</h3>
-@Html.Raw(MovieHelper.DisplayMovies(Model))
+
+@MovieHelper.DisplayMovies(Model)
