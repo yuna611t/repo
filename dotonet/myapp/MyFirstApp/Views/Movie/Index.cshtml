@@ -4,20 +4,29 @@
     ViewData["Title"] = "Movie";
 }
 
+@functions {
+    public string DisplayMovies(List<MyFirstApp.Models.Movie> model){
+        string html = "";
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+        sb.Append("<ul><li>");
+        // build contents
+        foreach(var movie in model) {
+            sb.Append("<ul>");
+            sb.Append("<li>" + @movie.ID + "</li>");
+            sb.Append("<li>" + @movie.Title + "</li>");
+            sb.Append("<li>" + @movie.ReleaseDate + "</li>");
+            sb.Append("<li>" + @movie.Genre + "</li>");
+            sb.Append("<li>" + @movie.Price + "</li>");
+            sb.Append("</ul>");
+        }
+        sb.Append("</li></ul>");
+        html = sb.ToString();
+        return html;
+    }
+}
+
 <h2>@ViewData["Title"].</h2>
 
 <h3>Movie List</h3>
+@Html.Raw(DisplayMovies(Model))
 
-<ul>
-@foreach(var movie in Model) {
-    <li>
-        <ul>
-            <li>@movie.ID</li>
-            <li>@movie.Title</li>
-            <li>@movie.ReleaseDate</li>
-            <li>@movie.Genre</li>
-            <li>@movie.Price</li>
-        </ul>
-    </li>
-}
-</ul>
