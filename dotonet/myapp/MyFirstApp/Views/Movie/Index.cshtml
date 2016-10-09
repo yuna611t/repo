@@ -1,5 +1,4 @@
 @model List<MyFirstApp.Models.Movie>
-@using MyFirstApp.Code.Helper;
 
 @{
     ViewData["Title"] = "Movie";
@@ -10,4 +9,4 @@
 
 <h3>Movie List</h3>
 
-@MovieHelper.DisplayMovies(Model)
+@Html.Partial("MovieList", Model)
