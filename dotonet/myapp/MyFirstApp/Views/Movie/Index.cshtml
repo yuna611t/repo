@@ -1,4 +1,6 @@
 @model List<MyFirstApp.Models.Movie>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper "MyFirstApp.TagHelpers.EmailTagHelper, MyFirstApp"
 
 @{
     ViewData["Title"] = "Movie";
@@ -10,3 +12,5 @@
 <h3>Movie List</h3>
 
 @Html.Partial("MovieList", Model)
+
+<email mail-to="Support"></email>

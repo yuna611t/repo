@@ -1,8 +1,8 @@
 @model List<MyFirstApp.Models.Movie>
-@using MyFirstApp.Code.Helper;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper "MyFirstApp.TagHelpers.DateFormatTagHelper, MyFirstApp"
 
-@* @MovieHelper.DisplayMovies(Model) *@
-    
+
     <table class="table table-striped">
     <thead>
         <tr>
@@ -17,8 +17,8 @@
         @foreach(var movie in Model) {
             <tr>
             <th scope="row">@movie.ID</th>
-            <td>@movie.ID</td>
-            <td>@movie.ReleaseDate</td>
+            <td>@movie.Title</td>
+            <td date-culture="ja" date-value="@movie.ReleaseDate"></td>
             <td>@movie.Genre</td>
             <td>@movie.Price</td>
             </tr>
