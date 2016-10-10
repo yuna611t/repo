@@ -7,6 +7,7 @@ using MyFirstApp.Models;
 using Microsoft.Extensions.Logging;
 using MyFirstApp.Core;
 
+
 namespace MyFirstApp.Controllers
 {
     public class MovieController : Controller

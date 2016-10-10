@@ -16,6 +16,9 @@ namespace MyFirstApp
 {
     public class Startup
     {
+
+        private IHostingEnvironment _hostingEnvironment;
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -24,6 +27,8 @@ namespace MyFirstApp
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            _hostingEnvironment = env;
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -33,6 +38,10 @@ namespace MyFirstApp
         {
             // Add framework services.
             services.AddMvc();
+
+            // Add physicalProvider
+            var physicalProvider = _hostingEnvironment.ContentRootFileProvider;
+            services.AddSingleton<IFileProvider>(physicalProvider);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
