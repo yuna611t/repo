@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -50,12 +51,16 @@ namespace MyFirstApp
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            var provider = new FileExtensionContentTypeProvider();
+            provider.Mappings[".htm3"] = "text/html";
+
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions()
             {
                 FileProvider = new PhysicalFileProvider(
                     Path.Combine(Directory.GetCurrentDirectory(), @"MyStaticFiles")),
-                RequestPath = new PathString("/StaticFiles")
+                RequestPath = new PathString("/StaticFiles"),
+                ContentTypeProvider = provider
             });
 
             app.UseMvc(routes =>
