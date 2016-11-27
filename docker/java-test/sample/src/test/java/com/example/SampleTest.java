@@ -17,4 +17,3 @@ public class SampleTest {
         assertEquals(5, Sample.add(2,3));
     }
 }
-~

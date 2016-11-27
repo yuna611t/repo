@@ -16,16 +16,19 @@ RUN apt-get install gradle -y
 
 
 # adduser
-RUN adduser --disabled-password --gecos "" tester
+#RUN adduser --disabled-password --gecos "" tester
 
 # add sample files
-USER tester
-RUN cd ~ && mkdir sample share
-COPY sample /home/tester/sample/
+#USER tester
+#RUN cd ~ && mkdir sample share
+#COPY sample /home/tester/sample/
+
+RUN mkdir /var/tester /var/tester/sample /var/tester/share
+COPY sample /var/tester/sample/
 
 ## docker run -it java-test:x.x
 #
 CMD ["/bin/bash"]
 
 # run following command
-# docker run -u tester -v /Users/yuna/dev/docker/ci/share:/home/tester/share -i -t java-test:0.8  /bin/bash
+# docker run -v $HOME/dev/docker/ci/share:/var/tester/share -i -t java-test:0.8  /bin/bash
