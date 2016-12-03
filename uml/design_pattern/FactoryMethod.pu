@@ -1,0 +1,25 @@
+@startuml
+abstract Creator {
+    + {abstract} FactoryMethod()
+    + AnOperation()
+}
+class ConcreteCreator {
+    + FactoryMethod()
+}
+
+abstract Product{
+    
+}
+
+ConcreteCreator -up-|> Creator
+ConcreteProduct -up-|> Product
+ConcreteCreator .le.> ConcreteProduct : create >
+
+note right of Creator 
+    product = FactoryMethod()
+end note
+note right of ConcreteCreator
+    return new ConcreteProduct
+end note
+
+@enduml
