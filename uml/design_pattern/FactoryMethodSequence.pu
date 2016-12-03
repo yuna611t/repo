@@ -1,0 +1,14 @@
+@startuml
+autonumber
+activate Client
+Client -> Factory : OrderTool()
+activate Factory
+Factory -> HammerFactory : CreateFactory()
+activate HammerFactory
+create Hammer
+HammerFactory --> Hammer : new Hammer()
+HammerFactory --> Factory
+deactivate HammerFactory
+Factory --> Client
+deactivate Factory
+@enduml

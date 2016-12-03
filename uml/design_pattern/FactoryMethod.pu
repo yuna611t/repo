@@ -26,11 +26,18 @@ abstract Tool
 Hammer -up-|> Tool
 Measurement -up-|> Tool
 abstract ToolFactory {
-    + {abstract} createTool
+    + OrderTool()
+    + {abstract} createTool()
+}
+class HammerFactory {
+    + createTool()
+}
+class MeasurementFactory {
+    + createTool()
 }
 HammerFactory --|> ToolFactory
 MeasurementFactory --|> ToolFactory
 HammerFactory ...> Hammer : create >
 MeasurementFactory ...> Measurement : create >
-HammerClient ..> HammerFactory
+Client ....> ToolFactory
 @enduml
