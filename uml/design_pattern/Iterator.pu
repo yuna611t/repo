@@ -2,48 +2,43 @@
 title Iterator Pattern
 
 interface Aggregate  {
-    iterator
+    + {abstract} iterator : Iterator
 }
 note right
     Represents aggregation
 end note
 
 class BookShelf {
-    books
-    last
-    getBookAt()
-    appendBook()
-    getLength()
-    iterator()
+    - last : int = 0
+    + getBookAt(int maxsize)
+    + appendBook(Book book)
+    + getLength() : int
 }
 
 class Book {
-    name
-    getName()
+    - name : String
+    + getName() : String
 }
 
 interface Iterator {
-    hasNext()
-    next()
+    + {abstract} hasNext() : boolean
+    + {abstract} next() : Object
 }
 note right
     Count up and scan
 end note
 
 class BookShelfIterator {
-    BookShelf
-    index
-    hasNext()
-    next()
+    - index : int = 0
 }
 
 ' relations
 BookShelf .|> Aggregate
-BookShelf o-le-> Book
+BookShelf o-le-> Book : books
 
-Aggregate --> Iterator : create
+Aggregate --> Iterator : <<create>>
 
 BookShelfIterator .|> Iterator
-BookShelfIterator o--> BookShelf
+BookShelfIterator o--> BookShelf : bookShelf
 
 @enduml
