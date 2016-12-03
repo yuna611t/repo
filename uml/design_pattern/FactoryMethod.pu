@@ -7,9 +7,7 @@ class ConcreteCreator {
     + FactoryMethod()
 }
 
-abstract Product{
-    
-}
+abstract Product
 
 ConcreteCreator -up-|> Creator
 ConcreteProduct -up-|> Product
@@ -22,4 +20,17 @@ note right of ConcreteCreator
     return new ConcreteProduct
 end note
 
+
+' More real-world situation
+abstract Tool
+Hammer -up-|> Tool
+Measurement -up-|> Tool
+abstract ToolFactory {
+    + {abstract} createTool
+}
+HammerFactory --|> ToolFactory
+MeasurementFactory --|> ToolFactory
+HammerFactory ...> Hammer : create >
+MeasurementFactory ...> Measurement : create >
+HammerClient ..> HammerFactory
 @enduml
