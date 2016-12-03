@@ -2,6 +2,6 @@
 class Singleton {
     - instance : Singleton
     - Singleton()
-    + Instance() : Singleton
+    + {static} Instance() : Singleton
 }
 @enduml
