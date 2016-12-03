@@ -1,37 +1,30 @@
 @startuml
 title Iterator Pattern
 
-interface Aggregate  {
-    + {abstract} iterator() : Iterator
+class Aggregate {
+    + {abstract} CreateIterator()
 }
-note right
-    Represents aggregation
-end note
+class Iterator {
+    + {abstract} First()
+    + {abstract} Next()
+    + {abstract} IsDone()
+    + {abstract} CurrentItem()
+}
 
 class ConcreteAggregate {
+    + CreateIterator()
 }
-
-interface Iterator {
-    + {abstract} hasNext() : boolean
-    + {abstract} next() : Object
-}
-note right
-    Count up and scan
+note bottom of ConcreteAggregate
+    return new ConcreteIterator (this)
 end note
 
-class ConcreteIterator {
-}
-
-
 ' relations
-ConcreteAggregate .|> Aggregate
+ConcreteIterator -up-|> Iterator
+ConcreteAggregate -up-|> Aggregate
+ConcreteIterator --le> ConcreteAggregate
+ConcreteAggregate ..> ConcreteIterator
 
-Aggregate --> Iterator : <<create>>
-
-ConcreteIterator .|> Iterator
-ConcreteIterator o--> ConcreteAggregate 
-
-Client --> ConcreteIterator
-Client -> ConcreteAggregate
+Client -> Iterator
+Client -> Aggregate
 
 @enduml
