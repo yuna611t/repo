@@ -2,22 +2,13 @@
 title Iterator Pattern
 
 interface Aggregate  {
-    + {abstract} iterator : Iterator
+    + {abstract} iterator() : Iterator
 }
 note right
     Represents aggregation
 end note
 
-class BookShelf {
-    - last : int = 0
-    + getBookAt(int maxsize)
-    + appendBook(Book book)
-    + getLength() : int
-}
-
-class Book {
-    - name : String
-    + getName() : String
+class ConcreteAggregate {
 }
 
 interface Iterator {
@@ -28,17 +19,15 @@ note right
     Count up and scan
 end note
 
-class BookShelfIterator {
-    - index : int = 0
+class ConcreteIterator {
 }
 
 ' relations
-BookShelf .|> Aggregate
-BookShelf o-le-> Book : books
+ConcreteAggregate .|> Aggregate
 
 Aggregate --> Iterator : <<create>>
 
-BookShelfIterator .|> Iterator
-BookShelfIterator o--> BookShelf : bookShelf
+ConcreteIterator .|> Iterator
+ConcreteIterator o--> ConcreteAggregate 
 
 @enduml
