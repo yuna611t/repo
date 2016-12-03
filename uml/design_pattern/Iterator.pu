@@ -4,6 +4,9 @@ title Iterator Pattern
 interface Aggregate  {
     iterator
 }
+note right
+    Represents aggregation
+end note
 
 class BookShelf {
     books
@@ -23,6 +26,9 @@ interface Iterator {
     hasNext()
     next()
 }
+note right
+    Count up and scan
+end note
 
 class BookShelfIterator {
     BookShelf
@@ -39,6 +45,5 @@ Aggregate --> Iterator : create
 
 BookShelfIterator .|> Iterator
 BookShelfIterator o--> BookShelf
-
 
 @enduml
