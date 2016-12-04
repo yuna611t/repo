@@ -1,0 +1,40 @@
+@startuml
+title Prototype
+
+class Client {
+    + Operation()
+}
+note bottom
+    Operation => 
+        prototype.Clone()
+end note
+
+
+abstract Prototype {
+    + {abstract} Clone() : Prototype
+}
+
+ConcreteProduct1 -up-|> Prototype
+class ConcreteProduct1 {
+    + Clone() : Prototype
+}
+note bottom
+    Clone => 
+        return copy of this
+end note
+
+ConcreteProduct2 -up-|> Prototype
+class ConcreteProduct2 {
+    + Clone() : Prototype
+}
+note bottom
+    Clone => 
+        return copy of this
+end note
+
+
+'relations
+Client "prototype" -ri-> Prototype
+
+
+@enduml
