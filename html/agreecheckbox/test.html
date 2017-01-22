@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    </head>
+    <body>
+    
+    <form>
+        <div class="agreement">
+            <p>
+                This is agreement.
+            </p>
+            <label> <input type="checkbox"> No Agree</label>
+        </div>
+        <button type="submit" disabled>Submit</button>
+    </form>
+
+    <form>
+        <div class="agreement">
+            <p>
+                This is agreement.
+            </p>
+            <label> <input type="checkbox"> I Agree</label>
+        </div>
+        <button type="submit" disabled>Submit</button>
+    </form>
+
+    <script>
+        var $checkbox = $('.agreement').find('input[type="checkbox"]');
+        $checkbox.on('click', function(){
+           $(this).closest('form')
+            .find('button[type="submit"]')
+            .prop('disabled', !$(this).prop('checked'));
+        });
+
+    </script>
+
+    </body>
+</html>
