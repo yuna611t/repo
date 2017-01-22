@@ -16,7 +16,7 @@
             </p>
             <label> <input type="checkbox"> No Agree</label>
         </div>
-        <button type="submit" disabled>Submit</button>
+        <button type="submit" disabled data-labeltext="Submit">Please Check</button>
     </form>
 
     <form>
@@ -26,17 +26,25 @@
             </p>
             <label> <input type="checkbox"> I Agree</label>
         </div>
-        <button type="submit" disabled>Submit</button>
+        <button type="submit" disabled data-labeltext="Go">Need check</button>
     </form>
 
     <script>
-        var $checkbox = $('.agreement').find('input[type="checkbox"]');
-        $checkbox.on('click', function(){
-           $(this).closest('form')
-            .find('button[type="submit"]')
-            .prop('disabled', !$(this).prop('checked'));
-        });
+        (function($){
+            var $checkbox = $('.agreement').find('input[type="checkbox"]');
+            $checkbox.on('click', function(){
+                var $checkbox = $(this);
+                var $submitButton = $(this).closest('form').find('button[type="submit"]');
+                var prevText = $submitButton.text();
 
+                $submitButton
+                    .prop('disabled', !$checkbox.prop('checked'))
+                    .text($submitButton.data("labeltext"))
+                    .data('labeltext', prevText)
+                ;
+     
+            });
+        })(jQuery);
     </script>
 
     </body>
