@@ -12,16 +12,8 @@ namespace Myweb.Controllers
 		public ActionResult Index()
 		{
 
-			// タブコンテンツ生成
-			TabsModel tabs = new TabsRepository().Find(0);
-
-			PageModel model = new PageModel
-			{
-				Title = "Home Page",
-				Description = "This is description. <br> This is just a sample.",
-				Tabs = tabs					
-			};
-
+			// Model取得
+			var model = new PageRepository().Find(0);
 
 			//return View(model);
 			return View("Index", model);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Myweb
 {
-	public class TabModel
+	public class TabModel : IContentModel
 	{
 		public string Title { get; set; }
 		public string Description { get; set; }

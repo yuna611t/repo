@@ -3,9 +3,18 @@ namespace Myweb
 {
 	public class PageRepository : IPageRepository
 	{
-		public object Find(int id)
+		public PageModel Find(int id)
 		{
-			throw new NotImplementedException();
+			// タブコンテンツ取得
+			TabsModel tabs = new TabsRepository().Find(0);
+
+			PageModel pageModel = new PageModel
+			{
+				Title = "Home Page",
+				Description = "This is description. <br> This is just a sample.",
+				Tabs = tabs
+			};
+			return pageModel;
 		}
 	}
 }

@@ -1,8 +1,9 @@
 ﻿using System;
+
 namespace Myweb
 {
-	public interface IPageRepository : IRepository
+	public interface IPageRepository : IMyRepository<PageModel>
 	{
-				
+		PageModel Find(int id);
 	}
 }

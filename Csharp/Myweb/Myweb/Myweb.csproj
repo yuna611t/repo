@@ -93,8 +93,9 @@
     <Compile Include="Models\Repositories\TabsRepository.cs" />
     <Compile Include="Models\Repositories\ITabsRepository.cs" />
     <Compile Include="Models\Repositories\IPageRepository.cs" />
-    <Compile Include="Models\Repositories\IRepository.cs" />
     <Compile Include="Models\Repositories\PageRepository.cs" />
+    <Compile Include="Models\IContentModel.cs" />
+    <Compile Include="Models\Repositories\IMyRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
