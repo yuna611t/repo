@@ -74,6 +74,7 @@
     <Folder Include="Services\" />
     <Folder Include="Views\WebSite\" />
     <Folder Include="Models\Repositories\" />
+    <Folder Include="Views\Navigation\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -96,6 +97,7 @@
     <Compile Include="Models\Repositories\PageRepository.cs" />
     <Compile Include="Models\IContentModel.cs" />
     <Compile Include="Models\Repositories\IMyRepository.cs" />
+    <Compile Include="Models\NavigationModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
@@ -107,6 +109,8 @@
     <Content Include="packages.config" />
     <Content Include="Views\WebSite\Index.cshtml" />
     <Content Include="Views\Contents\Tabs.cshtml" />
+    <Content Include="Views\Navigation\Header.cshtml" />
+    <Content Include="Views\Navigation\Navigation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AppSettings.json" />

@@ -11,6 +11,7 @@ namespace Myweb
 			PageModel pageModel = new PageModel
 			{
 				Title = "Home Page",
+				SubTitle = "Sub Title",
 				Description = "This is description. <br> This is just a sample.",
 				Tabs = tabs
 			};
