@@ -1,4 +1,15 @@
-﻿<h1>Web Site</h1>
+﻿@model SampleModel
 
-<br>
-WebSiteURL : @CommonFunctionalities.getWebSiteURL()
+
+<div id="header">
+	<h1>@Model.Title</h1>
+</div>
+
+<div id="main">
+	<div class="section">
+		@Html.Raw(Model.Description)
+	</div>
+	<div class="section">
+		WebSiteURL : @CommonFunctionalities.getWebSiteURL()
+	</div>
+</div>

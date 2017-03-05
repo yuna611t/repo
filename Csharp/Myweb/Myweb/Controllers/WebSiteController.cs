@@ -12,7 +12,11 @@ namespace Myweb.Controllers
 		public ActionResult Index(int? id)
 		{
 
-			return View();
+			SampleModel model = new SampleModel();
+			model.Title = "Home Page";
+			model.Description = "This is description. <br> This is just a sample.";
+
+			return View(model);
 		}
 
 	}
