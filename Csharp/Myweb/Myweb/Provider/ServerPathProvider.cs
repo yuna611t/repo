@@ -7,12 +7,13 @@ namespace Myweb
 	{
 		public string MapPath(string path)
 		{
-			return HttpContext.Current.Server.MapPath("/");
+			return HttpContext.Current.Server.MapPath(path);
 		}
 
 		public string LocalPath { 
 			get { return HttpContext.Current.Request.Url.LocalPath; }
 		}
+
 
 	}
 }

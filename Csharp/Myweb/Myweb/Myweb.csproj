@@ -103,6 +103,7 @@
     <Compile Include="Models\Repositories\IArticleRepository.cs" />
     <Compile Include="Models\ArticleModel.cs" />
     <Compile Include="Models\Repositories\ArticleRepository.cs" />
+    <Compile Include="Provider\DBProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
@@ -120,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="AppSettings.json" />
+    <None Include="ContentData.json" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

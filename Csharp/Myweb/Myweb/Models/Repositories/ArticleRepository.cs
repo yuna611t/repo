@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace Myweb
 {
@@ -7,14 +8,26 @@ namespace Myweb
 	{
 		public ArticleModel Find(int id)
 		{
-			ArticleModel article = new ArticleModel {
-				Title = "Article Title",
+
+			DBProvider dbProvider = new DBProvider();
+			JToken contentToken = dbProvider.ContentsDB[id];
+			JToken articleToken = contentToken["Article"];
+			JToken titleToken = articleToken["Title"];
+			JToken descriptionsToken = articleToken["Descriptions"];
+	
+			ArticleModel article = new ArticleModel
+			{
+				Title = (string) titleToken,
 				Descriptions = new List<string>()
 			};
-			article.Descriptions.Add("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-			article.Descriptions.Add("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+			foreach (var description in descriptionsToken)
+			{
+				article.Descriptions.Add((string) description);				
+			}
+
 
 			return article;
 		}
+
 	}
 }

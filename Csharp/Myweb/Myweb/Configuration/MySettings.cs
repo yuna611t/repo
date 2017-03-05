@@ -17,7 +17,6 @@ namespace Myweb
 		/// </summary>
 		public static void initiateSettings()
 		{
-
 			var AppPath = MyService.PathProvider.MapPath("/");
 			var FilePath = AppPath + "AppSettings.json";
 			JObject o1 = JObject.Parse(File.ReadAllText(FilePath));
@@ -27,11 +26,14 @@ namespace Myweb
 			Settings = o1[env];
 		}
 
+
 		// 共通変数が提供されていない設定に直接アクセスできるようにするための公開JToken
 		public static JToken DirectAccessedSettings { get { return Settings; } }
 
 		// 公開共通設定
 		public static string DOMAIN_URL { get { return (string)Settings["DOMAIN_URL"]; } }
 		public static string INDEX_FILE { get { return (string)Settings["INDEX_FILE"]; } }
+
+
 	}
 }
