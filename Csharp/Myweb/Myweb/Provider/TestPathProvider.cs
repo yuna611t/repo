@@ -15,10 +15,7 @@ namespace Myweb
 
 		}
 
-		public string LocalPath
-		{
-			get { return "/test/"; }
-		}
+		public string LocalPath { get; set; }
 
 	}
 }

@@ -13,29 +13,69 @@ namespace Myweb.Tests
 	[TestFixture]
 	public class CommonFunctionalitiesTest
 	{
+		TestPathProvider pathProvider = new TestPathProvider();
+
+
+		private void preFixtureFnishSlashPath()
+		{
+			pathProvider.LocalPath = "/products/";
+		}
+		private void preFixtureFinishIndex()
+		{
+			pathProvider.LocalPath = "/products/index.html";
+		}
+		private void preFixtureFinishOtherFile()
+		{
+			pathProvider.LocalPath = "/products/sample.html";
+		}
+
+
+
 		[TestFixtureSetUp]
 		public void initTest()
 		{
-			MyService.InitializeServices(new TestPathProvider());
+			MyService.InitializeServices(pathProvider);
 			MySettings.initiateSettings();
 		}
 
 		[Test]
 		public void getWebSiteURLTest()
 		{
-			var expected = "http://demo.com/test/";
+			pathProvider.LocalPath = "/products/index.html";
+			            
+			var expected = "http://demo.com/products/index.html";
 			var actual = CommonFunctionalities.getWebSiteURL();
 			Assert.AreEqual(expected, actual);
 
 		}
 
 		[Test]
-		public void getCanonicalLinkTest()
+		public void getCanonicalLinkTest_preFixtureFnishSlashPath()
 		{
-			var expected = "http://demo.com/test/";
+			preFixtureFnishSlashPath();
+			var expected = "http://demo.com/products/";
 			var actual = CommonFunctionalities.getCanonicalLink();
 			Assert.AreEqual(expected, actual);
-
 		}
+
+		[Test]
+		public void getCanonicalLinkTest_preFixtureFinishIndex()
+		{
+			preFixtureFinishIndex();
+			var expected = "http://demo.com/products/";
+			var actual = CommonFunctionalities.getCanonicalLink();
+			Assert.AreEqual(expected, actual);
+		}
+
+		[Test]
+		public void getCanonicalLinkTest_preFixtureFinishOtherFile()
+		{
+			preFixtureFinishOtherFile();
+			var expected = "http://demo.com/products/sample.html";
+			var actual = CommonFunctionalities.getCanonicalLink();
+			Assert.AreEqual(expected, actual);
+		}
+
+
 	}
 }

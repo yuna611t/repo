@@ -74,7 +74,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="AppSettings.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
