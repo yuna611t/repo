@@ -6,10 +6,6 @@ namespace Myweb
 {
 	public interface ITabsRepository
 	{
-		TabModel Find(int id);
-		IList<TabModel> GetAll();
-		void Add(TabModel tab);
-		void Remove(TabModel tab);
-		void Save();
+		TabsModel Find(int id);
 	}
 }

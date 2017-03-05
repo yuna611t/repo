@@ -1,0 +1,1 @@
+docker run -v $HOME/dev/docker/ci/share:/var/jenkins_home/share -P jenkins

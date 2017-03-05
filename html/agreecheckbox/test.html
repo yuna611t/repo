@@ -31,19 +31,27 @@
 
     <script>
         (function($){
-            var $checkbox = $('.agreement').find('input[type="checkbox"]');
-            $checkbox.on('click', function(){
-                var $checkbox = $(this);
-                var $submitButton = $(this).closest('form').find('button[type="submit"]');
-                var prevText = $submitButton.text();
+            $.fn.agree = function(){
+                var $checkbox = this;
+                
+                $checkbox.on('click', function(){
+                    var $checkbox = $(this);
+                    var $submitButton = $(this).closest('form').find('button[type="submit"]');
+                    var prevText = $submitButton.text();
 
-                $submitButton
-                    .prop('disabled', !$checkbox.prop('checked'))
-                    .text($submitButton.data("labeltext"))
-                    .data('labeltext', prevText)
-                ;
-     
-            });
+                    $submitButton
+                        .prop('disabled', !$checkbox.prop('checked'))
+                        .text($submitButton.data("labeltext"))
+                        .data('labeltext', prevText)
+                    ;
+        
+                });
+                                
+                return this;
+            };
+
+            $('.agreement').find('input[type="checkbox"]').aggree();
+            
         })(jQuery);
     </script>
 

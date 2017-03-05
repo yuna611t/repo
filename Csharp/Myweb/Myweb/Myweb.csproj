@@ -87,11 +87,14 @@
     <Compile Include="Provider\TestPathProvider.cs" />
     <Compile Include="Services\MyService.cs" />
     <Compile Include="Controllers\WebSiteController.cs" />
-    <Compile Include="Models\SampleModel.cs" />
+    <Compile Include="Models\PageModel.cs" />
     <Compile Include="Models\TabsModel.cs" />
     <Compile Include="Models\TabModel.cs" />
     <Compile Include="Models\Repositories\TabsRepository.cs" />
     <Compile Include="Models\Repositories\ITabsRepository.cs" />
+    <Compile Include="Models\Repositories\IPageRepository.cs" />
+    <Compile Include="Models\Repositories\IRepository.cs" />
+    <Compile Include="Models\Repositories\PageRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
