@@ -13,7 +13,9 @@
 <body>
 	<div class="container">
 		@Html.Partial("~/Views/Navigation/Header.cshtml")
-		@Html.Partial("~/Views/Navigation/Navigation.cshtml")			
+        @if(Model.Navigation != null){
+			@Html.Partial("~/Views/Navigation/Navigation.cshtml", Model.Navigation)					
+		}				
 		@RenderBody()
 	</div>
 

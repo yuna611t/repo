@@ -8,6 +8,7 @@ namespace Myweb
 		public string Description { get; set; }
 		public string Url { get; set; }
 
+		public NavigationModel Navigation { get; set; }
 		public TabsModel Tabs { get; set; }
 
 	}

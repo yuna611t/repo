@@ -6,6 +6,5 @@ namespace Myweb
 {
 	public interface ITabsRepository : IMyRepository<TabsModel>
 	{
-		TabsModel Find(int id);
 	}
 }

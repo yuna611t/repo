@@ -98,6 +98,8 @@
     <Compile Include="Models\IContentModel.cs" />
     <Compile Include="Models\Repositories\IMyRepository.cs" />
     <Compile Include="Models\NavigationModel.cs" />
+    <Compile Include="Models\Repositories\INavigationRepository.cs" />
+    <Compile Include="Models\Repositories\NavigationRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
