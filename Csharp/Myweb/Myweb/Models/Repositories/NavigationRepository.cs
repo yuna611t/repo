@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace Myweb
 {
@@ -14,36 +15,19 @@ namespace Myweb
 
 
 			NavigationContent navContent = null;
-			navContent = new NavigationContent
+			// 一旦ここにハードコーディング
+			JToken navigationToken = MyService.DBProvider.NavigationDB[id];
+
+			foreach (var navigation in navigationToken)
 			{
-				Title = "Product",
-				Link = "/product/"
-			};
-			navModel.NavList.Add(navContent);
-			navContent = new NavigationContent
-			{
-				Title = "Service",
-				Link = "/service/"
-			};
-			navModel.NavList.Add(navContent);
-			navContent = new NavigationContent
-			{
-				Title = "News",
-				Link = "/news/"
-			};
-			navModel.NavList.Add(navContent);
-			navContent = new NavigationContent
-			{
-				Title = "About",
-				Link = "/about/"
-			};
-			navModel.NavList.Add(navContent);
-			navContent = new NavigationContent
-			{
-				Title = "Special",
-				Link = "/special/"
-			};
-			navModel.NavList.Add(navContent);
+				navContent = new NavigationContent
+				{
+					Title = (string) navigation["Title"],
+					Link = (string)navigation["Link"]
+				};
+				navModel.NavList.Add(navContent);
+
+			}
 
 			return navModel;
 		}

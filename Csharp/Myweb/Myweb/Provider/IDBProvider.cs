@@ -5,6 +5,8 @@ namespace Myweb
 {
 	public interface IDBProvider
 	{
-		JToken ContentsDB { get;}
+		JToken ContentsDB { get; }
+		JToken NavigationDB { get; }
+
 	}
 }

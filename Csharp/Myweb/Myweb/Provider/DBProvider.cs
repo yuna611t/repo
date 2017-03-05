@@ -18,6 +18,17 @@ namespace Myweb
 			} 
 		}
 
+		public JToken NavigationDB
+		{
+			get
+			{
+				fetchDataNode();
+				// データ取得のノード取得する
+				JObject o1 = JObject.Parse(File.ReadAllText(DBPath));
+				return o1["Navigations"];
+			}
+		}
+
 		private void fetchDataNode()
 		{
 			if (MySettings.Data_Base != null)

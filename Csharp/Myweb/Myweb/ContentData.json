@@ -31,7 +31,30 @@
                ]
            }
 
-       }
-       
+       }       
+   ],
+   "Navigations" :[
+       [
+            {
+                "Title" : "Product",
+                "Link" : "/product/"
+            },
+            {
+                "Title" : "Service",
+                "Link" : "/service/"           
+            },
+            {
+                "Title" : "News",
+                "Link" : "/news/"                      
+            },
+            {
+                "Title" : "About",
+                "Link" : "/about/"                      
+            },
+            {
+                "Title" : "Special",
+                "Link" : "/special/"                      
+            }
+       ]
    ]
 }
