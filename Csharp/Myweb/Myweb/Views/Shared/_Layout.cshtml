@@ -1,7 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@model SampleModel
+<!DOCTYPE html>
 <html>
 <head>
-    <title>@ViewBag.Title</title>
+    <title>@Model.Title - Company Name</title>
+	<link rel="canonical" href="@CommonFunctionalities.getCanonicalLink()">
 </head>
 <body>
 	@RenderBody()

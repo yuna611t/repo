@@ -8,6 +8,31 @@ namespace Myweb
 	public static class CommonFunctionalities
 	{
 
+		/// <summary>
+		/// 正規化したURLを取得する
+		///   - パラメータを削除する
+		///   - index.htmlと / を同一とみなす
+		/// </summary>
+		/// <returns>The canonical link.</returns>
+		public static string getCanonicalLink()
+		{
+			string IndexFileName = "index.html";
+
+			string localPath = MyService.PathProvider.LocalPath.ToLower();
+			string canonicalLink = localPath;
+
+			// index.htmlを取り除く
+			if (canonicalLink.EndsWith(IndexFileName))
+			{
+				int positionOfFileName = canonicalLink.LastIndexOf(IndexFileName);
+				canonicalLink = canonicalLink.Substring(0, positionOfFileName);
+			}
+			// ドメインを付与する
+			canonicalLink = MySettings.DOMAIN_URL + canonicalLink;
+			return canonicalLink;
+		}
+
+
 		public static string getWebSiteURL()
 		{
 			var localPath = MyService.PathProvider.LocalPath;

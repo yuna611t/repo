@@ -25,8 +25,15 @@ namespace Myweb.Tests
 		{
 			var expected = "http://demo.com/test/";
 			var actual = CommonFunctionalities.getWebSiteURL();
-			Console.WriteLine(actual);
+			Assert.AreEqual(expected, actual);
 
+		}
+
+		[Test]
+		public void getCanonicalLinkTest()
+		{
+			var expected = "http://demo.com/test/";
+			var actual = CommonFunctionalities.getCanonicalLink();
 			Assert.AreEqual(expected, actual);
 
 		}
