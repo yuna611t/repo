@@ -1,17 +1,17 @@
 ﻿@model SampleModel
 
 
-<div id="header">
+<header>
 	<h1>@Model.Title</h1>
-</div>
+</header>
 
-<div id="main">
-	<div class="section">
-		@Html.Raw(Model.Description)
-	</div>
-	<div class="section">
-		WebSiteURL : @CommonFunctionalities.getWebSiteURL()
-	</div>
-	
-
-</div>
+<main>
+	<section>
+		<div class="well">
+			@Html.Raw(Model.Description)
+		</div>
+		<div class="well">
+			WebSiteURL : @CommonFunctionalities.getWebSiteURL()
+		</div>
+	</section>
+</main>
