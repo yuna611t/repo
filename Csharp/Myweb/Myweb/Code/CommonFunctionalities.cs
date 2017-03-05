@@ -16,15 +16,14 @@ namespace Myweb
 		/// <returns>The canonical link.</returns>
 		public static string getCanonicalLink()
 		{
-			string IndexFileName = "index.html";
-
+			
 			string localPath = MyService.PathProvider.LocalPath.ToLower();
 			string canonicalLink = localPath;
 
 			// index.htmlを取り除く
-			if (canonicalLink.EndsWith(IndexFileName))
+			if (canonicalLink.EndsWith(MySettings.INDEX_FILE))
 			{
-				int positionOfFileName = canonicalLink.LastIndexOf(IndexFileName);
+				int positionOfFileName = canonicalLink.LastIndexOf(MySettings.INDEX_FILE);
 				canonicalLink = canonicalLink.Substring(0, positionOfFileName);
 			}
 			// ドメインを付与する

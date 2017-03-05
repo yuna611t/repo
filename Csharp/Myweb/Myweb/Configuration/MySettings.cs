@@ -3,8 +3,13 @@ using Newtonsoft.Json.Linq;
 
 namespace Myweb
 {
+	/// <summary>
+	/// AppSettings.jsonに記述された設定へのアクセスを可能にする
+	/// 原則、公開された変数を通して設定にアクセスする
+	/// </summary>
 	public static class MySettings
 	{
+		
 		static JToken Settings = null;
 
 		/// <summary>
@@ -22,7 +27,11 @@ namespace Myweb
 			Settings = o1[env];
 		}
 
-		public static string DOMAIN_URL { get { return (string)Settings["DOMAIN_URL"]; } }
+		// 共通変数が提供されていない設定に直接アクセスできるようにするための公開JToken
+		public static JToken DirectAccessedSettings { get { return Settings; } }
 
+		// 公開共通設定
+		public static string DOMAIN_URL { get { return (string)Settings["DOMAIN_URL"]; } }
+		public static string INDEX_FILE { get { return (string)Settings["INDEX_FILE"]; } }
 	}
 }
