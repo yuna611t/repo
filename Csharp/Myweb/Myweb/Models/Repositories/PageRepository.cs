@@ -5,11 +5,15 @@ namespace Myweb
 	{
 		public PageModel Find(int id)
 		{
+			// ナビゲーション取得
+			NavigationModel navigation = new NavigationRepository().Find(0);
+
+			// 記事取得
+			ArticleModel article = new ArticleRepository().Find(0);
+
 			// タブコンテンツ取得
 			TabsModel tabs = new TabsRepository().Find(0);
 
-			// ナビゲーション取得
-			NavigationModel navigation = new NavigationRepository().Find(0);
 
 
 			PageModel pageModel = new PageModel
@@ -18,7 +22,8 @@ namespace Myweb
 				SubTitle = "Sub Title",
 				Description = "This is description. <br> This is just a sample.",
 				Tabs = tabs,
-				Navigation = navigation
+				Navigation = navigation,
+				Article = article					
 			};
 			return pageModel;
 		}

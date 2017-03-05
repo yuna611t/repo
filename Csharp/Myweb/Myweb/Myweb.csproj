@@ -100,6 +100,9 @@
     <Compile Include="Models\NavigationModel.cs" />
     <Compile Include="Models\Repositories\INavigationRepository.cs" />
     <Compile Include="Models\Repositories\NavigationRepository.cs" />
+    <Compile Include="Models\Repositories\IArticleRepository.cs" />
+    <Compile Include="Models\ArticleModel.cs" />
+    <Compile Include="Models\Repositories\ArticleRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
@@ -113,6 +116,7 @@
     <Content Include="Views\Contents\Tabs.cshtml" />
     <Content Include="Views\Navigation\Header.cshtml" />
     <Content Include="Views\Navigation\Navigation.cshtml" />
+    <Content Include="Views\Contents\Article.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AppSettings.json" />

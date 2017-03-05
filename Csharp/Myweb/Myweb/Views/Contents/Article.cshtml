@@ -1,0 +1,13 @@
+﻿@model Myweb.ArticleModel
+
+	<article>
+		<section>
+			<h2>@Model.Title</h2>			
+			@foreach(var description in Model.Descriptions) {
+				<div class="well">
+					@Html.Raw(description)
+				</div>
+			}
+		</section>
+	</article>
+
