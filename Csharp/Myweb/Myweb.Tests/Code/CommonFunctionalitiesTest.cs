@@ -18,15 +18,15 @@ namespace Myweb.Tests
 
 		private void preFixtureFnishSlashPath()
 		{
-			pathProvider.LocalPath = "/products/";
+			pathProvider.LocalPath = "/jp/products/";
 		}
 		private void preFixtureFinishIndex()
 		{
-			pathProvider.LocalPath = "/products/index.html";
+			pathProvider.LocalPath = "/jp/products/index.html";
 		}
 		private void preFixtureFinishOtherFile()
 		{
-			pathProvider.LocalPath = "/products/sample.html";
+			pathProvider.LocalPath = "/jp/products/sample.html";
 		}
 
 
@@ -53,7 +53,7 @@ namespace Myweb.Tests
 		public void getCanonicalLinkTest_preFixtureFnishSlashPath()
 		{
 			preFixtureFnishSlashPath();
-			var expected = "http://demo.com/products/";
+			var expected = "http://demo.com/jp/products/";
 			var actual = CommonFunctionalities.getCanonicalLink();
 			Assert.AreEqual(expected, actual);
 		}
@@ -62,7 +62,7 @@ namespace Myweb.Tests
 		public void getCanonicalLinkTest_preFixtureFinishIndex()
 		{
 			preFixtureFinishIndex();
-			var expected = "http://demo.com/products/";
+			var expected = "http://demo.com/jp/products/";
 			var actual = CommonFunctionalities.getCanonicalLink();
 			Assert.AreEqual(expected, actual);
 		}
@@ -71,7 +71,7 @@ namespace Myweb.Tests
 		public void getCanonicalLinkTest_preFixtureFinishOtherFile()
 		{
 			preFixtureFinishOtherFile();
-			var expected = "http://demo.com/products/sample.html";
+			var expected = "http://demo.com/jp/products/sample.html";
 			var actual = CommonFunctionalities.getCanonicalLink();
 			Assert.AreEqual(expected, actual);
 		}

@@ -9,15 +9,16 @@ namespace Myweb.Controllers
 	public class WebSiteController : Controller
 	{
 
-		public ActionResult Index(int? id)
+		public ActionResult Index()
 		{
 
 			SampleModel model = new SampleModel();
 			model.Title = "Home Page";
 			model.Description = "This is description. <br> This is just a sample.";
 
-			return View(model);
-		}
+			//return View(model);
+			return View("Index", model);
 
+		}
 	}
 }
