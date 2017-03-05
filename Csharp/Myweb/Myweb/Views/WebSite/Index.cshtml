@@ -1,7 +1,7 @@
 ﻿@model SampleModel
 
 
-<header>
+<header class="page-header">
 	<h1>@Model.Title</h1>
 </header>
 
@@ -14,4 +14,7 @@
 			WebSiteURL : @CommonFunctionalities.getWebSiteURL()
 		</div>
 	</section>
+
+	@Html.Partial("~/Views/Contents/Tabs.cshtml")
+
 </main>
