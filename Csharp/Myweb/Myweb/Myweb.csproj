@@ -73,6 +73,7 @@
     <Folder Include="Provider\" />
     <Folder Include="Services\" />
     <Folder Include="Views\WebSite\" />
+    <Folder Include="Models\Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -87,6 +88,10 @@
     <Compile Include="Services\MyService.cs" />
     <Compile Include="Controllers\WebSiteController.cs" />
     <Compile Include="Models\SampleModel.cs" />
+    <Compile Include="Models\TabsModel.cs" />
+    <Compile Include="Models\TabModel.cs" />
+    <Compile Include="Models\Repositories\TabsRepository.cs" />
+    <Compile Include="Models\Repositories\ITabsRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
@@ -97,6 +102,7 @@
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
     <Content Include="Views\WebSite\Index.cshtml" />
+    <Content Include="Views\Contents\Tabs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AppSettings.json" />
