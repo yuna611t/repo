@@ -8,9 +8,8 @@ namespace Myweb
 	{
 		public ArticleModel Find(int id)
 		{
-
-			DBProvider dbProvider = new DBProvider();
-			JToken contentToken = dbProvider.ContentsDB[id];
+			// 一旦ここにハードコーディング
+			JToken contentToken = MyService.DBProvider.ContentsDB[id];
 			JToken articleToken = contentToken["Article"];
 			JToken titleToken = articleToken["Title"];
 			JToken descriptionsToken = articleToken["Descriptions"];

@@ -10,7 +10,7 @@ namespace Myweb
 		{
 
 			// サービス登録
-			MyService.InitializeServices(new ServerPathProvider());
+			MyService.InitializeServices(new ServerPathProvider(), new DBProvider());
 
 			// initialize settings
 			MySettings.initiateSettings();

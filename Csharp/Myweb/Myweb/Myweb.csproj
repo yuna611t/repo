@@ -104,6 +104,7 @@
     <Compile Include="Models\ArticleModel.cs" />
     <Compile Include="Models\Repositories\ArticleRepository.cs" />
     <Compile Include="Provider\DBProvider.cs" />
+    <Compile Include="Provider\IDBProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />

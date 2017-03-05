@@ -34,6 +34,8 @@ namespace Myweb
 		public static string DOMAIN_URL { get { return (string)Settings["DOMAIN_URL"]; } }
 		public static string INDEX_FILE { get { return (string)Settings["INDEX_FILE"]; } }
 
+		// DB設定
+		public static JToken Data_Base { get { return Settings["Data_Base"]; } }
 
 	}
 }
