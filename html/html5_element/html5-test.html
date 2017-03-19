@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+    <main>
+        <article>
+            <section>
+                <h1>Datalist2</h1>
+                <label>
+                    検索ボックス : <input type="text" list="certification2">
+                </label>
+                <datalist id="certification2">
+                    <label>
+                        <select>
+                            <option value="">(未選択)</option>
+                            <option value="001">試験001</option>
+                            <option value="002">試験002</option>
+                        </select>
+                    </label>
+                </datalist>
+            </section>
+            <section>
+                <h1>Datalist</h1>
+                <p>
+                    <label>
+                        検索ボックス: <input type="text" list="certification"></input>
+                        <datalist id="certification">
+                            <option value="認証001"></option>
+                            <option value="認証002"></option>
+                        </datalist>
+                    </label>
+                </p>
+            </section>
+            <section>
+                <h1>Progress</h1>
+                <progress value="20" max="100">
+                    進行状況 : 20%
+                </progress>
+            </section>
+            <section>
+                <h1>Meter</h1>
+                <meter value="100" min="10" max="500" low="30" high="200" optimum="120">
+                    容量: 500<br>
+                    使用量 : 100
+                </meter>
+            </section>
+            <section>
+                <h1>wbr</h1>
+                <p style="width:20px;">Lo
+                    <wbr>rem ipsum dolor sit amet,</p>
+            </section>
+            <section>
+                <h1>bdi</h1>
+                <ul>
+                    <li><bdi>日本語</bdi> : 日本語</li>
+                    <li><bdi>اللغة العربية</bdi> : アラビア語</li>
+                    <li><bdi>English</bdi> : 英語</li>
+                </ul>
+            </section>
+            <section>
+                <h1>ruby</h1>
+                <p>
+                    <ruby>日本語<rt>にほんご</ruby>
+                    <ruby>漢<rb>字<rt>かん<rt>じ</ruby>
+                    <ruby>梁山泊<rp>(<rt>りょうざんぱく<rp>)</ruby>
+                    <ruby>
+                        <rb>三国志
+                        <rt>さんごくし
+                        <rtc><rt>sangokurt<rt>shi
+                    </ruby>
+                </p>
+            </section>
+            <section>
+                <h1>Video</h1>
+                <video 
+                    src="/Users/yuna/OneDrive/movie/JSON and AJAX Tutorial- With Real Examples.mp4"
+                    width="" height="" 
+                    controls
+                    loop
+                    muted
+                    preload="auto"
+                    poster="http://imgsv.imaging.nikon.com/lineup/lens/zoom/normalzoom/af-s_dx_18-140mmf_35-56g_ed_vr/img/sample/sample1_l.jpg"
+                    mediagroup="video01"
+                    ></video>
+
+
+                <video 
+                    width="" height="" 
+                    autoplay
+                    controls
+                    preload="metadata"
+                    mediagroup="video01"
+                    >
+                    <source src="/Users/yuna/OneDrive/movie/JSON and AJAX Tutorial- With Real Examples.mp4" type="video/mp4">
+                    <source src="/Users/yuna/OneDrive/movie/Web Development In 2017 - A Practical Guide.mp4" type="video/mp4">
+                    <track src="./sample.vtt" kind="captions" srclang="ja" label="日本語">
+
+                </video>
+            </section>
+        </article>
+    </main>
+
+
+
+</body>
+
+</html>
