@@ -22,6 +22,14 @@
     <main>
         <article>
             <section>
+                <h1>Output</h1>
+                <form onsubmit="return false" oninput="sum.value=a.valueAsNumber+b.valueAsNumber">
+                    <input type="number" value="10" name="a"> + 
+                    <input type="number" value="50" name="b"> =
+                    <output name="sum" for="a b"></output>
+                </form>
+            </section>
+            <section>
                 <h1>Datalist2</h1>
                 <label>
                     検索ボックス : <input type="text" list="certification2">
