@@ -22,6 +22,22 @@
     <main>
         <article>
             <section>
+                <h1>Template</h1>
+                <div id="templatebutton"></div>
+                <template>
+                    <span></span>
+                </template>
+                <script>
+                    (function(){
+                        var content = document.querySelector('template').content;
+                        var span = content.querySelector('span');
+                        span.textContent = 'Hello';
+                        document.querySelector('#templatebutton')
+                            .appendChild(document.importNode(content, true));
+                    })();
+                </script>
+            </section>
+            <section>
                 <h1>Figure</h1>
                 <figure>
                     <figcaption>図表</figcaption>
