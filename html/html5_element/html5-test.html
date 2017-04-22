@@ -60,15 +60,33 @@
             color: papayawhip;
         }
         .square:hover {
-            transform: scale(2,1) rotate(1turn) skew(30deg) translate(20px, 50px);
-            transform-origin: right bottom;
-
-            opacity: 0.5;
-
+/*
             transition-property: transform, opacity;
             transition-duration: 1s;
             transition-delay: 0.5s;
+*/
+            animation-name: turn;
+            animation-duration: 2s;
+            animation-delay: 0.2s;
+            animation-timing-function: ease-out;
+            animation-iteration-count: infinite;
+        }
+        @keyframes turn {
+            0% {
 
+            }
+            50% {
+                transform: scale(2,1) rotate(1turn) skew(30deg) translate(20px, 50px);
+                transform-origin: right bottom;
+
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(0.5,0.5) rotate(1turn) skew(0deg) translate(0px, 0px);
+                transform-origin: right bottom;
+
+                opacity: 1;                
+            }
         }
 
     </style>
