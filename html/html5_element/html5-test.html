@@ -50,6 +50,15 @@
 
             background-color : brown;
 
+            animation-name: turn;
+            animation-duration: 2s;
+            animation-delay: 1s;
+            animation-timing-function: ease-out;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+            animation-fill-mode: backwards;
+
+
         }
         
         .square span {
@@ -59,21 +68,14 @@
 
             color: papayawhip;
         }
-        .square:hover {
-/*
-            transition-property: transform, opacity;
-            transition-duration: 1s;
-            transition-delay: 0.5s;
-*/
-            animation-name: turn;
-            animation-duration: 2s;
-            animation-delay: 0.2s;
-            animation-timing-function: ease-out;
-            animation-iteration-count: infinite;
-        }
-        @keyframes turn {
-            0% {
 
+        .square:hover {
+            animation-play-state: paused;
+        }
+
+       @keyframes turn {
+            0% {
+                background-color: slategrey
             }
             50% {
                 transform: scale(2,1) rotate(1turn) skew(30deg) translate(20px, 50px);
