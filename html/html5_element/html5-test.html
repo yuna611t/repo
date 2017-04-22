@@ -49,17 +49,26 @@
             height: 100px;
 
             background-color : brown;
-            opacity: 0.5;
 
-            transform: scale(2,1) rotate(-20deg) skew(30deg) translate(20px, 50px);
-            transform-origin: right bottom;
         }
+        
         .square span {
             position: absolute;
             top: 35%;
             left: 45%;
 
             color: papayawhip;
+        }
+        .square:hover {
+            transform: scale(2,1) rotate(1turn) skew(30deg) translate(20px, 50px);
+            transform-origin: right bottom;
+
+            opacity: 0.5;
+
+            transition-property: transform, opacity;
+            transition-duration: 1s;
+            transition-delay: 0.5s;
+
         }
 
     </style>
