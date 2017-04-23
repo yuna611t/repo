@@ -1,3 +1,11 @@
+
+@import url('https://fonts.googleapis.com/css?family=Roboto|UnifrakturCook:700');
+
+body {
+    font-family: 'UnifrakturCook', cursive;
+    font-family: 'Roboto', sans-serif;
+}
+
 main {
     background-image: url(http://www.pngall.com/wp-content/uploads/2016/06/Globe-PNG.png);
     background-repeat: no-repeat;
@@ -146,6 +154,19 @@ header {
     display: flex;
 
     p {
+        &:nth-child(1) {
+            font-size: small;
+            font-weight: bold;            
+        }
+        &:nth-child(2n) {
+            font-size: xx-large;
+            font-style: italic;
+            font-variant: small-caps;
+        }
+        &:nth-child(3) {
+            font: bold italic 1.5em/1.2 "メイリオ", sans-serif;
+        }
+
         &:nth-child(3n) {
             background-color: rosybrown;
         }
