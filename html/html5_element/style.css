@@ -138,4 +138,7 @@ p {
 .clip {
   clip-path: circle(100px at center); }
 
+ul.inside {
+  list-style-position: inside; }
+
 /*# sourceMappingURL=style.css.map */
