@@ -189,3 +189,13 @@ header {
 .blink {
     text-decoration: blink yellow dotted;
 }
+
+p {
+    word-break: keep-all;
+    hyphens: auto;
+
+    &[lang="ja"] {
+        word-break: keep-all;
+    }
+}
+

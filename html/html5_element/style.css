@@ -125,4 +125,12 @@ header {
 .blink {
   text-decoration: blink yellow dotted; }
 
+p {
+  hyphens: manual;
+  white-space: normal; }
+  p[lang="ja"] {
+    word-break: keep-all; }
+  p.prewrap {
+    white-space: pre-wrap; }
+
 /*# sourceMappingURL=style.css.map */
