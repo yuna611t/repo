@@ -112,3 +112,18 @@ header {
     }
 }
 
+
+.flexbox {
+    display: flex;
+
+    p {
+        &:nth-child(3n) {
+            background-color: rosybrown;
+        }
+    }
+
+    &_reverse {
+        flex-direction: row-reverse;
+    }
+}
+

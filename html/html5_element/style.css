@@ -77,4 +77,11 @@ header {
       background-color: #880E4F;
       background-clip: border-box; }
 
+.flexbox {
+  display: flex; }
+  .flexbox p:nth-child(3n) {
+    background-color: rosybrown; }
+  .flexbox_reverse {
+    flex-direction: row-reverse; }
+
 /*# sourceMappingURL=style.css.map */
