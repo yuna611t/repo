@@ -197,5 +197,12 @@ p {
     &[lang="ja"] {
         word-break: keep-all;
     }
+
+    &.uppercase {
+        text-transform: uppercase;
+    }
+    &.lowercase {
+        text-transform: lowercase;
+    }
 }
 

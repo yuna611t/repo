@@ -126,11 +126,13 @@ header {
   text-decoration: blink yellow dotted; }
 
 p {
-  hyphens: manual;
-  white-space: normal; }
+  word-break: keep-all;
+  hyphens: auto; }
   p[lang="ja"] {
     word-break: keep-all; }
-  p.prewrap {
-    white-space: pre-wrap; }
+  p.uppercase {
+    text-transform: uppercase; }
+  p.lowercase {
+    text-transform: lowercase; }
 
 /*# sourceMappingURL=style.css.map */
