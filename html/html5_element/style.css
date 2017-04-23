@@ -3,7 +3,9 @@ main {
   background-repeat: no-repeat;
   background-size: contain;
   background-attachment: fixed;
-  background-position: center;
+  background-position: center; }
+
+.mainbox_column3 {
   columns: 3 28em;
   column-gap: 2em;
   column-rule-width: 0.1em;
@@ -40,15 +42,13 @@ header {
   animation-iteration-count: infinite;
   animation-direction: alternate;
   animation-fill-mode: backwards; }
-
-.square span {
-  position: absolute;
-  top: 35%;
-  left: 45%;
-  color: papayawhip; }
-
-.square:hover {
-  animation-play-state: paused; }
+  .square:hover {
+    animation-play-state: paused; }
+  .square span {
+    position: absolute;
+    top: 35%;
+    left: 45%;
+    color: papayawhip; }
 
 @keyframes turn {
   0% {
@@ -66,19 +66,15 @@ header {
   column-rule-width: 2px;
   column-rule-color: black;
   column-rule-style: dashed; }
-
-.box h1 {
-  column-span: all; }
-
-.box_column2 {
-  column-count: 2; }
-
-.box_theme1 {
-  background-color: #E91E63;
-  color: #FCE4EC; }
-
-.box_theme1 h1 {
-  background-color: #880E4F;
-  background-clip: border-box; }
+  .box h1 {
+    column-span: all; }
+  .box_column2 {
+    column-count: 2; }
+  .box_theme1 {
+    background-color: #E91E63;
+    color: #FCE4EC; }
+    .box_theme1 h1 {
+      background-color: #880E4F;
+      background-clip: border-box; }
 
 /*# sourceMappingURL=style.css.map */
