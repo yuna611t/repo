@@ -177,3 +177,15 @@ header {
     }
 }
 
+.underline {
+    text-decoration: underline blue wavy;
+}
+.line-through {
+    text-decoration: line-through gray double;
+}
+.overline {
+    text-decoration: overline red dashed;
+}
+.blink {
+    text-decoration: blink yellow dotted;
+}
