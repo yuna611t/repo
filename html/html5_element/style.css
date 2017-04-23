@@ -135,4 +135,7 @@ p {
   p.lowercase {
     text-transform: lowercase; }
 
+.clip {
+  clip-path: circle(100px at center); }
+
 /*# sourceMappingURL=style.css.map */
