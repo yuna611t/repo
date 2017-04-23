@@ -34,10 +34,14 @@ header {
   right: 10%; }
   .logo__square {
     background-color: brown;
-    width: 300px;
-    height: 100px; }
+    width: 150px;
+    height: 50px; }
     .logo__square_radius {
       border-radius: 10px 10px; }
+    .logo__square_shadow {
+      box-shadow: 10px 5px 5px 3px rgba(0, 2, 3, 0.5); }
+      .logo__square_shadow span {
+        text-shadow: 10px 5px 2px rgba(0, 0, 0, 0.5); }
     .logo__square_anime01 {
       animation-name: turn;
       animation-duration: 2s;
@@ -51,9 +55,9 @@ header {
       .logo__square_anime01_slow {
         animation-duration: 5s; }
     .logo__square span {
-      position: absolute;
+      position: relative;
       top: 35%;
-      left: 45%;
+      left: 10%;
       color: papayawhip; }
 
 @keyframes turn {
