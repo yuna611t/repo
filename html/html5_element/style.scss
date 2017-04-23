@@ -213,3 +213,18 @@ p {
 ul.inside {
     list-style-position: inside;
 }
+
+caption {
+    caption-side: bottom;
+}
+
+table,th,td {
+    border: solid 1px #000000;     
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 2px;
+    empty-cells: hide;
+    table-layout: fixed;
+}
