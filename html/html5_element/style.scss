@@ -38,34 +38,51 @@ header {
     background-color: cornflowerblue;
 }
 
-.square {
+.logo {
     position: fixed;
     right: 10%;
-    width: 300px;
-    height: 100px;
 
-    background-color : brown;
+    &__square {
+        background-color : brown;
+        width: 300px;
+        height: 100px;
 
-    animation-name: turn;
-    animation-duration: 2s;
-    animation-delay: 1s;
-    animation-timing-function: ease-out;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-    animation-fill-mode: backwards;
+        &_radius {
+            border-radius: 10px 10px;
+        }
 
-    &:hover {
-        animation-play-state: paused;
-    }
 
-    span {
-        position: absolute;
-        top: 35%;
-        left: 45%;
+        &_anime01 {
+            animation-name: turn;
+            animation-duration: 2s;
+            animation-delay: 1s;
+            animation-timing-function: ease-out;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+            animation-fill-mode: backwards;
 
-        color: papayawhip;
+            &:hover {
+                animation-play-state: paused;
+            }
+
+            &_slow {
+                animation-duration: 5s;                
+            }
+        }
+
+
+
+        span {
+            position: absolute;
+            top: 35%;
+            left: 45%;
+
+            color: papayawhip;
+        }
     }
 }
+
+
 
 
 @keyframes turn {
