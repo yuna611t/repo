@@ -1,0 +1,84 @@
+main {
+  background-image: url(http://www.pngall.com/wp-content/uploads/2016/06/Globe-PNG.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-attachment: fixed;
+  background-position: center;
+  columns: 3 28em;
+  column-gap: 2em;
+  column-rule-width: 0.1em;
+  column-rule-style: dotted;
+  column-rule-color: #ccc; }
+
+section {
+  background-image: url(http://www.pngall.com/wp-content/uploads/2016/06/Globe-PNG-File.png);
+  background-size: contain;
+  background-position: right;
+  background-repeat: no-repeat; }
+
+h1 {
+  background-clip: content-box;
+  background-color: gray;
+  padding: 1em;
+  border: 1px; }
+
+header {
+  width: 100%;
+  height: 100px;
+  background-color: cornflowerblue; }
+
+.square {
+  position: fixed;
+  right: 10%;
+  width: 300px;
+  height: 100px;
+  background-color: brown;
+  animation-name: turn;
+  animation-duration: 2s;
+  animation-delay: 1s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-fill-mode: backwards; }
+
+.square span {
+  position: absolute;
+  top: 35%;
+  left: 45%;
+  color: papayawhip; }
+
+.square:hover {
+  animation-play-state: paused; }
+
+@keyframes turn {
+  0% {
+    background-color: slategrey; }
+  50% {
+    transform: scale(2, 1) rotate(1turn) skew(30deg) translate(20px, 50px);
+    transform-origin: right bottom;
+    opacity: 0.5; }
+  100% {
+    transform: scale(0.5, 0.5) rotate(1turn) skew(0deg) translate(0px, 0px);
+    transform-origin: right bottom;
+    opacity: 1; } }
+.box {
+  column-gap: 1.5em;
+  column-rule-width: 2px;
+  column-rule-color: black;
+  column-rule-style: dashed; }
+
+.box h1 {
+  column-span: all; }
+
+.box_column2 {
+  column-count: 2; }
+
+.box_theme1 {
+  background-color: #E91E63;
+  color: #FCE4EC; }
+
+.box_theme1 h1 {
+  background-color: #880E4F;
+  background-clip: border-box; }
+
+/*# sourceMappingURL=style.css.map */
