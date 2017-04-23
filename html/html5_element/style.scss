@@ -4,6 +4,8 @@
 body {
     font-family: 'UnifrakturCook', cursive;
     font-family: 'Roboto', sans-serif;
+
+    counter-reset: chapter;
 }
 
 main {
@@ -37,6 +39,12 @@ h1 {
     background-color: gray;
     padding: 1em;
     border: 1px;
+
+    &::before {
+        counter-increment: chapter;
+        content: "第" counter(chapter) "章 ";
+    }
+
 }
 
 header {
