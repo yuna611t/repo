@@ -42,6 +42,10 @@ header {
       box-shadow: 10px 5px 5px 3px rgba(0, 2, 3, 0.5); }
       .logo__square_shadow span {
         text-shadow: 10px 5px 2px rgba(0, 0, 0, 0.5); }
+    .logo__square_linear-grad {
+      background: linear-gradient(90deg, orangered, greenyellow); }
+    .logo__square_rad-grad {
+      background: radial-gradient(at top, orangered, greenyellow); }
     .logo__square_anime01 {
       animation-name: turn;
       animation-duration: 2s;
