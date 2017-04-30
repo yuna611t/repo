@@ -12,4 +12,7 @@ window.onload = function() {
         this.innerText = 'Clicked';
     });
 
+    main.addEventListener('click', function() {
+        console.log(this);
+    })
 };
