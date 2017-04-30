@@ -3,4 +3,6 @@ window.onload = function() {
     for (var i = 0, l = targets.length; i < l; i++) {
         targets[i].style.color = 'red';
     }
+    var target = document.querySelector('p.p01');
+    target.style.color = 'blue';
 };
