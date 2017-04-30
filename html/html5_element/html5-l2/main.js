@@ -1,14 +1,20 @@
-var checkBMI = function(height, weight) {
-    var bmi = weight / (height * height);
-    console.log('BMI : ' + bmi);
+var person = {
+    name: 'Tom',
+    sex: 'man',
+    email: 'dummy@dummy',
+    age: 32,
+    sayHello: function() {
+        console.log('Hello');
+    }
+};
 
-    if (bmi >= 25) {
-        console.log('Too fat');
-    } else if (bmi < 18.5) {
-        console.log('Too skiny');
+person.sayHello();
+
+for(var key in person) {
+    if (typeof(person[key]) !== 'function') {
+        console.log(key, ":", person[key]);
     } else {
-        console.log('Standard');
+        console.log(key, ":");
+        person[key]();
     }
 }
-
-checkBMI(1.76, 62)
