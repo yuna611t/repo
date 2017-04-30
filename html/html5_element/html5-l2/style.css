@@ -1,0 +1,16 @@
+svg {
+  width: 300px;
+  height: 300px; }
+
+circle {
+  stroke: black;
+  stroke-width: 3;
+  r: 30; }
+  circle.red {
+    fill: red; }
+  circle.blue {
+    fill: blue; }
+  circle.yellow {
+    fill: yellow; }
+
+/*# sourceMappingURL=style.css.map */

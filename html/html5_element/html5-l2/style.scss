@@ -1,0 +1,20 @@
+svg {
+    width : 300px;
+    height: 300px;
+}
+
+circle {
+    stroke: black;
+    stroke-width: 3;
+    r:30;
+    &.red {
+        fill: red;
+    }
+    &.blue {
+        fill: blue;
+    }
+    &.yellow {
+        fill: yellow;
+    }
+    
+}
