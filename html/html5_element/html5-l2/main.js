@@ -8,8 +8,9 @@ window.onload = function() {
     main.appendChild(element);
 
     var target = document.getElementById('target');
-    target.addEventListener('click', function() {
+    target.addEventListener('click', function(event) {
         this.innerText = 'Clicked';
+        event.stopPropagation();
     });
 
     main.addEventListener('click', function() {
