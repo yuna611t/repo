@@ -4,7 +4,7 @@ var person = {
     email: 'dummy@dummy',
     age: 32,
     sayHello: function() {
-        console.log('Hello');
+        console.log('Hello, ' + this.name + '!');
     }
 };
 
