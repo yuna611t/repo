@@ -18,5 +18,16 @@ window.onload = function() {
     var lastElementChild = main.lastElementChild;
     console.log(lastElementChild);
 
+    var children = main.children;
+    console.log(children);
 
+    var nextSibling = firstElementChild.nextSibling;
+    console.log(nextSibling);
+    var nextElementSibling = firstElementChild.nextElementSibling;
+    console.log(nextElementSibling);
+
+    var previousSibling = lastElementChild.previousSibling;
+    console.log(previousSibling);
+    var previousElementSibling = lastElementChild.previousElementSibling;
+    console.log(previousElementSibling);
 }
