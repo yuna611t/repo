@@ -19,6 +19,17 @@ for(var key in person) {
     }
 }
 
+var obj = {
+    f1: function(){
+        console.log(this);
+        var fn = function(){
+            console.log(this);
+        }
+        fn();
+    }
+}
+obj.f1();
+
 var obj1 = {
     f1: function(){
         // thisのメソッド呼び出し => 自オブジェクト
