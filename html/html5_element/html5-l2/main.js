@@ -21,9 +21,11 @@ for(var key in person) {
 
 var obj = {
     f1: function(){
-        console.log(this);
+
+        var that = this;
+        console.log(that);
         var fn = function(){
-            console.log(this);
+            console.log(that);
         }
         fn();
     }
