@@ -1,0 +1,8 @@
+@startuml
+
+class Main
+class Sub
+
+Main --> Sub
+
+@enduml
