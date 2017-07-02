@@ -24,3 +24,17 @@ https://docs.djangoproject.com/en/1.11/intro/tutorial01/
 
 ### Deploy
 
+Development用のサーバーが下記コマンドで立ち上がる
+
+    $ python manage.py runserver
+
+Portを変更する場合は、
+
+    $ python manage.py runserver 8080
+
+### Applicationの作成
+
+    $ python manage.py startapp polls
+### Viewの作成
+
+
