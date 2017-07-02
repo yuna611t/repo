@@ -44,7 +44,7 @@ $ python manage.py runserver 8080
 $ python manage.py startapp polls
 ```
 
-#### Viewの作成
+### Viewの作成とURLマッピング
 
 /polls/views.pyに下記を記述
 
