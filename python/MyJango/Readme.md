@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/1.11/intro/tutorial01/
 
 ### Project作成
 
-    $ django-admin startproject mysite
+```console
+$ django-admin startproject mysite
+```
 
 * mysiteディレクトリが生成される
 * mystite/ : rootディレクトリ
@@ -26,15 +28,76 @@ https://docs.djangoproject.com/en/1.11/intro/tutorial01/
 
 Development用のサーバーが下記コマンドで立ち上がる
 
-    $ python manage.py runserver
+```console
+$ python manage.py runserver
+```
 
 Portを変更する場合は、
 
-    $ python manage.py runserver 8080
+```console
+$ python manage.py runserver 8080
+```
 
 ### Applicationの作成
 
-    $ python manage.py startapp polls
-### Viewの作成
+```console
+$ python manage.py startapp polls
+```
 
+#### Viewの作成
+
+/polls/views.pyに下記を記述
+
+__mysite/polls/views.py__
+
+```python
+from django.http import HttpResponse
+
+
+def index(request):
+    return HttpResponse("Hello, world. You're at the polls index.")
+```
+
+
+ViewとURLのマッピング
+
+Viewを呼び出すためには、ViewとURLをマッピングする必要がある。
+urls.pyを作成してURLConfを作成する。
+
+__mysite/polls/urls.py__
+
+```python
+from django.conf.urls import url
+
+from .import views
+
+urlpatterns = [
+    url(r'^$', views.index, name='index'),
+]
+```
+
+Rootディレクトリを指し示す
+
+__/mysite/mysite/urls.py__
+
+```python
+from django.conf.urls import url, include
+from django.contrib import admin
+
+urlpatterns = [
+    url(r'^polls/', include('polls.urls')),
+    url(r'^admin/', admin.site.urls),
+]
+```
+
+<details><summary>include() function </summary>
+別のURLConfへの参照
+include()はマッチした部分を切り取って残りをincludeに渡す
+</details>
+
+index viewとURL confの紐付けが完了したのでサーバーを動かす
+
+```console
+$ python manage.py runserver
+```
 
