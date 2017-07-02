@@ -101,3 +101,135 @@ index viewとURL confの紐付けが完了したのでサーバーを動かす
 $ python manage.py runserver
 ```
 
+### Database Setup
+
+今回は手順簡略かのためにデフォルトのSQLiteをそのまま使用する
+
+__mysite/settings.py
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+```
+
+TimeZoonを変更しておく
+
+__mysite/settings.py
+
+```python
+TIME_ZONE = 'Asia/Tokyo'
+```
+DBの作成
+
+```console
+$ python manage.py migrate
+```
+
+Modelの作成
+
+__mysite/polls/models.py
+
+```python
+from django.db import models
+
+# Create your models here.
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
+
+class Choice(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+```
+
+Modelのアクティベーション
+
+settings.pyのINSTALLED_APPSにアプリケーションを追加する
+
+polls.apps.PollsConfigは/mysite/polls/apps.py
+
+__mysites/mysite/settings.py__
+
+```python
+INSTALLED_APPS = [
+    'polls.apps.PollsConfig',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+```
+
+Modelをアクティベートする
+
+```console
+$ python mange.py makemigrations polls
+```
+
+Migrationファイルを使用してMigrationを行う
+
+```console
+$ python manage.py sqlmigrate polls 0001
+```
+
+実行結果
+
+```sql
+BEGIN;
+--
+-- Create model Choice
+--
+CREATE TABLE "polls_choice" (
+    "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, 
+    "choice_text" varchar(200) NOT NULL, 
+    "votes" integer NOT NULL
+);
+--
+-- Create model Question
+--
+CREATE TABLE "polls_question" (
+    "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, 
+    "question_text" varchar(200) NOT NULL, 
+    "pub_date" datetime NOT NULL
+);
+--
+-- Add field question to choice
+--
+ALTER TABLE "polls_choice" RENAME TO "polls_choice__old";
+CREATE TABLE "polls_choice" (
+    "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, 
+    "choice_text" varchar(200) NOT NULL, 
+    "votes" integer NOT NULL, 
+    "question_id" integer NOT NULL REFERENCES "polls_question" ("id")
+);
+
+INSERT INTO "polls_choice" ("question_id", "id", "choice_text", "votes") SELECT NULL, "id", "choice_text", "votes" FROM "polls_choice__old";
+DROP TABLE "polls_choice__old";
+CREATE INDEX "polls_choice_question_id_c5b4b260" ON "polls_choice" ("question_id");
+
+COMMIT;
+```
+
+DBにModelを反映
+
+```console
+$ python manage.py migrate
+```
+
+#### Modelの反映方法結論
+
+* アプリケーションのmodels.pyにもModelクラスを追加
+
+* Djangoのsettings.pyにアプリケーションのapps.pyのメインクラスを追加
+
+* python mange.py makemigrations polls
+
+* python manage.py migrate
+
