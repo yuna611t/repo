@@ -5,8 +5,7 @@ def dfs_paths(graph, start, goal, path=None):
         yield path
     
     for next_node in graph[start] - set(path):
-        for q in dfs_paths(graph, next_node, goal, path + [next_node]):
-            yield q
+        yield from dfs_paths(graph, next_node, goal, path + [next_node])
 
 
 if __name__ == '__main__':
