@@ -1,10 +1,9 @@
 def dfs_paths(graph, start, goal, path=None):
     if path is None:
         path = [start]
-    if path == goal:
+    if start == goal:
         yield path
     
-    yield path
     for next_node in graph[start] - set(path):
         for q in dfs_paths(graph, next_node, goal, path + [next_node]):
             yield q
