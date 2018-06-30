@@ -1,3 +1,14 @@
 // Place your settings in this file to overwrite default and user settings.
 {
+    "python.pythonPath": "/Users/yuna/.pyenv/versions/3.5.0/bin/python",
+    "spellchecker.language": "en_US",
+    "spellchecker.ignoreWordsList": [],
+    "spellchecker.documentTypes": [
+        "markdown",
+        "latex",
+        "plaintext"
+    ],
+    "spellchecker.ignoreRegExp": [],
+    "spellchecker.ignoreFileExtensions": [],
+    "spellchecker.checkInterval": 5000
 }
